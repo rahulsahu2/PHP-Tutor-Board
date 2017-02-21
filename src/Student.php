@@ -1,21 +1,21 @@
 <?php
     class Student
     {
-        private $id;
         private $student_name;
+        private $id;
 
-        function __construct($id = null, $student_name)
+        function __construct($student_name, $id = null)
         {
             $this->id = $id;
             $this->student_name = $student_name;
         }
 
-        function setStudentName($new_student_name)
+        function setName($new_student_name)
         {
             $this->name = (string) $new_student_name;
         }
 
-        function getStudentName()
+        function getName()
         {
             return $this->student_name;
         }
@@ -27,7 +27,7 @@
 
         function deleteAll()
         {
-            
+            // $GLOBALS['DB']->exec("DELETE FROM categories;");
         }
     }
 
