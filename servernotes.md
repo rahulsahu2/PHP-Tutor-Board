@@ -8,12 +8,17 @@ Database: CRM_Music
 
 |students|
 |:--------------:|
-| id |
-| student_name |
-| instrument |
++--------------+---------------------+------+-----+---------+----------------+
+| Field        | Type                | Null | Key | Default | Extra          |
++--------------+---------------------+------+-----+---------+----------------+
+| id           | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+| student_name | varchar(255)        | YES  |     | NULL    |                |
+| instrument   | varchar(100)        | YES  |     | NULL    |                |
++--------------+---------------------+------+-----+---------+----------------+
 
 |events|
 |:--------------:|
+| id |
 | student_id |
 | teacher_id |
-| date |
+| date_of_lesson |
