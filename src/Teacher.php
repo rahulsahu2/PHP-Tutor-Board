@@ -3,7 +3,7 @@
     {
         private $teacher_name;
         private $instrument;
-        private $notes=array();
+        private $notes;
         private $id;
 
         function __construct($teacher_name, $instrument, $id = null)
@@ -35,7 +35,8 @@
 
         function setNotes($new_note)
         {
-            array_unshift($this->notes, $new_note);
+            $this->notes = $new_note . $this->notes;
+
         }
 
         function getNotes()
@@ -47,13 +48,12 @@
         {
             return $this->id;
         }
-        
+
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO teacher (teacher_name, instrument) VALUES ('{$this->getName()}', '{$this->getInstrument()}');");
+            $GLOBALS['DB']->exec("INSERT INTO teacher (teacher_name, instrument, notes) VALUES ('{$this->getName()}', '{$this->getInstrument()}', '{$this->getNotes()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
-
 
         function getStudents()
        {
@@ -95,13 +95,25 @@
             foreach($returned_teachers as $teacher){
                 $teacher_name = $teacher['teacher_name'];
                 $instrument = $teacher['instrument'];
+                $notes = $teacher['notes'];
                 $id = $teacher['id'];
                 $new_teacher = new Teacher($teacher_name, $instrument, $id);
+                $new_teacher->setNotes($notes);
                 array_push($teachers, $new_teacher);
             }
             return $teachers;
         }
 
+        function updateNotes($new_note)
+        {
+            $GLOBALS['DB']->exec("UPDATE teacher SET notes = '{$new_note}' WHERE id = {$this->getId()};");
+            $this->setNotes($new_note);
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM teacher WHERE id = {$this->getId()};");
+        }
     }
 
 

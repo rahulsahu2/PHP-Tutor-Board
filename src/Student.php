@@ -4,6 +4,7 @@
         private $student_name;
         private $instrument;
         private $teacher_id;
+        private $notes;
         private $id;
 
         function __construct($student_name, $instrument, $teacher_id, $id = null)
@@ -11,6 +12,7 @@
             $this->student_name = $student_name;
             $this->instrument = $instrument;
             $this->teacher_id = $teacher_id;
+            $this->notes;
             $this->id = $id;
         }
 
@@ -43,6 +45,17 @@
             return $this->teacher_id;
         }
 
+        function setNotes($new_note)
+        {
+            $this->notes = $new_note . $this->notes;
+
+        }
+
+        function getNotes()
+        {
+            return $this->notes;
+        }
+
         function getId()
         {
             return $this->id;
@@ -50,7 +63,8 @@
 
         function save()
         {
-          $GLOBALS['DB']->exec("INSERT INTO student (student_name, instrument, teacher_id) VALUES ('{$this->getName()}', '{$this->getInstrument()}', {$this->getTeacherId()})");
+
+          $GLOBALS['DB']->exec("INSERT INTO student (student_name, instrument, teacher_id, notes) VALUES ('{$this->getName()}', '{$this->getInstrument()}', {$this->getTeacherId()}, '{$this->getNotes()}');");
           $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
@@ -67,13 +81,25 @@
                 $name = $student['student_name'];
                 $inst = $student['instrument'];
                 $teach_id = $student['teacher_id'];
+                $notes = $student['notes'];
                 $id = $student['id'];
                 $new_student = new Student($name, $inst, $teach_id, $id);
+                $new_student->setNotes($notes);
                 array_push($students, $new_student);
             }
             return $students;
         }
 
+        function updateNotes($new_note)
+        {
+            $GLOBALS['DB']->exec("UPDATE student SET notes = '{$new_note}' WHERE id = {$this->getId()};");
+            $this->setNotes($new_note);
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM student WHERE id = {$this->getId()};");
+        }
     }
 
 

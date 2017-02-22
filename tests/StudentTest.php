@@ -19,7 +19,7 @@
             Student::deleteAll();
             Teacher::deleteAll();
         }
-
+        //1
         function test_getName()
         {
             // Arrange
@@ -34,6 +34,7 @@
             // Assert
             $this->assertEquals($input_name, $result);
         }
+        //2
         function test_getInstrument()
         {
             // Arrange
@@ -48,7 +49,7 @@
             // Assert
             $this->assertEquals($input_instrument, $result);
         }
-
+        //3
         function test_getId()
         {
             // Arrange
@@ -64,7 +65,7 @@
             // Assert
             $this->assertEquals( true , is_numeric($result));
         }
-
+        //4
         function test_setTeacherId()
         {
             // Arrange
@@ -82,14 +83,17 @@
             $this->assertEquals($input_teacher_id, $result);
 
         }
+        //5
         function test_save()
         {
             // Arrange
             $input_name = "Flavio";
             $input_instrument = "Ukulele";
             $input_teacher_id = 13;
-            $input_id = 1;
+            $input_notes = "Wow!";
+            // $input_id = 1;
             $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
+            $new_student->setNotes($input_notes);
             $new_student->save();
 
             // Act
@@ -99,18 +103,23 @@
             // Assert
             $this->assertEquals($new_student, $result[0]);
         }
+        //6
+        function test_notes()
+        {
+            // Arrange
+            $input_name = "Dylan";
+            $input_instrument = "Skin Flute";
+            $input_teacher_id = 55;
+            $input_new_note = "had a great time!";
+            $new_student_test = new Student($input_name, $input_instrument, $input_teacher_id);
+            $new_student_test->setNotes($input_new_note);
+            // Act
+            $result = $new_student_test->getNotes();
+            // Assert
+            $this->assertEquals($input_new_note, $result);
 
-        //     function test_save()
-        //  {
-        //      //Arrange
-        //      $name = "Work stuff";
-        //      $test_Category = new Category($name);
-        //      $test_Category->save();
-        //      //Act
-        //      $result = Category::getAll();
-        //      //Assert
-        //      $this->assertEquals($test_Category, $result[0]);
-        //  }
+        }
+        // 7
         function test_getAll()
         {
             // Arrange
@@ -127,11 +136,77 @@
 
             // Act
             $result = Student::getAll();
-            var_dump(array($new_student_test, $new_student2_test));
+            // var_dump(array($new_student_test, $new_student2_test));
 
             // Assert
             $this->assertEquals(array($new_student_test, $new_student2_test), $result);
         }
+        //8
+        function test_save_notes()
+        {
+            // Arrange
+            $input_name = "Flavio";
+            $input_instrument = "Ukulele";
+            $input_teacher_id = 13;
+            $input_new_note = "Mussolini was a great leader. - Nona ";
+            $input_id = 1;
+            $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
+            $new_student->setNotes($input_new_note);
+            $new_student->save();
 
+            // Act
+            $result = Student::getAll();
+            var_dump(array($result));
+
+            // Assert
+            $this->assertEquals($new_student, $result[0]);
+        }
+        //9
+        function testUpdateNotes()
+        {
+            //Arrange
+            $input_name = "Test-9io ";
+            $input_instrument = "Horn";
+            $input_teacher_id = 13;
+            $input_new_note = "Blah";
+            $input_id = 1;
+            $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
+            $new_student->setNotes($input_new_note);
+            $new_student->save();
+
+            $new_input_notes = "Had a great lesson.";
+
+            //Act
+            $new_student->updateNotes($new_input_notes);
+
+            //Assert
+            $this->assertEquals("Had a great lesson.Blah", $new_student->getNotes());
+        }
+
+        function testDelete()
+        {
+            //Arrange
+            $input_name = "Test-is ";
+            $input_instrument = "Horn";
+            $input_teacher_id = 13;
+            $input_new_note = "Blah";
+            $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
+            $new_student->setNotes($input_new_note);
+            $new_student->save();
+
+            $input_name2 = "Test-osterone ";
+            $input_instrument2 = "Flugel";
+            $input_teacher_id2 = 12;
+            $input_new_note2 = "das";
+            $new_student2 = new Student($input_name2, $input_instrument2, $input_teacher_id2);
+            $new_student2->setNotes($input_new_note2);
+            $new_student2->save();
+
+            //Act
+            $new_student->delete();
+
+            //Assert
+            $this->assertEquals([$new_student2], Student::getAll());
+        }
     }
  ?>

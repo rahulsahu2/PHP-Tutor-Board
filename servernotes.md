@@ -8,6 +8,7 @@
 |--------------|---------------------|------|-----|---------|----------------|
 | teacher_name | varchar(255)        | NO   |     | NULL    |                |
 | instrument   | varchar(100)        | NO   |     | NULL    |                |
+| notes        | text                | YES  |     | NULL    |                |
 | id           | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
 
 
@@ -17,6 +18,7 @@
 | student_name | varchar(255)        | NO   |     | NULL    |                |
 | instrument   | varchar(255)        | NO   |     | NULL    |                |
 | teacher_id   | int(11)             | NO   |     | NULL    |                |
+| notes        | text                | YES  |     | NULL    |                |
 | id           | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
 
 ##event
