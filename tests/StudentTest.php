@@ -7,7 +7,7 @@
 
     require_once "src/Student.php";
 
-    $server = 'mysql:host=localhost:8889;dbname=to_do';
+    $server = 'mysql:host=localhost:8889;dbname=crm_music_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -97,6 +97,6 @@
             // Assert
             $this->assertEquals(array($new_student_test, $new_student2_test), $result);
         }
-        
+
     }
  ?>

@@ -1,4 +1,4 @@
-Database: CRM_Music
+Database: crm_music
 
 ##teacher
 | Field        | Type                | Null | Key | Default | Extra          |

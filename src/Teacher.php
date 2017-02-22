@@ -42,6 +42,11 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        function getStudentIds()
+        {
+
+        }
+
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM teacher;");
@@ -59,8 +64,9 @@
                 array_push($teachers, $new_teacher);
             }
             return $teachers;
-
         }
+
+
     }
 
 
