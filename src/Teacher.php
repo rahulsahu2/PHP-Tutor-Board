@@ -3,12 +3,14 @@
     {
         private $teacher_name;
         private $instrument;
+        private $notes=array();
         private $id;
 
         function __construct($teacher_name, $instrument, $id = null)
         {
             $this->teacher_name = $teacher_name;
             $this->instrument = $instrument;
+            $this->notes;
             $this->id = $id;
         }
 
@@ -31,11 +33,21 @@
             return $this->instrument;
         }
 
+        function setNotes($new_note)
+        {
+            array_unshift($this->notes, $new_note);
+        }
+
+        function getNotes()
+        {
+            return $this->notes;
+        }
+
         function getId()
         {
             return $this->id;
         }
-
+        
         function save()
         {
             $GLOBALS['DB']->exec("INSERT INTO teacher (teacher_name, instrument) VALUES ('{$this->getName()}', '{$this->getInstrument()}');");
@@ -89,7 +101,6 @@
             }
             return $teachers;
         }
-
 
     }
 
