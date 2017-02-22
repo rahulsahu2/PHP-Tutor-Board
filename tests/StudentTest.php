@@ -70,8 +70,8 @@
             // Arrange
             $input_name = "Fred";
             $input_instrument = "violin";
-            $input_id = 4;
             $input_teacher_id = 5;
+            $input_id = 4;
             $new_student = new Student($input_name, $input_instrument, $input_id);
             $new_student->setTeacherId($input_teacher_id);
 
@@ -88,18 +88,29 @@
             $input_name = "Flavio";
             $input_instrument = "Ukulele";
             $input_teacher_id = 13;
+            $input_id = 1;
             $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
             $new_student->save();
 
             // Act
-            echo $new_student->getName;
             $result = Student::getAll();
-            // var_dump($result);
+            var_dump(array($result));
 
             // Assert
             $this->assertEquals($new_student, $result[0]);
         }
 
+        //     function test_save()
+        //  {
+        //      //Arrange
+        //      $name = "Work stuff";
+        //      $test_Category = new Category($name);
+        //      $test_Category->save();
+        //      //Act
+        //      $result = Category::getAll();
+        //      //Assert
+        //      $this->assertEquals($test_Category, $result[0]);
+        //  }
         function test_getAll()
         {
             // Arrange
@@ -110,12 +121,13 @@
             $new_student_test->save();
             $input_name2 = "Stina";
             $input_instrument2 = "Sax";
-            $input_teacher_id = 2;
+            $input_teacher_id2 = 2;
             $new_student2_test = new Student($input_name2, $input_instrument2, $input_teacher_id2);
             $new_student2_test->save();
 
             // Act
             $result = Student::getAll();
+            var_dump(array($new_student_test, $new_student2_test));
 
             // Assert
             $this->assertEquals(array($new_student_test, $new_student2_test), $result);

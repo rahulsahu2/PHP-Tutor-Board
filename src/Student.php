@@ -50,8 +50,8 @@
 
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO student (student_name, instrument, teacher_id) VALUES ('{$this->getName()}', '{$this->getInstrument()}', {$this->getTeacherId});");
-            $this->id = $GLOBALS['DB']->lastInsertId();
+          $GLOBALS['DB']->exec("INSERT INTO student (student_name, instrument, teacher_id) VALUES ('{$this->getName()}', '{$this->getInstrument()}', {$this->getTeacherId()})");
+          $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
         static function deleteAll()

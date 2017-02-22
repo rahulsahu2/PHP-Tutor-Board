@@ -94,8 +94,6 @@
 
             // Act
             $result = Teacher::getAll();
-            var_dump($result);
-            var_dump($new_teacher2_test);
 
             // Assert
             $this->assertEquals(array($new_teacher_test, $new_teacher2_test), $result);
