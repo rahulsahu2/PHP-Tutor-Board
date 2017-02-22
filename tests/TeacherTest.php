@@ -17,7 +17,7 @@
         protected function tearDown()
         {
             Teacher::deleteAll();
-            // Student::deleteAll();
+            Student::deleteAll();
         }
 
         function test_getName()
@@ -82,6 +82,7 @@
         function test_getAll()
         {
             // Arrange
+            Teacher::deleteAll();
             $input_name = "Tester";
             $input_instrument = "Piano";
             $new_teacher_test = new Teacher($input_name, $input_instrument);
@@ -93,10 +94,19 @@
 
             // Act
             $result = Teacher::getAll();
+            var_dump($result);
+            var_dump($new_teacher2_test);
 
             // Assert
             $this->assertEquals(array($new_teacher_test, $new_teacher2_test), $result);
         }
+
+        // function test_find()
+        // {
+        //     // Arrange
+        //     // Act
+        //     // Assert
+        // }
 
     }
  ?>

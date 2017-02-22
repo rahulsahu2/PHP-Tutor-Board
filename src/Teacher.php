@@ -42,9 +42,33 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        function getStudentIds()
-        {
 
+        function getStudents()
+       {
+           $students = Array();
+           $returned_students = $GLOBALS['DB']->query("SELECT * FROM students WHERE techer_id = {$this->getId()};");
+           foreach($returned_students as $student) {
+               $student_name = $student['student_name'];
+               $instrument = $student['instrument'];
+               $teacher_id = $student['teacher_id'];
+               $id = $student['id'];
+               $new_student = new Student($student_name, $instrument, $teacher_id, $id);
+               array_push($students, $new_student);
+           }
+           return $students;
+       }
+
+        static function find($search_id)
+        {
+           $found_student = null;
+           $students = Student::getAll();
+           foreach($students as $student){
+               $student_id = $student->getId();
+               if ( $student_id == $search_id){
+                   $found_student = $student;
+               }
+           }
+           return $found_student;
         }
 
         static function deleteAll()

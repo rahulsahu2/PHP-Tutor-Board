@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.10
+-- version 4.2.5
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Generation Time: Feb 22, 2017 at 01:38 AM
--- Server version: 5.5.42
--- PHP Version: 7.0.0
+-- Generation Time: Feb 22, 2017 at 08:14 AM
+-- Server version: 5.5.38
+-- PHP Version: 5.5.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `crm_music`
@@ -29,11 +29,11 @@ USE `crm_music`;
 --
 
 CREATE TABLE `event` (
-  `id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `teacher_id` int(11) NOT NULL,
-  `date_of_lesson` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date_of_lesson` datetime NOT NULL,
+`id` bigint(20) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -42,10 +42,11 @@ CREATE TABLE `event` (
 --
 
 CREATE TABLE `student` (
-  `id` int(11) NOT NULL,
   `student_name` varchar(255) NOT NULL,
-  `instrument` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `instrument` varchar(255) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
+`id` bigint(20) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -54,10 +55,10 @@ CREATE TABLE `student` (
 --
 
 CREATE TABLE `teacher` (
-  `id` int(11) NOT NULL,
   `teacher_name` varchar(255) NOT NULL,
-  `instrument` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `instrument` varchar(100) NOT NULL,
+`id` bigint(20) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Indexes for dumped tables
@@ -67,20 +68,39 @@ CREATE TABLE `teacher` (
 -- Indexes for table `event`
 --
 ALTER TABLE `event`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `teacher`
 --
 ALTER TABLE `teacher`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id` (`id`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `event`
+--
+ALTER TABLE `event`
+MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `student`
+--
+ALTER TABLE `student`
+MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `teacher`
+--
+ALTER TABLE `teacher`
+MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

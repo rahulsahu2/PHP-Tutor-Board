@@ -1,6 +1,6 @@
 # _CRM-Music_
 
-#### _Student Teacher Meeting Tracking._
+#### _Customer Relationship Manager for Music School._
 
 #### By _** Dan Lauby and Carlos Munoz Kampff**_
 
