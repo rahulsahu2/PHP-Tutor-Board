@@ -49,12 +49,31 @@
 
     $app->get("/teachers/{id}", function($id) use ($app) {
         $teacher = Teacher::findTeacher($id);
+        $notes_array = explode("|", $teacher->getNotes());
         $teachers_students = Student::findStudentsByTeacher($id);
         // var_dump($teacher);
         // var_dump($teachers_students);
-        return $app['twig']->render('teacher.html.twig', array('teacher' => $teacher, 'teachers_students' => $teachers_students ));
+        return $app['twig']->render('teacher.html.twig', array('teacher' => $teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array ));
 
     });
+
+    $app->patch("/teachers/{id}", function($id) use ($app) {
+        $selected_teacher = Teacher::findTeacher($id);
+        $new_notes = $_POST['new_notes'];
+        $updated_notes =  date('l jS \of F Y ') . "---->"  . $new_notes  . "|" .$selected_teacher->getNotes();
+        $selected_teacher->updateNotes($updated_notes);
+        $notes_array = explode("|", $updated_notes);
+        $teachers_students = Student::findStudentsByTeacher($id);
+        return $app['twig']->render('teacher.html.twig', array('teacher' => $selected_teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array ));
+    });
+
+    $app->delete("/teachers/teacher_termination/{id}", function($id) use ($app) {
+        $deleted_teacher = Teacher::findTeacher($id);
+        $deleted_teacher->delete();
+
+        return $app['twig']->render('teacher_termination.html.twig', array ('deleted_teacher' => $deleted_teacher ));
+    });
+
     $app->get("/students", function() use ($app) {
 
           return $app['twig']->render('students.html.twig', array('students' => Student::getAll()));
@@ -74,17 +93,14 @@
     $app->get("/students/{id}", function($id) use ($app) {
         $selected_student = Student::findStudent($id);
         $teacher_id = $selected_student->getTeacherId();
-        $updated_notes = date('l jS \of F Y ') . "|"  . $new_notes . "|" ;
-        /// fishy ...
-        $selected_student->updateNotes($updated_notes);
-        $notes_array = explode("|", $updated_notes);
+        $notes_array = explode("|", $selected_student->getNotes());
         $assigned_teacher = Teacher::findTeacher($teacher_id);
         // var_dump($student);
         // var_dump($students_students);
         return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teacher' => $assigned_teacher, 'notes_array' => $notes_array ));
     });
 
-    $app->post("/students/{id}", function($id) use ($app) {
+    $app->patch("/students/{id}", function($id) use ($app) {
         $selected_student = Student::findStudent($id);
         $teacher_id = $selected_student->getTeacherId();
         $new_notes = $_POST['new_notes'];
@@ -97,12 +113,11 @@
         return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teacher' => $assigned_teacher, 'notes_array' => $notes_array ));
     });
 
-    $app->post("/students/student_termination/{id}", function($id) use ($app) {
+    $app->delete("/students/student_termination/{id}", function($id) use ($app) {
         $deleted_student = Student::findStudent($id);
         $deleted_student->delete();
 
         return $app['twig']->render('student_termination.html.twig', array ('deleted_student' => $deleted_student ));
-
     });
 
     return $app;
