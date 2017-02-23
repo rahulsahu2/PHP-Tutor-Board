@@ -24,7 +24,7 @@
         if (empty(Teacher::getAll())) {
         return $app['twig']->render('index.html.twig' );
         } else {
-          return $app['twig']->render('index.html.twig', array('teachers' => Teacher::getAll()));
+          return $app['twig']->render('index.html.twig', array('teachers' => Teacher::getAll(), 'students' => Student::getAll()));
         }
     });
 
@@ -120,5 +120,10 @@
         return $app['twig']->render('student_termination.html.twig', array ('deleted_student' => $deleted_student ));
     });
 
+    // NOTE root page from contacts project
+    $app->get("/contacts", function() use($app) {
+        // Contact::deleteAll();
+        return $app['twig']->render('address_book_home.html.twig', array( 'list_of_contacts'=>Contact::getAll() ));
+    });
     return $app;
  ?>

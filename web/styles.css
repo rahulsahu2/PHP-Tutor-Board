@@ -9,7 +9,25 @@ p.intro {
   text-align: center;
 }
 
+/* unvisited link */
+.nav-bar a:link {
+    color: white;
+}
 
+/* visited link */
+.nav-bar a:visited {
+    color: white;
+}
+
+/* mouse over link */
+.nav-bar a:hover {
+    color: gold;
+}
+
+.stats-numbers {
+    text-align: center;
+    color: maroon;
+}
 p.note {
   width: 50%;
   font-style: italic;
@@ -145,11 +163,12 @@ img.intro {
 
 
 .logo img {
-  width: 8%;
+  width: 8.5%;
   height: auto;
   border: solid 2px grey;
   padding: 1%;
   float: left;
+  background-color: maroon;
 
 }
 
