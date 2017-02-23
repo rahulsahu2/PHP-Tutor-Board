@@ -33,7 +33,7 @@
         <ul>
           {% for student in teachers_students %}
           <li> </li>
-          <a href="students/{{ student.getId }}">{{ student.getName }}</a>
+          <a href="/students/{{ student.getId }}">{{ student.getName }}</a>
           {% endfor %}
         </ul>
       {% endif %}

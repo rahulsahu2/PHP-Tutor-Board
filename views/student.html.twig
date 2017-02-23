@@ -26,9 +26,30 @@
         </div> <!--logo-->
       </div> <!--nav-bar-->
       <div class="jumbotron">
-        <h1>Student</h1>
+        <h1>{{ student.getName }}</h1>
         <p></p>
-
+        <ul>
+          <li>  instrument: <strong> {{ student.getInstrument }}</strong></li>
+          <li>  assigned teacher: <strong>{{ assigned_teacher.getName }}</strong> (id:{{ assigned_teacher.getId }})</li>
+        </ul>
+        <form action="/students/{{ student.getId }}" method="post">
+          <label for="new_notes">add notes...</label><br>
+          <textarea name="new_notes" rows="3" cols="40"></textarea><br>
+          <input type="reset">
+          <button type="submit" class="btn button-success" name="button">Submit</button>
+        </form>
+        {% if notes_array is not empty %}
+          <div class="well">
+            <ul>
+              <label>notes:</label>
+              {% for note in notes_array %}
+              <li><strong>{{ note }}</strong></li>
+              <p></p><br> 
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+        <!-- well -->
       </div>
     </div>
   </body>
