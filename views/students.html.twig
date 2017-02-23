@@ -28,8 +28,24 @@
       <div class="jumbotron">
         <h1>Students</h1>
         <p></p>
-
       </div>
+      {% if students is not empty %}
+      <ul>
+        {% for student in students %}
+          <li><a href="students/{{student.getId}}">{{student.getName}} {{student.getId}}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <form action="/students" method="post">
+
+        <label for="student_name">Name</label><br>
+        <input type="text" name="student_name"><br>
+        <label for="student_instrument">Instrument</label><br>
+        <input type="text" name="student_instrument"><br>
+        <label for="teacher_id">Teacher Id</label><br>
+        <input type="text" name="teacher_id"><br>
+        <button type="submit">Submit</button><br>
+      </form>
       <a href="/">Home</a>
     </div>
   </body>

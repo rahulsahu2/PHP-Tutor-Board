@@ -78,7 +78,6 @@
             $returned_students = $GLOBALS['DB']->query("SELECT * FROM student;");
             $students = array();
             if (empty($returned_students)){
-               return "returned students is empty.";
             } else {
             foreach($returned_students as $student){
                 $name = $student['student_name'];
@@ -90,8 +89,8 @@
                 $new_student->setNotes($notes);
                 array_push($students, $new_student);
             }
-            return $students;
           }
+          return $students;
         }
 
         function updateNotes($new_note)

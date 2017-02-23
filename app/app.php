@@ -53,13 +53,19 @@
 
     });
     $app->get("/students", function() use ($app) {
-        if (empty(Student::getAll())) {
-        return $app['twig']->render('students.html.twig' );
-        } else {
+
           return $app['twig']->render('students.html.twig', array('students' => Student::getAll()));
-        }
     });
 
+    $app->post("/students", function() use ($app) {
+          $new_student_name = $_POST['student_name'];
+          $new_student_instrument = $_POST['student_instrument'];
+          $new_teacher_id = $_POST['teacher_id'];
+          $new_student = new Student($new_student_name, $new_student_instrument, $new_teacher_id);
+          $new_student->setNotes(date('l jS \of F Y h:i:s A') . " of first entry.");
+          $new_student->save();
+          return $app['twig']->render('students.html.twig', array('students' => Student::getAll()));
+    });
 
     return $app;
  ?>
