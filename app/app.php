@@ -17,6 +17,9 @@
         'twig.path' => __DIR__.'/../views'
     ));
 
+    use Symfony\Component\HttpFoundation\Request;
+    Request::enableHttpMethodParameterOverride();
+
     $app->get("/", function() use ($app) {
         if (empty(Teacher::getAll())) {
         return $app['twig']->render('index.html.twig' );
@@ -92,6 +95,14 @@
         // var_dump($student);
         // var_dump($students_students);
         return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teacher' => $assigned_teacher, 'notes_array' => $notes_array ));
+    });
+
+    $app->post("/students/student_termination/{id}", function($id) use ($app) {
+        $deleted_student = Student::findStudent($id);
+        $deleted_student->delete();
+
+        return $app['twig']->render('student_termination.html.twig', array ('deleted_student' => $deleted_student ));
+
     });
 
     return $app;
