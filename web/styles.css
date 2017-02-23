@@ -1,0 +1,211 @@
+h2 {
+  text-align: center;
+
+}
+
+p.intro {
+  /*width: 50%;*/
+  font-style: italic;
+  text-align: center;
+}
+
+
+p.note {
+  width: 50%;
+  font-style: italic;
+  font-weight: bold;
+  clear: left;
+}
+.left-menu-adjust {
+
+  margin-left: 200px;
+  padding-left: 30px;
+  padding-top: 7px;
+}
+
+.accessories-radio label{
+  text-align: left;
+  font-size: 15px;
+  display: block;
+  padding-left: 30px;
+  clear: both;
+}
+
+
+#left-menu {
+  float: left;
+  /*position: fixed;*/
+  width: 200px;
+  height: 1000px;
+  display: block;
+  margin: 10px;
+  padding: 0px;
+  background-color: lightgray
+}
+.important {
+  width: 50%;
+  font-style: italic;
+  font-weight: bold;
+  text-decoration: underline;
+  color: crimson;
+}
+
+.flashy {
+  font-size: 3rem;
+  color: crimson;
+  text-shadow: 2px 5px 10px grey;
+
+}
+
+.flashy2 {
+  font-style: italic;
+  font-weight: bold;
+  color: crimson;
+  text-shadow: 2px 2px 10px grey;
+}
+.flashy3 {
+  font-weight: bold;
+  text-shadow: 2px 2px 10px grey;
+}
+.flashy4 {
+  font-style: italic;
+  font-weight: bold;
+  text-shadow: 1px 1px 10px lightgrey;
+}
+.imgstyle {
+  width: 33%;
+}
+
+img.intro {
+  display: block;
+  margin: auto;
+  height: 420px;
+  float: left;
+}
+
+.textstyle {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.post h1 {
+  color: red;
+}
+.comments {
+
+}
+
+.biopics {
+  float: left;
+  clear: left;
+  width: 95%;
+}
+
+.columns {
+  width: 33%;
+  float: left;
+}
+
+
+.logo {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+.nav-bar {
+  width: ;
+  height: ;
+  /*background-color: #e1b7bb;*/
+
+}
+.center-div * {
+  /*border: 2px solid black;*/
+
+}
+
+.sidebar li  {
+  padding: 1% 5%;
+  display: inline-block;
+  margin: auto;
+  font-size: 20px;
+  color: white;
+}
+.sidebar ul {
+  display: flex;
+  justify-content: space-around;
+}
+.sidebar {
+  background-color: darkred;
+  margin: 0 auto;
+}
+
+.bios-border {
+  border-top: dotted 2px black;
+}
+
+
+.logo img {
+  width: 8%;
+  height: auto;
+  border: solid 2px grey;
+  padding: 1%;
+  float: left;
+
+}
+
+.bandpage-top {
+  width: 20%;
+  border: 1px solid black;
+  height: 40em;
+  float: left;
+
+}
+.bandpage-top img {
+  width: 33%;
+}
+.bandpage-toptext {
+}
+/*.bandpage-top p {
+}*/
+.bandpage-text {
+  border: 2px solid;
+  width: 100%;
+  float: left;
+}
+.hover-pix img {
+  border: 2px solid crimson;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#index-bottom-pix2 {
+  display: none;
+}
+
+/* Event blog page */
+
+#dark-theme-button {
+  border: 3px solid crimson;
+}
+
+#gray-theme-button {
+  border: 3px solid crimson;
+}
+
+
+#normal-theme-button {
+  border: 3px solid crimson;
+}
+
+#instrument-picture {
+  width: 50%;
+}
+.toDarkTheme {
+  background-color: black;
+  color: white;
+}
+.toGrayTheme {
+  background-color: silver;
+  color: white;
+}

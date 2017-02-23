@@ -208,5 +208,42 @@
             //Assert
             $this->assertEquals([$new_student2], Student::getAll());
         }
+
+        function test_findStudent()
+        {
+            // Arrange
+            $input_name = "Stevo";
+            $input_instrument = "Ukulele";
+            $input_teacher_id = 99;
+            $input_new_note = "Mussolini was a great leader. - Nona ";
+            $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
+            $new_student->setNotes($input_new_note);
+            $new_student->save();
+            $id = $new_student->getId();
+
+            // Act
+            $result = Student::getAll();
+
+            // Assert
+            $this->assertEquals($id, $result[0]->getId());
+        }
+        function test_findStudentsByTeacher()
+        {
+            // Arrange
+            $input_name = "Stevo";
+            $input_instrument = "Ukulele";
+            $input_teacher_id = 99;
+            $input_new_note = "Mussolini was a great leader. - Nona ";
+            $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
+            $new_student->setNotes($input_new_note);
+            $new_student->save();
+            $teacher_id = $new_student->getTeacherId();
+
+            // Act
+            $result = Student::findStudentsByTeacher($teacher_id);
+
+            // Assert
+            $this->assertEquals([$new_student], $result);
+        }
     }
  ?>

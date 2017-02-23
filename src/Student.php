@@ -77,6 +77,9 @@
         {
             $returned_students = $GLOBALS['DB']->query("SELECT * FROM student;");
             $students = array();
+            if (empty($returned_students)){
+               return "returned students is empty.";
+            } else {
             foreach($returned_students as $student){
                 $name = $student['student_name'];
                 $inst = $student['instrument'];
@@ -88,6 +91,7 @@
                 array_push($students, $new_student);
             }
             return $students;
+          }
         }
 
         function updateNotes($new_note)
@@ -99,6 +103,32 @@
         function delete()
         {
             $GLOBALS['DB']->exec("DELETE FROM student WHERE id = {$this->getId()};");
+        }
+
+        static function findStudent($search_id)
+        {
+           $found_student = null;
+           $students = Student::getAll();
+           foreach($students as $student){
+               $student_id = $student->getId();
+               if ( $student_id == $search_id){
+                   $found_student = $student;
+               }
+           }
+           return $found_student;
+        }
+
+        static function findStudentsByTeacher($search_id)
+        {
+            $found_students = array();
+            $students = Student::getAll();
+            foreach($students as $student){
+                $teacher_id = $student->getTeacherId();
+                if ($teacher_id == $search_id){
+                    array_push($found_students, $student);
+                }
+            }
+            return $found_students;
         }
     }
 

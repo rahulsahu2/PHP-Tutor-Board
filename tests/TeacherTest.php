@@ -176,12 +176,27 @@
             //Assert
             $this->assertEquals([$new_teacher2], Teacher::getAll());
         }
-        // function test_find()
-        // {
-        //     // Arrange
-        //     // Act
-        //     // Assert
-        // }
+
+        function test_findTeacher()
+        {
+            // Arrange
+            $input_name = "Stevo";
+            $input_instrument = "Ukulele";
+            $input_new_note = "Mussolini was a great leader. - Nona ";
+            $new_teacher = new Teacher($input_name, $input_instrument);
+            $new_teacher->setNotes($input_new_note);
+            $new_teacher->save();
+            $id = $new_teacher->getId();
+
+            // Act
+            $result = Teacher::getAll();
+
+            // Assert
+            $this->assertEquals($id, $result[0]->getId());
+        }
+        
+
+
 
     }
  ?>

@@ -70,17 +70,17 @@
            return $students;
        }
 
-        static function find($search_id)
+        static function findTeacher($search_id)
         {
-           $found_student = null;
-           $students = Student::getAll();
-           foreach($students as $student){
-               $student_id = $student->getId();
-               if ( $student_id == $search_id){
-                   $found_student = $student;
+           $found_teacher = null;
+           $teachers = Teacher::getAll();
+           foreach($teachers as $teacher){
+               $teacher_id = $teacher->getId();
+               if ( $teacher_id == $search_id){
+                   $found_teacher = $teacher;
                }
            }
-           return $found_student;
+           return $found_teacher;
         }
 
         static function deleteAll()
@@ -92,16 +92,21 @@
         {
             $returned_teachers = $GLOBALS['DB']->query("SELECT * FROM teacher;");
             $teachers = array();
-            foreach($returned_teachers as $teacher){
-                $teacher_name = $teacher['teacher_name'];
-                $instrument = $teacher['instrument'];
-                $notes = $teacher['notes'];
-                $id = $teacher['id'];
-                $new_teacher = new Teacher($teacher_name, $instrument, $id);
-                $new_teacher->setNotes($notes);
-                array_push($teachers, $new_teacher);
+            if (empty($returned_teachers)){
+               return "returned teachers is empty.";
+            } else {
+              foreach($returned_teachers as $teacher){
+                  $teacher_name = $teacher['teacher_name'];
+                  $instrument = $teacher['instrument'];
+                  $notes = $teacher['notes'];
+                  $id = $teacher['id'];
+                  $new_teacher = new Teacher($teacher_name, $instrument, $id);
+                  $new_teacher->setNotes($notes);
+                  array_push($teachers, $new_teacher);
+              }
+              return $teachers;
             }
-            return $teachers;
+
         }
 
         function updateNotes($new_note)
