@@ -111,7 +111,7 @@ class Account
     //   $this->id = $GLOBALS['DB']->lastInsertId();
     // }
 
-    // NOTE DEBBUGING ...had to add
+    // NOTE DEBBUGING ...had to add a redundant PARENTHESIS AT THE PENULTIMATE STEP OF 117 ???
     function save()
     {
       $GLOBALS['DB']->exec("INSERT INTO accounts (family_name, parent_one_name, parent_two_name, street_address, phone_number, email_address, notes, billing_history, outstanding_balance) VALUES ('{$this->getFamilyName()}', '{$this->getParentOneName()}', '{$this->getParentTwoName()}', '{$this->getStreetAddress()}', '{$this->getPhoneNumber()}', '{$this->getEmailAddress()}', '{$this->getNotes()}', '{$this->getBillingHistory()}', {$this->getOutstandingBalance()});)");
