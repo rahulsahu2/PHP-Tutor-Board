@@ -1,26 +1,40 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <title>Address Book</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/contact-styles.css">
-    <link rel="stylesheet" href="/styles.css">
-    <script src="js/jquery-3.1.1.js"></script>
-    <script src="js/scripts.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='/styles.css' rel='stylesheet' type='text/css'>
+    <title>CRM Music School</title>
   </head>
   <body>
     <div class="container">
+      <div class="nav-bar">
+        <div class="logo">
+          <img src="/img/splogo.jpg" alt="logo">
+          <h1></h1>
+          <p class="intro"></p>
+        </div>
+        <div class="center-div">
+          <div class="sidebar">
+            <ul>
+              <li><a href="/teachers">teachers</a></li>
+              <li><a href="/students">students</a></li>
+              <li>accounts</li>
+              <li>billing</li>
+              <li><a href="/">home</a></li>
+            </ul>
+          </div> <!--sidebar-->
+        </div> <!--logo-->
+      </div> <!--nav-bar-->
+  <body>
+    <div class="container">
       <div class="jumbotron green">
-        <h1>Address Book</h1>
-        <p>Welcome to your new address book.</p>
-        <p>Easily store and retrieve you addresses and stay on the up and up.</p>
+        <h1>Accounts</h1>
       </div>
       <!-- jumbotron -->
       <div class="row">
         <div class="col-sm-6">
           <div class="jumbotron blue">
-            <h4>Create New Contact</h4>
-            <form action="/create-contact" method="post">
+            <h4>Create New Account</h4>
+            <form action="/accounts" method="post">
               <div class="form-group">
                 <label for="name_input">Name: </label>
                 <input class="form-control" type="text" name="name_input">
@@ -30,20 +44,20 @@
                 <input class="form-control" type="text" name="address_input">
               </div>
               <!-- formgroup -->
-              <button class="btn btn-primary" type="submit" name="new_contact_submit">create new contact</button>
+              <button class="btn btn-primary" type="submit" name="new_account_submit">create new account</button>
             </form>
             <form class="" action="/search_input" method="post">
               <div class="form-group">
                 <label for="search_input"></label>
                 <input class="form-control" type="text" name="search_input" placeholder="first letter search...">
               </div>
-              <button type="submit" name="view_contacts" class="btn btn-info" value="view">search contacts</button>
+              <button type="submit" name="view_accounts" class="btn btn-info" value="view">search accounts</button>
             </form>
             <form class="" action="/" method="post">
-              <button type="submit" name="view_contacts" class="btn btn-warning" value="view">view contacts</button>
+              <button type="submit" name="view_accounts" class="btn btn-warning" value="view">view accounts</button>
             </form>
-            <form class="" action="/delete-contacts" method="post">
-                <button type="submit" class="btn btn-danger" name="delete_contacts">delete contacts</button>
+            <form class="" action="/delete-accounts" method="post">
+                <button type="submit" class="btn btn-danger" name="delete_accounts">delete accounts</button>
             </form>
           </div>
           <!-- jumbotron blue -->
@@ -51,18 +65,7 @@
         <!-- right column form -->
         <div class="col-sm-6">
           <div class="jumbotron purple">
-            {% if list_of_contacts is empty %}
-                <p>You have no stored addresses. Click on "create new contact" to populate your address book.</p>
-            {% else %}
-                <p>Here are all your current contacts:</p>
-                {% for contact_instance in list_of_contacts %}
-                  <ul>
-                    <p>{{ contact_instance.getName }}</p>
-                    <li>phone number: {{ contact_instance.getPhoneNumber }}</li>
-                    <li>address: {{ contact_instance.getAddress }}</li>
-                  </ul>
-                    {% endfor %}
-            {% endif %}
+          
           </div>
           <!-- jumbotron purple -->
         </div>

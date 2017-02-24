@@ -37,7 +37,7 @@
             <h4 class="stats-numbers">{{ teachers|length }}</h4>
             <ul>
               {% for teacher in teachers %}
-                <li><a href="teachers/{{teacher.getId}}">{{teacher.getName}} {{teacher.getId}}</a></li>
+                <li><a href="teachers/{{teacher.getId}}">{{teacher.getName}}</a></li>
               {% endfor %}
             </ul>
             {% else %}
@@ -54,7 +54,7 @@
             <h4 class="stats-numbers">{{ students|length }}</h4>
             <ul>
               {% for student in students %}
-                <li><a href="students/{{student.getId}}">{{student.getName}} {{student.getId}}</a></li>
+                <li><a href="students/{{student.getId}}">{{student.getName}}</a></li>
               {% endfor %}
             </ul>
             {% endif %}
@@ -87,12 +87,10 @@
         <!-- column -->
       </div>
       <!-- row -->
+      <div class="jumbotron" id="hass">
 
-
-
-
-
+      </div>
     </div>
-
+    <!-- container -->
   </body>
 </html>

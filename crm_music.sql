@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Generation Time: Feb 23, 2017 at 02:03 AM
+-- Generation Time: Feb 24, 2017 at 02:06 AM
 -- Server version: 5.5.42
 -- PHP Version: 5.6.10
 
@@ -21,6 +21,25 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `crm_music` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `crm_music`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accounts`
+--
+
+CREATE TABLE `accounts` (
+  `family_name` varchar(255) DEFAULT NULL,
+  `parent1_name` varchar(255) DEFAULT NULL,
+  `parent2_name` varchar(255) DEFAULT NULL,
+  `street_address` varchar(255) DEFAULT NULL,
+  `phone_number` varchar(255) DEFAULT NULL,
+  `email_address` varchar(255) DEFAULT NULL,
+  `notes` text,
+  `billing_history` text,
+  `outstanding_balance` int(11) DEFAULT NULL,
+  `id` bigint(20) unsigned NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -47,16 +66,7 @@ CREATE TABLE `student` (
   `teacher_id` int(11) NOT NULL,
   `notes` text,
   `id` bigint(20) unsigned NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `student`
---
-
-INSERT INTO `student` (`student_name`, `instrument`, `teacher_id`, `notes`, `id`) VALUES
-('Johnny', 'Bongos', 4, 'Wednesday 22nd of February 2017 04:52:20 PM of first entry.', 1),
-('Chewbakka', 'Ewok Flute', 4, 'Wednesday 22nd of February 2017 04:52:52 PM of first entry.', 2),
-('Chewbakka', 'Ewok Flute', 4, 'Wednesday 22nd of February 2017 04:53:21 PM of first entry.', 3);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -69,22 +79,18 @@ CREATE TABLE `teacher` (
   `instrument` varchar(100) NOT NULL,
   `notes` text,
   `id` bigint(20) unsigned NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `teacher`
---
-
-INSERT INTO `teacher` (`teacher_name`, `instrument`, `notes`, `id`) VALUES
-('Stevo', 'Flute', 'Wednesday 22nd of February 2017 03:01:03 PM of first entry.', 1),
-('Stevo', 'Flute', 'Wednesday 22nd of February 2017 03:28:00 PM of first entry.', 2),
-('Stevest', 'Super Flute', 'Wednesday 22nd of February 2017 03:44:46 PM of first entry.', 3),
-('Stevest', 'Super Flute', 'Wednesday 22nd of February 2017 03:50:35 PM of first entry.', 4),
-('Steve', 'Flute', 'Wednesday 22nd of February 2017 03:50:44 PM of first entry.', 5);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `accounts`
+--
+ALTER TABLE `accounts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `event`
@@ -112,6 +118,11 @@ ALTER TABLE `teacher`
 --
 
 --
+-- AUTO_INCREMENT for table `accounts`
+--
+ALTER TABLE `accounts`
+  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
@@ -120,12 +131,12 @@ ALTER TABLE `event`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `teacher`
 --
 ALTER TABLE `teacher`
-  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

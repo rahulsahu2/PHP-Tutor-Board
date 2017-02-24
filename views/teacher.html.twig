@@ -34,11 +34,10 @@
               <li>instruments: {{teacher.getInstrument}} </li>
               <li>teacher id: {{teacher.getId}} </li>
               {% if teachers_students is not empty %}
-                <li> Teacher's Students</li>
+                <li> teacher's students</li>
                 <ul>
                   {% for student in teachers_students %}
-                  <li> </li>
-                  <a href="/students/{{ student.getId }}">{{ student.getName }}</a>
+                  <li><a href="/students/{{ student.getId }}">{{ student.getName }}</a></li>
                   {% endfor %}
                 </ul>
               {% endif %}

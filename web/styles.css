@@ -3,6 +3,14 @@ h2 {
 
 }
 
+#hass {
+  height: 500px;
+  background: #000 url("/img/horses_ass.jpeg") no-repeat center center;
+ background-size: 100% 100%;
+ -moz-background-size: 100% 100%;
+ -webkit-background-size: 100% 100%;
+ -o-background-size: 100% 100%;
+}
 p.intro {
   /*width: 50%;*/
   font-style: italic;

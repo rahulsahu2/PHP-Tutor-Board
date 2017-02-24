@@ -76,7 +76,7 @@
 
     $app->get("/students", function() use ($app) {
 
-          return $app['twig']->render('students.html.twig', array('students' => Student::getAll()));
+          return $app['twig']->render('students.html.twig', array('students' => Student::getAll(), 'teachers' => Teacher::getAll()));
     });
 
     $app->post("/students", function() use ($app) {
@@ -86,7 +86,7 @@
           $new_student = new Student($new_student_name, $new_student_instrument, $new_teacher_id);
           $new_student->setNotes(date('l jS \of F Y h:i:s A') . " of first entry.");
           $new_student->save();
-          return $app['twig']->render('students.html.twig', array('students' => Student::getAll()));
+          return $app['twig']->render('students.html.twig', array('students' => Student::getAll(), 'teachers' => Teacher::getAll()));
     });
 
     // Individual student page  NOTE We could also use find techer by id to return students teacher info.
@@ -117,7 +117,11 @@
         $deleted_student = Student::findStudent($id);
         $deleted_student->delete();
 
-        return $app['twig']->render('student_termination.html.twig', array ('deleted_student' => $deleted_student ));
+        return $app['twig']->render('student_termination.html.twig', array('deleted_student' => $deleted_student ));
+    });
+
+    $app->get("/accounts", function() use ($app) {
+        return $app['twig']->render('account.html.twig', array('accounts' => Account::getAll()) );
     });
 
     // NOTE root page from contacts project
