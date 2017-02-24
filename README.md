@@ -2,7 +2,7 @@
 
 #### _Customer Relationship Manager for Music School._
 
-#### By _** Dan Lauby and Carlos Munoz Kampff**_
+#### By _** Dan Lauby, Andrew Devlin and Carlos Munoz Kampff**_
 
 ## Description
 
@@ -11,7 +11,11 @@ __
 
 | Behavior                                              |   Input example   |  Output example |
 |-------------------------------------------------------|:-----------------:|:---------------:|
-|                       | | |
+| 1) User-Admin registers a teacher  | | |
+| 2) User-Admin registers a student | | |
+| 3) User-Admin registers an account | | |
+| 4) User-Admin registers a service | | |
+| 5) User-Admin registers a subject | | |
 
 
 ## Specifications

@@ -1,6 +1,6 @@
 <?php
 
-    ///////    NOTE Saved for later for when we learn JOIN ! 
+    ///////    NOTE Saved for later for when we learn JOIN !
     class Event
     {
         private $student_id;
@@ -33,8 +33,8 @@
 
         function save()
         {
-            // $GLOBALS['DB']->exec("INSERT INTO event (student_id, teacher_id, date_of_lesson) VALUES ('{$this->getDate()}', '{$this->getInstrument()}');");
-            // $this->id = $GLOBALS['DB']->lastInsertId();
+            $GLOBALS['DB']->exec("INSERT INTO event (student_id, teacher_id, date_of_lesson) VALUES ('{$this->getDate()}', '{$this->getInstrument()}');");
+            $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
         static function deleteAll()

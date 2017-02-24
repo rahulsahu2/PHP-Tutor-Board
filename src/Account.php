@@ -2,8 +2,8 @@
 class Account
 {
     private $family_name;
-    private $parent1_name;
-    private $parent2_name;
+    private $parent_one_name;
+    private $parent_two_name;
     private $street_address;
     private $phone_number;
     private $email_address;
@@ -13,11 +13,11 @@ class Account
     private $id;
     // public $create_was_clicked;
 
-    function __construct($family_name, $parent1_name, $parent2_name, $street_address,$phone_number,$email_address,$outstanding_balance,$id = null)
+    function __construct($family_name, $parent_one_name, $parent_two_name, $street_address,$phone_number,$email_address, $outstanding_balance, $id = null)
     {
         $this->family_name = $family_name;
-        $this->parent1_name = $parent1_name;
-        $this->parent2_name = $parent2_name;
+        $this->parent_one_name = $parent_one_name;
+        $this->parent2_name = $parent_two_name;
         $this->street_address = $street_address;
         $this->phone_number = $phone_number;
         $this->email_address = $email_address;
@@ -34,19 +34,19 @@ class Account
     {
       return $this->family_name;
     }
-    function setParent1Name($new_parent1_name)
+    function setParentOneName($new_parent_one_name)
     {
-      $this->parent1_name = $new_parent1_name;
+      $this->parent_one_name = $new_parent_one_name;
     }
-    function getParent1Name()
+    function getParentOneName()
     {
-      return $this->parent1_name;
+      return $this->parent_one_name;
     }
-    function setParent2Name($new_parent2_name)
+    function setParentTwoName($new_parent2_name)
     {
       $this->parent2_name = $new_parent2_name;
     }
-    function getParent2Name()
+    function getParentTwoName()
     {
       return $this->parent2_name;
     }
@@ -103,27 +103,20 @@ class Account
       return  $this->id;
     }
 
-    //needs database
-    function save()
-    {
-      $GLOBALS['DB']->exec("INSERT INTO accounts (family_name, parent1_name, parent2_name, street_address, phone_number, email_address, notes, billing_history, outstanding_balance) VALUES ('{$this->getFamilyName()}', '{$this->getParent1Name()}', '{$this->getParent2Name()}', '{$this->getStreetAddress()}', '{$this->getPhoneNumber()}', '{$this->getEmailAddress()}', '{$this->getNotes()}', '{$this->getBillingHistory()}', {$this->getOutstandingBalance()} );");
-      $this->id = $GLOBALS['DB']->lastInsertId();
-    }
+    // NOTE DEBBUGING ...
+
     // function save()
     // {
-    //   $GLOBALS['DB']->exec("INSERT INTO accounts (family_name) VALUES ('{$this->getFamilyName()}');");
+    //   $GLOBALS['DB']->exec("INSERT INTO accounts (family_name, parent_one_name, parent_two_name, street_address, phone_number, email_address, notes, billing_history, outstanding_balance) VALUES ('{$this->getFamilyName()}', '{$this->getParentOneName()}', '{$this->getParentTwoName()}', '{$this->getStreetAddress()}', '{$this->getPhoneNumber()}', '{$this->getEmailAddress()}', '{$this->getNotes()}', '{$this->getBillingHistory()}', {$this->getOutstandingBalance()});");
     //   $this->id = $GLOBALS['DB']->lastInsertId();
     // }
-    // | family_name         | varchar(255)        | YES  |     | NULL    |                |
-    // | parent1_name        | varchar(255)        | YES  |     | NULL    |                |
-    // | parent2_name        | varchar(255)        | YES  |     | NULL    |                |
-    // | street_address      | varchar(255)        | YES  |     | NULL    |                |
-    // | phone_number        | varchar(255)        | YES  |     | NULL    |                |
-    // | email_address       | varchar(255)        | YES  |     | NULL    |                |
-    // | notes               | text                | YES  |     | NULL    |                |
-    // | billing_history     | text                | YES  |     | NULL    |                |
-    // | outstanding_balance | int(11)             | YES  |     | NULL    |                |
-    // | id                  | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+
+    // NOTE DEBBUGING ...had to add
+    function save()
+    {
+      $GLOBALS['DB']->exec("INSERT INTO accounts (family_name, parent_one_name, parent_two_name, street_address, phone_number, email_address, notes, billing_history, outstanding_balance) VALUES ('{$this->getFamilyName()}', '{$this->getParentOneName()}', '{$this->getParentTwoName()}', '{$this->getStreetAddress()}', '{$this->getPhoneNumber()}', '{$this->getEmailAddress()}', '{$this->getNotes()}', '{$this->getBillingHistory()}', {$this->getOutstandingBalance()});)");
+      $this->id = $GLOBALS['DB']->lastInsertId();
+    }
 
     static function getAll()
     {
@@ -133,8 +126,8 @@ class Account
         } else {
             foreach($returned_accounts as $account){
                 $family_name = $account['family_name'];
-                $parent1_name = $account['parent1_name'];
-                $parent2_name = $account['parent2_name'];
+                $parent_one_name = $account['parent_one_name'];
+                $parent_two_name = $account['parent_two_name'];
                 $street_address = $account['street_address'];
                 $phone_number = $account['phone_number'];
                 $email_address = $account['email_address'];
@@ -142,7 +135,7 @@ class Account
                 $billing_history = $account['billing_history'];
                 $outstanding_balance = $account['outstanding_balance'];
                 $id = $account['id'];
-                $new_account = new Account($family_name, $parent1_name, $parent2_name, $street_address,$phone_number,$email_address,$outstanding_balance, $id);
+                $new_account = new Account($family_name, $parent_one_name, $parent_two_name, $street_address,$phone_number,$email_address,$outstanding_balance, $id);
                 $new_account->setNotes($notes);
                 $new_account->setBillingHistory($billing_history);
                 array_push($accounts, $new_account);
@@ -150,9 +143,10 @@ class Account
         }
         return $accounts;
     }
+
     static function deleteAll()
     {
-
+        $GLOBALS['DB']->exec("DELETE FROM accounts;");
     }
 }
 ?>

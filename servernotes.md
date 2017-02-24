@@ -33,8 +33,6 @@
 | Field               | Type                | Null | Key | Default | Extra          |
 |---------------------|---------------------|------|-----|---------|----------------|
 | family_name         | varchar(255)        | YES  |     | NULL    |                |
-| parent1_name        | varchar(255)        | YES  |     | NULL    |                |
-| parent2_name        | varchar(255)        | YES  |     | NULL    |                |
 | street_address      | varchar(255)        | YES  |     | NULL    |                |
 | phone_number        | varchar(255)        | YES  |     | NULL    |                |
 | email_address       | varchar(255)        | YES  |     | NULL    |                |
@@ -42,3 +40,5 @@
 | billing_history     | text                | YES  |     | NULL    |                |
 | outstanding_balance | int(11)             | YES  |     | NULL    |                |
 | id                  | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+| parent_one_name     | varchar(255)        | YES  |     | NULL    |                |
+| parent_two_name     | varchar(255)        | YES  |     | NULL    |                |
