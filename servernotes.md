@@ -32,9 +32,11 @@
 | payed_for       | tinyint(1)          | YES  |     | NULL    |                |
 | notes           | text                | YES  |     | NULL    |                |
 | date_of_service | datetime            | YES  |     | NULL    |                |
+| recurrence      | varchar(255)        | YES  |     | NULL    |                |
+| attendance      | varchar(255)        | YES  |     | NULL    |                |
 | id              | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
 //>mysql command:
-CREATE TABLE service (description VARCHAR(255), duration INT, price DECIMAL(10,2), discount DECIMAL(10,2), payed_for TINYINT(1), notes TEXT, date_of_service DATETIME, id serial PRIMARY KEY);
+CREATE TABLE service (description VARCHAR(255), duration INT, price DECIMAL(10,2), discount DECIMAL(10,2), payed_for TINYINT(1), notes TEXT, date_of_service DATETIME, recurrence VARCHAR(255), attendance VARCHAR(255), id serial PRIMARY KEY);
 
 
 ##accounts

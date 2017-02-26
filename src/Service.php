@@ -9,6 +9,8 @@
 // | payed_for       | tinyint(1)          | YES  |     | NULL    |                |
 // | notes           | text                | YES  |     | NULL    |                |
 // | date_of_service | datetime            | YES  |     | NULL    |                |
+// | recurrence      | varchar(255)        | YES  |     | NULL    |                |
+// | attendance      | varchar(255)        | YES  |     | NULL    |                |
 // | id              | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
 
     ///////    NOTE Saved for later for when we learn JOIN !
@@ -21,9 +23,11 @@
         private $payed_for;
         private $notes;
         private $date_of_service;
+        private $recurrence;
+        private $attendance;
         private $id;
 
-        function __construct($description, $duration, $price, $discount, $payed_for, $notes, $date_of_service, $id = null)
+        function __construct($description, $duration, $price, $discount, $payed_for, $notes, $date_of_service, $recurrence, $attendance,$id = null)
         {
             $this->description = $description;
             $this->duration = (int) $duration; //in minutes
@@ -32,6 +36,8 @@
             $this->payed_for = (bool) $payed_for; // convert to TINIINT 1s and 0s for server!!!
             $this->notes = (string) $notes;
             $this->date_of_service = (string) $date_of_service;
+            $this->recurrence = (string) $recurrence; // "Wednesdays|3:00pm"
+            $this->attendance = (string) $attendance; // use codes and translate to numbers
             $this->id = (int) $id;
         }
 
@@ -92,38 +98,65 @@
         {
             return $this->date_of_service;
         }
+        function setRecurrence($new_recurrence)
+        {
+            $this->recurrence = (string) $new_recurrence;
+        }
+        function getRecurrence()
+        {
+            return $this->recurrence;
+        }
+        function setAttendance($new_attendance)
+        {
+            $this->attendance = (string) $new_attendance;
+        }
+        function getAttendance()
+        {
+            return $this->attendance;
+        }
         function getId()
         {
             return $this->id;
         }
 
         // CRUD Methods
-        // function save()
-        // {
-        //
-        //     $GLOBALS['DB']->exec("INSERT INTO event (student_id, teacher_id, date_of_lesson) VALUES ('{$this->getDate()}', '{$this->getInstrument()}');");
-        //     $this->id = $GLOBALS['DB']->lastInsertId();
-        // }
-        //
-        // static function deleteAll()
-        // {
-        //     $GLOBALS['DB']->exec("DELETE FROM event;");
-        // }
-        //
-        // static function getAll()
-        // {
-        //     $returned_events = $GLOBALS['DB']->query("SELECT * FROM event;");
-        //     $events = array();
-        //     foreach($returned_events as $event){
-        //         $event_date = $event['event_date'];
-        //         $instrument = $event['instrument'];
-        //         $id = $event['id'];
-        //         $new_event = new Service($event_date, $instrument, $id);
-        //         array_push($events, $new_event);
-        //     }
-        //     return $events;
-        //
-        // }
+        function save()
+        {
+            $description = $this->description;
+            $duration = $this->duration;
+            $price = $this->price;
+            $discount = $this->discount;
+            $payed_for = (int) $this->payed_for;
+            $notes = $this->notes;
+            $date_of_service = $this->date_of_service;
+            $id = $this->id;
+            $GLOBALS['DB']->exec("INSERT INTO service (description, duration, price, discount, payed_for, notes, date_of_service, id) ('{$description}', {$duration}, {$price}, {$discount}, {$payed_for}, '{$notes}', '{$date_of_service}', {$id};");
+            $this->id = $GLOBALS['DB']->lastInsertId();
+        }
+
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM service;");
+        }
+
+        static function getAll()
+        {
+            $returned_services = $GLOBALS['DB']->query("SELECT * FROM service;");
+            $services = array();
+            foreach($returned_services as $service){
+                $description = $service['description'];
+                $duration = $service['duration'];
+                $price = $service['price'];
+                $discount = $service['discount'];
+                $payed_for = $service['payed_for'];
+                $notes = $service['notes'];
+                $date_of_service = $service['date_of_service'];
+                $id = $service['id'];
+                $new_service = new Service($description, $duration, $price, $discount, $payed_for, $notes, $date_of_service, $id);
+                array_push($services, $new_service);
+            }
+            return $services;
+        }
     }
 
 
