@@ -6,6 +6,7 @@
     */
 
     require_once "src/Student.php";
+    require_once "src/Teacher.php";
 
     $server = 'mysql:host=localhost:8889;dbname=crm_music_test';
     $username = 'root';

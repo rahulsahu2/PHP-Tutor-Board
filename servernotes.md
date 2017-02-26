@@ -13,6 +13,7 @@
 
 
 ##student
+// REFACTOR WITH JOIN TABLE INSTEAD OF TEACHER_ID
 | Field        | Type                | Null | Key | Default | Extra          |
 |--------------|---------------------|------|-----|---------|----------------|
 | student_name | varchar(255)        | NO   |     | NULL    |                |
@@ -21,13 +22,20 @@
 | notes        | text                | YES  |     | NULL    |                |
 | id           | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
 
-##event
+##service
 | Field          | Type                | Null | Key | Default | Extra          |
 |----------------|---------------------|------|-----|---------|----------------|
-| student_id     | int(11)             | NO   |     | NULL    |                |
-| teacher_id     | int(11)             | NO   |     | NULL    |                |
-| date_of_lesson | datetime            | NO   |     | NULL    |                |
-| id             | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+| description     | varchar(255)        | YES  |     | NULL    |                |
+| duration        | int(11)             | YES  |     | NULL    |                |
+| price           | decimal(10,2)       | YES  |     | NULL    |                |
+| discount        | decimal(10,2)       | YES  |     | NULL    |                |
+| payed_for       | tinyint(1)          | YES  |     | NULL    |                |
+| notes           | text                | YES  |     | NULL    |                |
+| date_of_service | datetime            | YES  |     | NULL    |                |
+| id              | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+//>mysql command:
+CREATE TABLE service (description VARCHAR(255), duration INT, price DECIMAL(10,2), discount DECIMAL(10,2), payed_for TINYINT(1), notes TEXT, date_of_service DATETIME, id serial PRIMARY KEY);
+
 
 ##accounts
 | Field               | Type                | Null | Key | Default | Extra          |
