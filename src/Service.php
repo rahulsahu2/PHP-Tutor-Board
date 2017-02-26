@@ -27,8 +27,8 @@
         {
             $this->description = $description;
             $this->duration = (int) $duration; //in minutes
-            $this->price = (float) $price; // stored as decimal(10,2)
-            $this->discount = (float) $discount; // stored as decimal(10,2) portion of whole price remaining f.e. 0.9 => 10% discount.
+            $this->price = number_format((float) $price, 2); // stored as decimal(10,2)
+            $this->discount = number_format((float) $discount, 2); // stored as decimal(10,2) portion of whole price remaining f.e. 90 => 90% discounted price.
             $this->payed_for = (bool) $payed_for; // convert to TINIINT 1s and 0s for server!!!
             $this->notes = (string) $notes;
             $this->date_of_service = (string) $date_of_service;
@@ -54,7 +54,7 @@
         }
         function setPrice($new_price)
         {
-            $this->price = (float) $new_price;
+            $this->price = number_format((float) $new_price,2);
         }
         function getPrice()
         {
@@ -62,7 +62,7 @@
         }
         function setDiscount($new_discount)
         {
-            $this->discount = (float) $new_discount;
+            $this->discount = number_format((float) $new_discount, 2);
         }
         function getDiscount()
         {

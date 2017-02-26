@@ -20,13 +20,13 @@
         //     Student::deleteAll();
         // }
 
-        function test_getDescription()
+        function test_ServiceConstructor()
         {
             // Arrange
             $input_description = "Music Lesson";
             $input_duration = 40;
             $input_price = (float) 40;
-            $input_discount = .95;
+            $input_discount = (float) 95;
             $input_payed_for = true;
             $input_notes = "Teacher was tardy.";
             $input_date_of_service = "2/28/17";
@@ -37,11 +37,11 @@
             $result1 = $test_service->getDescription();
             $result2 = $test_service->getDuration();
             $result3 = $test_service->getPrice();
-            $resutl4 = $test_service->getDiscount();
-            $resutl5 = $test_service->getPayedFor();
-            $resutl6 = $test_service->getNotes();
-            $resutl7 = $test_service->getDateOfService();
-            $resutl8 = $test_service->getId();
+            $result4 = $test_service->getDiscount();
+            $result5 = $test_service->getPayedFor();
+            $result6 = $test_service->getNotes();
+            $result7 = $test_service->getDateOfService();
+            $result8 = $test_service->getId();
 
 
             // Assert
