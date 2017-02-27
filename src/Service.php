@@ -160,10 +160,47 @@
             return $services;
         }
         // Update
-        function updateService($field, $value)
+        function update($field, $value)
         {
             if ($field == 'description'){
-
+                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
+                $this->setDescription($value);
+            }
+            elseif ($field == 'duration'){
+                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
+                $this->setDuration($value);
+            }
+            elseif ($field == 'price'){
+                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
+                $this->setPrice($value);
+            }
+            elseif ($field == 'discount'){
+                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
+                $this->setDiscount($value);
+            }
+            elseif ($field == 'payed_for'){
+                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
+                $this->setPayedFor($value);
+            }
+            elseif ($field == 'notes'){
+                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
+                $this->setNotes($value);
+            }
+            elseif ($field == 'date_of_service'){
+                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
+                $this->setDateOfService($value);
+            }
+            elseif ($field == 'recurrence')
+            {
+                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
+                $this->setRecurrence($value);
+            }
+            elseif ($field == 'attendance')
+            {
+                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
+            }
+            else {
+                echo "key not found";
             }
         }
         // Delete

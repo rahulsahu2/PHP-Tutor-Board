@@ -14,12 +14,12 @@
 
     class ServiceTest extends PHPUnit_Framework_TestCase
     {
-        protected function tearDown()
-        {
-            Service::deleteAll();
-            // Teacher::deleteAll();
-            // Student::deleteAll();
-        }
+        // protected function tearDown()
+        // {
+        //     Service::deleteAll();
+        //     // Teacher::deleteAll();
+        //     // Student::deleteAll();
+        // }
         // test 1
         function test_ServiceConstructor()
         {
@@ -121,11 +121,11 @@
             $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
             $test_service->save();
             $test_service->getId();
+            $test_service->update('description','Golf Lesson');
             // Act
-            Service::deleteAll();
             $result = Service::getAll();
             // Assert
-            $this->assertEquals(array(), $result);
+            $this->assertEquals($test_service, $result[0]);
 
         }
 
