@@ -159,12 +159,19 @@
             }
             return $services;
         }
+        // Update
+        function updateService($field, $value)
+        {
+            if ($field == 'description'){
 
+            }
+        }
         // Delete
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM service;");
         }
+
     }
 
 
