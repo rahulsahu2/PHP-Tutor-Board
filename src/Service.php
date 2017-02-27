@@ -120,6 +120,7 @@
         }
 
         // CRUD Methods
+        // Create
         function save()
         {
             $description = $this->getDescription();
@@ -137,11 +138,7 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        static function deleteAll()
-        {
-            $GLOBALS['DB']->exec("DELETE FROM service;");
-        }
-
+        // Retrieve
         static function getAll()
         {
             $returned_services = $GLOBALS['DB']->query("SELECT * FROM service;");
@@ -161,6 +158,12 @@
                 array_push($services, $new_service);
             }
             return $services;
+        }
+
+        // Delete
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM service;");
         }
     }
 
