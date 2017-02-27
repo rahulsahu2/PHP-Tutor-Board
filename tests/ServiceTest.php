@@ -14,12 +14,12 @@
 
     class ServiceTest extends PHPUnit_Framework_TestCase
     {
-        // protected function tearDown()
-        // {
-        //     Sevice::deleteAll();
-        //     // Teacher::deleteAll();
-        //     // Student::deleteAll();
-        // }
+        protected function tearDown()
+        {
+            Service::deleteAll();
+            // Teacher::deleteAll();
+            // Student::deleteAll();
+        }
         // test 1
         function test_ServiceConstructor()
         {
@@ -28,13 +28,12 @@
             $input_duration = 40;
             $input_price = (float) 40;
             $input_discount = (float) 95;
-            $input_payed_for = true;
+            $input_payed_for = 1;
             $input_notes = "Teacher was tardy.";
-            $input_date_of_service = "2/28/17";
+            $input_date_of_service = '2017-02-27 01:02:03';
             $input_recurrence = "Wednesdays|3:00pm";
             $input_attendance = "Attended";
-            $input_id = 1;
-            $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance, $input_id);
+            $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
 
             // Act
             $result1 = $test_service->getDescription();
@@ -63,26 +62,28 @@
 
         }
         // test 2
-        // function test_SaveGetAll()
-        // {
-        //     // Arrange
-        //     $input_description = "Music Lesson";
-        //     $input_duration = 40;
-        //     $input_price = (float) 40;
-        //     $input_discount = (float) 95;
-        //     $input_payed_for = true;
-        //     $input_notes = "Teacher was tardy.";
-        //     $input_date_of_service = "2/28/17";
-        //     $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_id);
-        //     $test_service->getId();
-        //     $test_service->save();
-        //     // Act
-        //     $result = Service::getAll();
-        //     // Assert
-        //     $this->assertEquals($test_service, $result[0]);
+        function test_SaveGetAll()
+        {
+            // Arrange
+            $input_description = "Music Lesson";
+            $input_duration = 40;
+            $input_price = 40;
+            $input_discount = 95;
+            $input_payed_for = 1;
+            $input_notes = "Teacher was tardy.";
+            $input_date_of_service = '2017-02-27 01:02:03';
+            $input_recurrence = "Wednesdays|3:00pm";
+            $input_attendance = "Attended";
+            $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
+            $test_service->save();
+            $test_service->getId();
+            // Act
+            $result = Service::getAll();
+            // Assert
+            $this->assertEquals($test_service, $result[0]);
 
 
-        // }
+        }
 
 
 

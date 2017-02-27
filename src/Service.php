@@ -116,21 +116,24 @@
         }
         function getId()
         {
-            return $this->id;
+            return (int) $this->id;
         }
 
         // CRUD Methods
         function save()
         {
-            $description = $this->description;
-            $duration = $this->duration;
-            $price = $this->price;
-            $discount = $this->discount;
-            $payed_for = (int) $this->payed_for;
-            $notes = $this->notes;
-            $date_of_service = $this->date_of_service;
-            $id = $this->id;
-            $GLOBALS['DB']->exec("INSERT INTO service (description, duration, price, discount, payed_for, notes, date_of_service, id) ('{$description}', {$duration}, {$price}, {$discount}, {$payed_for}, '{$notes}', '{$date_of_service}', {$id};");
+            $description = $this->getDescription();
+            $duration = $this->getDuration();
+            $price = $this->getPrice();
+            $discount = $this->getDiscount();
+            // $payed_for = (int) $this->payed_for;
+            $payed_for = 1;
+            $notes = $this->getNotes();
+            $date_of_service = $this->GetDateOfService();
+            $recurrence = $this->getRecurrence();
+            $attendance = $this->getAttendance();
+
+            $GLOBALS['DB']->exec("INSERT INTO service (description, duration, price, discount, payed_for, notes, date_of_service, recurrence, attendance) VALUES ('{$description}', {$duration}, {$price}, {$discount}, {$payed_for}, '{$notes}', '{$date_of_service}', '{$recurrence}', '{$attendance}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
@@ -148,11 +151,13 @@
                 $duration = $service['duration'];
                 $price = $service['price'];
                 $discount = $service['discount'];
-                $payed_for = $service['payed_for'];
+                $payed_for = (bool) $service['payed_for'];
                 $notes = $service['notes'];
                 $date_of_service = $service['date_of_service'];
-                $id = $service['id'];
-                $new_service = new Service($description, $duration, $price, $discount, $payed_for, $notes, $date_of_service, $id);
+                $recurrence = $service['recurrence'];
+                $attendance = $service['attendance'];
+                $id = (int) $service['id'];
+                $new_service = new Service($description, $duration, $price, $discount, $payed_for, $notes, $date_of_service, $recurrence, $attendance, $id);
                 array_push($services, $new_service);
             }
             return $services;

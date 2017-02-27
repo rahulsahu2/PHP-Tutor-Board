@@ -149,7 +149,7 @@
             $input_name = "Flavio";
             $input_instrument = "Ukulele";
             $input_teacher_id = 13;
-            $input_new_note = "Mussolini was a great leader. - Nona ";
+            $input_new_note = "Mangia que fa bene. - Nona ";
             $input_id = 1;
             $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
             $new_student->setNotes($input_new_note);
@@ -216,7 +216,7 @@
             $input_name = "Stevo";
             $input_instrument = "Ukulele";
             $input_teacher_id = 99;
-            $input_new_note = "Mussolini was a great leader. - Nona ";
+            $input_new_note = "Mangia que fa bene. - Nona  ";
             $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
             $new_student->setNotes($input_new_note);
             $new_student->save();
@@ -234,7 +234,7 @@
             $input_name = "Stevo";
             $input_instrument = "Ukulele";
             $input_teacher_id = 99;
-            $input_new_note = "Mussolini was a great leader. - Nona ";
+            $input_new_note = "Mangia que fa bene. - Nona  ";
             $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
             $new_student->setNotes($input_new_note);
             $new_student->save();
