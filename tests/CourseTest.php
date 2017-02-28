@@ -15,10 +15,10 @@
 
     class CourseTest extends PHPUnit_Framework_TestCase{
 
-        // protected function teardown()
-        // {
-        //     Course::deleteAll();
-        // }
+        protected function teardown()
+        {
+            Course::deleteAll();
+        }
 
         function test_construct()
         {
@@ -47,6 +47,39 @@
             $result = Course::getAll();
             // Assert
             $this->assertEquals($test_course, $result[0]);
+        }
+
+        function test_getAll()
+        {
+            // Arrange
+            $input_title = "Basket weaving";
+            $test_course = new Course($input_title);
+            $test_course->save();
+            $input_title2 = "Banana King";
+            $test_course2 = new Course($input_title2);
+            $test_course2->save();
+
+            // Act
+            $result = Course::getAll();
+            // Assert
+            $this->assertEquals([$test_course, $test_course2], $result);
+        }
+
+        function test_deleteAll()
+        {
+            // Arrange
+            $input_title = "Basket weaving";
+            $test_course = new Course($input_title);
+            $test_course->save();
+            $input_title2 = "Banana King";
+            $test_course2 = new Course($input_title2);
+            $test_course2->save();
+
+            // Act
+            Course::deleteAll();
+            $result = Course::getAll();
+            // Assert
+            $this->assertEquals([], $result);
         }
 
     }
