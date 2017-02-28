@@ -15,6 +15,11 @@
 
     class CourseTest extends PHPUnit_Framework_TestCase{
 
+        // protected function teardown()
+        // {
+        //     Course::deleteAll();
+        // }
+
         function test_construct()
         {
             // Arrange
@@ -30,6 +35,20 @@
             $this->assertEquals($input_id, $result2);
 
         }
+
+        function test_save()
+        {
+            // Arrange
+            $input_title = "Basket weaving";
+            $test_course = new Course($input_title);
+            $test_course->save();
+            // $id = $test_course->getId();
+            // Act
+            $result = Course::getAll();
+            // Assert
+            $this->assertEquals($test_course, $result[0]);
+        }
+
     }
 
 

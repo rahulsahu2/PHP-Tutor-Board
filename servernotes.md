@@ -22,6 +22,12 @@
 | notes        | text                | YES  |     | NULL    |                |
 | id           | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
 
+##course
+| Field | Type                | Null | Key | Default | Extra          |
+|-------|---------------------|------|-----|---------|----------------|
+| title | varchar(255)        | YES  |     | NULL    |                |
+| id    | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+
 ##service
 | Field          | Type                | Null | Key | Default | Extra          |
 |----------------|---------------------|------|-----|---------|----------------|
