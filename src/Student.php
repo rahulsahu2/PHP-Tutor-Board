@@ -13,7 +13,7 @@
             $this->instrument = $instrument;
             $this->teacher_id = $teacher_id;
             $this->notes;
-            $this->id = $id;
+            $this->id = (Int)$id;
         }
 
         function setName($new_student_name)
@@ -135,6 +135,7 @@
             $today = date('Y-m-d');
             $GLOBALS['DB']->exec("INSERT INTO student_course (course_id, student_id, date_of_enrollment) VALUES ({$course_id}, {$this->id}, '{$today}');");
         }
+
         function getCourses()
         {
             $returned_courses = $GLOBALS['DB']->query("SELECT course.* FROM
@@ -151,12 +152,15 @@
             }
             return $courses;
         }
+
         function getDateOfEnrollment($course_id)
         {
             $query = $GLOBALS['DB']->query("SELECT date_of_enrollment FROM student_course WHERE student_id = {$this->id} AND course_id = {$course_id};");
             $returned_date = $query->fetch(PDO::FETCH_ASSOC);
             return $returned_date['date_of_enrollment'];
         }
+
+
     }
 
 
