@@ -22,6 +22,15 @@
 | notes        | text                | YES  |     | NULL    |                |
 | id           | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
 
+##student_course
+
+| Field              | Type                | Null | Key | Default | Extra          |
+|--------------------|---------------------|------|-----|---------|----------------|
+| id                 | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+| student_id         | int(11)             | YES  |     | NULL    |                |
+| course_id          | int(11)             | YES  |     | NULL    |                |
+| date_of_enrollment | date                | YES  |     | NULL    |                |
+
 ##course
 | Field | Type                | Null | Key | Default | Extra          |
 |-------|---------------------|------|-----|---------|----------------|

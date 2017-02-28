@@ -129,6 +129,34 @@
             }
             return $found_students;
         }
+
+        function enrollInCourse($course_id)
+        {
+            $today = date('Y-m-d');
+            $GLOBALS['DB']->exec("INSERT INTO student_course (course_id, student_id, date_of_enrollment) VALUES ({$course_id}, {$this->id}, '{$today}');");
+        }
+        function getCourses()
+        {
+            $returned_courses = $GLOBALS['DB']->query("SELECT course.* FROM
+            student JOIN student_course ON (student.id = student_course.student_id)
+                    JOIN course ON (student_course.course_id = course.id)
+            WHERE student.id = {$this->getId()};");
+            $courses = array();
+            foreach ($returned_courses as $course )
+            {
+                $title = $course['title'];
+                $id = $course['id'];
+                $returned_course = new Course($title, $id);
+                array_push($courses, $returned_course);
+            }
+            return $courses;
+        }
+        function getDateOfEnrollment($course_id)
+        {
+            $query = $GLOBALS['DB']->query("SELECT date_of_enrollment FROM student_course WHERE student_id = {$this->id} AND course_id = {$course_id};");
+            $returned_date = $query->fetch(PDO::FETCH_ASSOC);
+            return $returned_date['date_of_enrollment'];
+        }
     }
 
 
