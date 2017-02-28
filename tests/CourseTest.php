@@ -181,29 +181,29 @@
             $this->assertEquals($new_student, $result[0]);
         }
 
-        // function test_getEnrollmentDate()
-        // {
-        //     // Arrange
-        //     $input_name = "Stevo";
-        //     $input_instrument = "Ukulele";
-        //     $input_teacher_id = 99;
-        //     $input_new_note = "Mangia que fa bene. - Nona  ";
-        //     $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
-        //     $new_student->setNotes($input_new_note);
-        //     $new_student->save();
-        //
-        //     $input_title = "Basket weaving";
-        //     $test_course = new Course($input_title);
-        //     $test_course->save();
-        //
-        //     $new_student->enrollInCourse($test_course->getId());
-        //
-        //     // Act
-        //     $result = $new_student->getDateOfEnrollment($test_course->getId());
-        //
-        //     // Assert
-        //     $this->assertEquals(date("Y-m-d"), $result);
-        // }
+        function test_getEnrollmentDate()
+        {
+            // Arrange
+            $input_name = "Stevo";
+            $input_instrument = "Ukulele";
+            $input_teacher_id = 99;
+            $input_new_note = "Mangia que fa bene. - Nona  ";
+            $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
+            $new_student->setNotes($input_new_note);
+            $new_student->save();
+
+            $input_title = "Basket weaving";
+            $test_course = new Course($input_title);
+            $test_course->save();
+
+            $new_student->enrollInCourse($test_course->getId());
+
+            // Act
+            $result = $new_student->getDateOfEnrollment($test_course->getId());
+
+            // Assert
+            $this->assertEquals(date("Y-m-d"), $result);
+        }
 
     }
 

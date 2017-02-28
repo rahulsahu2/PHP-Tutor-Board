@@ -4,6 +4,7 @@
     require_once __DIR__."/../vendor/autoload.php";
     require_once __DIR__."/../src/Student.php";
     require_once __DIR__."/../src/Teacher.php";
+    require_once __DIR__."/../src/Course.php";
 
     $app = new Silex\Application();
 
@@ -21,11 +22,9 @@
     Request::enableHttpMethodParameterOverride();
 
     $app->get("/", function() use ($app) {
-        if (empty(Teacher::getAll())) {
-        return $app['twig']->render('index.html.twig' );
-        } else {
+
           return $app['twig']->render('index.html.twig', array('teachers' => Teacher::getAll(), 'students' => Student::getAll()));
-        }
+
     });
 
     $app->get("/teachers", function() use ($app) {
@@ -97,8 +96,21 @@
         $assigned_teacher = Teacher::findTeacher($teacher_id);
         // var_dump($student);
         // var_dump($students_students);
-        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teacher' => $assigned_teacher, 'notes_array' => $notes_array ));
+        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teacher' => $assigned_teacher, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses() ));
     });
+
+    $app->post("/students/{id}", function($id) use ($app) {
+        $selected_student = Student::findStudent($id);
+        $selected_student->enrollInCourse($_POST['course_id']);
+        $teacher_id = $selected_student->getTeacherId();
+        $notes_array = explode("|", $selected_student->getNotes());
+        $assigned_teacher = Teacher::findTeacher($teacher_id);
+
+        // var_dump($student);
+        // var_dump($students_students);
+        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teacher' => $assigned_teacher, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses() ));
+    });
+
 
     $app->patch("/students/{id}", function($id) use ($app) {
         $selected_student = Student::findStudent($id);
@@ -110,7 +122,7 @@
         $assigned_teacher = Teacher::findTeacher($teacher_id);
         // var_dump($student);
         // var_dump($students_students);
-        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teacher' => $assigned_teacher, 'notes_array' => $notes_array ));
+        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teacher' => $assigned_teacher, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses()  ));
     });
 
     $app->delete("/students/student_termination/{id}", function($id) use ($app) {

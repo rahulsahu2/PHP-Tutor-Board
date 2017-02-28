@@ -38,7 +38,6 @@
         static function getAll()
         {
             $returned_courses = $GLOBALS['DB']->query( "SELECT * FROM course;");
-            var_dump($returned_courses);
             $courses = array();
             foreach( $returned_courses as $course)
             {

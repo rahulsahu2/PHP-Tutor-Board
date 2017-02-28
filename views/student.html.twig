@@ -41,17 +41,38 @@
               <input type="reset">
               <button type="submit" class="btn button-success" name="button">Submit</button>
             </form>
+            <form action="/students/student_termination/{{ student.getId }}" method="post">
+              <input name="_method" type="hidden" value="delete">
+                <button type="submit" name="button">Delete Student</button>
+            </form>
           </div>
           <!-- jumbotron -->
         </div>
         <!-- left column -->
         <div class="col-md-4">
-          <form action="/students/student_termination/{{ student.getId }}" method="post">
-            <input name="_method" type="hidden" value="delete">
-              <button type="submit" name="button">Delete Student</button>
-          </form>
+            <div class="jumbotron">
+                <p>Current Class</p>
+                {% if enrolled_courses is not empty %}
+                    <ol>
+                    {% for course in enrolled_courses %}
+                        <li>{{ course.getTitle }}: {{ student.getDateOfEnrollment(course.getId) }}</li>
+                    {% endfor %}
+                {% endif %}
+                    </ol>
+                <form action="/students/{{ student.getId }}" method="post">
+                    <label>Enroll in a Course</label>
+                    {% if courses is not empty %}
+                    <select class="form-control" name="course_id">
+                        {% for course in courses %}
+                            <option value="{{course.getId}}">{{course.getTitle}}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" name="button">submit</button>
+                    {% endif %}
+                </form>
+            </div>
         </div>
-        <!-- delete column -->
+        <!-- enroll column -->
       </div>
       <!-- row -->
 

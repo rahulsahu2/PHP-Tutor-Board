@@ -32,7 +32,7 @@
       <div class="row">
         <div class="col-md-3">
           <div class="jumbotron">
-            <h2>Teachers: </h2>
+            <h2>Teachers </h2>
             {% if teachers is not empty %}
             <h4 class="stats-numbers">{{ teachers|length }}</h4>
             <ul>
@@ -40,8 +40,6 @@
                 <li><a href="teachers/{{teacher.getId}}">{{teacher.getName}}</a></li>
               {% endfor %}
             </ul>
-            {% else %}
-            <h2>Teachers: (empty)</h2>
             {% endif %}
           </div>
           <!-- jumbotron -->
