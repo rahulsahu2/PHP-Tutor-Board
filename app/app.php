@@ -136,6 +136,39 @@
         return $app['twig']->render('account.html.twig', array('accounts' => Account::getAll()) );
     });
 
+    // Retrieve courses
+    $app->get("/courses", function() use ($app) {
+
+        return $app['twig']->render('courses.html.twig', array('courses'=>Course::getAll() ));
+    });
+
+    // Create new course and retrieve courses
+    $app->post("/courses", function() use ($app) {
+        $course_title = $_POST['course_title'];
+        $new_course = new Course($course_title);
+        $new_course->save();
+
+        return $app['twig']->render('courses.html.twig', array('courses'=>Course::getAll() ));
+
+    });
+
+    $app->get("/courses/{id}", function($id) use ($app){
+        $course = Course::find($id);
+
+        return $app['twig']->render('course.html.twig', array('course' => $course, 'enrolled_students'=>$course->getStudents(), 'students'=>Student::getAll()));
+    });
+
+    $app->post("/courses/{id}", function($id) use ($app){
+        $course = Course::find($id);
+        $student = Student::findStudent($_POST['student_id']);
+        $student->enrollInCourse($id);
+        $students = $course->getStudents();
+
+        return $app['twig']->render('course.html.twig', array('course' => $course, 'enrolled_students'=>$course->getStudents(), 'students'=>Student::getAll()));
+    });
+
+
+
     // NOTE root page from contacts project
     $app->get("/contacts", function() use($app) {
         // Contact::deleteAll();
