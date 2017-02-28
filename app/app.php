@@ -101,13 +101,25 @@
 
     $app->post("/students/{id}", function($id) use ($app) {
         $selected_student = Student::findStudent($id);
-        $selected_student->enrollInCourse($_POST['course_id']);
-        $teacher_id = $selected_student->getTeacherId();
+
+        $course_id = $_POST['course_id'];
+
+        //CHECK DUPLICATION
+        $check_duplication = false;
+        foreach($selected_student->getCourses() as $course){
+            if($course->getId() == $course_id){
+                $check_duplication = true;
+            }
+        }
+        if(!$check_duplication){
+            $selected_student->enrollInCourse($course_id);
+        }
+        //CHECK DUPLICATION END
+
+        $teacher_id = $selected_student->getTeacherId($course_id);
         $notes_array = explode("|", $selected_student->getNotes());
         $assigned_teacher = Teacher::findTeacher($teacher_id);
 
-        // var_dump($student);
-        // var_dump($students_students);
         return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teacher' => $assigned_teacher, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses() ));
     });
 
@@ -155,13 +167,25 @@
     $app->get("/courses/{id}", function($id) use ($app){
         $course = Course::find($id);
 
+
         return $app['twig']->render('course.html.twig', array('course' => $course, 'enrolled_students'=>$course->getStudents(), 'students'=>Student::getAll()));
     });
 
+    //ENROLL STUDENTS
     $app->post("/courses/{id}", function($id) use ($app){
         $course = Course::find($id);
-        $student = Student::findStudent($_POST['student_id']);
-        $student->enrollInCourse($id);
+        $selected_student = Student::findStudent($_POST['student_id']);
+
+        //CHECK DUPLICATION
+        $student_ids = array();
+        foreach($course->getStudents() as $student){
+            array_push($student_ids, $student->getId());
+        }
+        if(!in_array($selected_student->getId(), $student_ids)){
+            $selected_student->enrollInCourse($id);
+        }
+        //CHECK DUPLICATION END
+
         $students = $course->getStudents();
 
         return $app['twig']->render('course.html.twig', array('course' => $course, 'enrolled_students'=>$course->getStudents(), 'students'=>Student::getAll()));
