@@ -119,6 +119,24 @@
             $this->assertEquals($test_course2, $result);
         }
 
+        function test_deleteCourse()
+        {
+            // Arrange
+            $input_title = "Basket weaving";
+            $test_course = new Course($input_title);
+            $test_course->save();
+            $input_title2 = "Banana King";
+            $test_course2 = new Course($input_title2);
+            $test_course2->save();
+            $test_course->deleteCourse();
+
+            // Act
+            $result = Course::getAll();
+
+            // Assert
+            $this->assertEquals($test_course2, $result[0]);
+        }
+
 
     }
 
