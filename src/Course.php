@@ -55,6 +55,26 @@
             $GLOBALS['DB']->exec("DELETE FROM course");
         }
 
+        function update($new_title)
+        {
+            $GLOBALS['DB']->exec("UPDATE course SET title = '{$new_title}';");
+
+            $this->setTitle($new_title);
+
+        }
+
+        static function find($search_id)
+        {
+            $query = $GLOBALS['DB']->query("SELECT * FROM course WHERE id = {$search_id};");
+            $courses = array();
+            $returned_courses = $query->fetchAll(PDO::FETCH_ASSOC);
+            foreach($returned_courses as $course){
+                $id = $course['id'];
+                $title = $course['title'];
+                $found_course = new Course($title, $id);
+            }
+            return $found_course;
+        }
 
 
     }

@@ -26,6 +26,7 @@
             $input_title = "Basket weaving";
             $input_id = 1;
             $test_course = new Course($input_title, $input_id);
+
             // Act
             $result1 = $test_course->getTitle();
             $result2 = $test_course->getId();
@@ -61,6 +62,7 @@
 
             // Act
             $result = Course::getAll();
+
             // Assert
             $this->assertEquals([$test_course, $test_course2], $result);
         }
@@ -78,9 +80,45 @@
             // Act
             Course::deleteAll();
             $result = Course::getAll();
+
             // Assert
             $this->assertEquals([], $result);
         }
+
+        function test_update()
+        {
+            // Arrange
+            $input_title = "Basket weaving";
+            $test_course = new Course($input_title);
+            $test_course->save();
+            $new_title = "Squirl Suit Jumping";
+            $test_course->update($new_title);
+
+            // Act
+            $result = Course::getAll();
+
+            // Assert
+            $this->assertEquals($new_title, $result[0]->getTitle());
+        }
+
+        function test_find()
+        {
+            // Arrange
+            $input_title = "Basket weaving";
+            $test_course = new Course($input_title);
+            $test_course->save();
+            $input_title2 = "Banana King";
+            $test_course2 = new Course($input_title2);
+            $test_course2->save();
+            $id = $test_course2->getId();
+
+            // Act
+            $result = Course::find($id);
+
+            // Assert
+            $this->assertEquals($test_course2, $result);
+        }
+
 
     }
 
