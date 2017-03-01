@@ -65,7 +65,6 @@ CREATE TABLE service (description VARCHAR(255), duration INT, price DECIMAL(10,2
 CREATE TABLE course (title VARCHAR(255), id serial PRIMARY KEY);
 
 ##lesson
-|-------------|---------------------|------|-----|---------|----------------|
 | Field       | Type                | Null | Key | Default | Extra          |
 |-------------|---------------------|------|-----|---------|----------------|
 | title       | varchar(255)        | YES  |     | NULL    |                |
