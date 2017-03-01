@@ -37,7 +37,9 @@
 | recurrence      | varchar(255)        | YES  |     | NULL    |                |
 | attendance      | varchar(255)        | YES  |     | NULL    |                |
 | id              | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+#### SPELLING ERROR: payed_for --> paid_for
 CREATE TABLE service (description VARCHAR(255), duration INT, price DECIMAL(10,2), discount DECIMAL(10,2), payed_for TINYINT(1), notes TEXT, date_of_service DATETIME, recurrence VARCHAR(255), attendance VARCHAR(255), id serial PRIMARY KEY);
+
 
 
 ##accounts
@@ -62,7 +64,7 @@ CREATE TABLE service (description VARCHAR(255), duration INT, price DECIMAL(10,2
 | id    | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
 CREATE TABLE course (title VARCHAR(255), id serial PRIMARY KEY);
 
-##lesson;
+##lesson
 |-------------|---------------------|------|-----|---------|----------------|
 | Field       | Type                | Null | Key | Default | Extra          |
 |-------------|---------------------|------|-----|---------|----------------|
@@ -72,7 +74,7 @@ CREATE TABLE course (title VARCHAR(255), id serial PRIMARY KEY);
 | id          | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
 CREATE TABLE lesson (title VARCHAR(255), description VARCHAR(255), content TEXT, id serial PRIMARY KEY);
 
-##image;
+##image
 
 | Field   | Type             | Null | Key | Default | Extra          |
 |---------|---------------------|------|-----|---------|----------------|
@@ -80,8 +82,6 @@ CREATE TABLE lesson (title VARCHAR(255), description VARCHAR(255), content TEXT,
 | caption | varchar(45)      | NO   |     | NULL    |                |
 | img     | longblob         | NO   |     | NULL    |                |
 CREATE TABLE image (idpic INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, caption VARCHAR(45) NOT NULL, img LONGBLOB NOT NULL, PRIMARY KEY(idpic));
-
-<!-- JOIN TABLES -->
 
 ##student_course
 
