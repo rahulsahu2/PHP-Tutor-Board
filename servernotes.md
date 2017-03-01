@@ -4,17 +4,16 @@
 ###Table Descriptions:
 
 ##teacher
-_REFACTOR WITH JOIN TABLE FOR DEPARTMENT INSTEAD OF INSTRUMENT_
 | Field        | Type                | Null | Key | Default | Extra          |
 |--------------|---------------------|------|-----|---------|----------------|
 | teacher_name | varchar(255)        | NO   |     | NULL    |                |
 | instrument   | varchar(100)        | NO   |     | NULL    |                |
 | notes        | text                | YES  |     | NULL    |                |
 | id           | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+####REFACTOR WITH JOIN TABLE FOR DEPARTMENT INSTEAD OF INSTRUMENT
 
 
 ##student
-_REFACTOR WITH JOIN TABLE INSTEAD OF TEACHER_ID_
 | Field        | Type                | Null | Key | Default | Extra          |
 |--------------|---------------------|------|-----|---------|----------------|
 | student_name | varchar(255)        | NO   |     | NULL    |                |
@@ -22,6 +21,7 @@ _REFACTOR WITH JOIN TABLE INSTEAD OF TEACHER_ID_
 | teacher_id   | int(11)             | NO   |     | NULL    |                |
 | notes        | text                | YES  |     | NULL    |                |
 | id           | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
+####REFACTOR WITH JOIN TABLE INSTEAD OF TEACHER_ID
 
 
 ##service
@@ -75,7 +75,7 @@ CREATE TABLE lesson (title VARCHAR(255), description VARCHAR(255), content TEXT,
 ##image;
 
 | Field   | Type             | Null | Key | Default | Extra          |
-+---------+------------------+------+-----+---------+----------------+
+|---------|---------------------|------|-----|---------|----------------|
 | idpic   | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
 | caption | varchar(45)      | NO   |     | NULL    |                |
 | img     | longblob         | NO   |     | NULL    |                |
