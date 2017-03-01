@@ -40,7 +40,7 @@
             $result2 = $test_service->getDuration();
             $result3 = $test_service->getPrice();
             $result4 = $test_service->getDiscount();
-            $result5 = $test_service->getPayedFor();
+            $result5 = $test_service->getPaidFor();
             $result6 = $test_service->getNotes();
             $result7 = $test_service->getDateOfService();
             $result8 = $test_service->getRecurrence();
@@ -129,6 +129,195 @@
             // Assert
             $this->assertEquals($test_service, $result[0]);
         }
+        function test_updateDuration()
+        {
+            // Arrange
+            $input_description = "Music Lesson";
+            $input_duration = 40;
+            $input_price = 40;
+            $input_discount = 95;
+            $input_payed_for = 1;
+            $input_notes = "Teacher was tardy.";
+            $input_date_of_service = '2017-02-27 01:02:03';
+            $input_recurrence = "Wednesdays|3:00pm";
+            $input_attendance = "Attended";
+            $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
+            $test_service->save();
+            $test_service->getId();
+            $test_service->updateDuration(90);
+            // Act
+            $result = Service::getAll();
+            // Assert
+            $this->assertEquals($test_service, $result[0]);
+        }
+        function test_updatePrice()
+        {
+            // Arrange
+            $input_description = "Music Lesson";
+            $input_duration = 40;
+            $input_price = 40;
+            $input_discount = 95;
+            $input_payed_for = 1;
+            $input_notes = "Teacher was tardy.";
+            $input_date_of_service = '2017-02-27 01:02:03';
+            $input_recurrence = "Wednesdays|3:00pm";
+            $input_attendance = "Attended";
+            $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
+            $test_service->save();
+            $test_service->getId();
+            $test_service->updatePrice(50);
+            // Act
+            $result = Service::getAll();
+            // Assert
+            $this->assertEquals($test_service, $result[0]);
+        }
+        function test_updateDiscount()
+        {
+            // Arrange
+            $input_description = "Music Lesson";
+            $input_duration = 40;
+            $input_price = 40;
+            $input_discount = 95;
+            $input_payed_for = 1;
+            $input_notes = "Teacher was tardy.";
+            $input_date_of_service = '2017-02-27 01:02:03';
+            $input_recurrence = "Wednesdays|3:00pm";
+            $input_attendance = "Attended";
+            $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
+            $test_service->save();
+            $test_service->getId();
+            $test_service->updateDiscount(92);
+            // Act
+            $result = Service::getAll();
+            // Assert
+            $this->assertEquals($test_service, $result[0]);
+        }
+        function test_updatePaidFor()
+        {
+            // Arrange
+            $input_description = "Music Lesson";
+            $input_duration = 40;
+            $input_price = 40;
+            $input_discount = 95;
+            $input_payed_for = 1;
+            $input_notes = "Teacher was tardy.";
+            $input_date_of_service = '2017-02-27 01:02:03';
+            $input_recurrence = "Wednesdays|3:00pm";
+            $input_attendance = "Attended";
+            $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
+            $test_service->save();
+            $test_service->getId();
+            $test_service->updatePaidFor(0);
+            // Act
+            $result = Service::getAll();
+            // Assert
+            $this->assertEquals($test_service, $result[0]);
+        }
+        // function test_updateDescription()
+        // {
+        //     // Arrange
+        //     $input_description = "Music Lesson";
+        //     $input_duration = 40;
+        //     $input_price = 40;
+        //     $input_discount = 95;
+        //     $input_payed_for = 1;
+        //     $input_notes = "Teacher was tardy.";
+        //     $input_date_of_service = '2017-02-27 01:02:03';
+        //     $input_recurrence = "Wednesdays|3:00pm";
+        //     $input_attendance = "Attended";
+        //     $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
+        //     $test_service->save();
+        //     $test_service->getId();
+        //     $test_service->updateDescription("Golf Lesson");
+        //     // Act
+        //     $result = Service::getAll();
+        //     // Assert
+        //     $this->assertEquals($test_service, $result[0]);
+        // }
+        // function test_updateDescription()
+        // {
+        //     // Arrange
+        //     $input_description = "Music Lesson";
+        //     $input_duration = 40;
+        //     $input_price = 40;
+        //     $input_discount = 95;
+        //     $input_payed_for = 1;
+        //     $input_notes = "Teacher was tardy.";
+        //     $input_date_of_service = '2017-02-27 01:02:03';
+        //     $input_recurrence = "Wednesdays|3:00pm";
+        //     $input_attendance = "Attended";
+        //     $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
+        //     $test_service->save();
+        //     $test_service->getId();
+        //     $test_service->updateDescription("Golf Lesson");
+        //     // Act
+        //     $result = Service::getAll();
+        //     // Assert
+        //     $this->assertEquals($test_service, $result[0]);
+        // }
+        // function test_updateDescription()
+        // {
+        //     // Arrange
+        //     $input_description = "Music Lesson";
+        //     $input_duration = 40;
+        //     $input_price = 40;
+        //     $input_discount = 95;
+        //     $input_payed_for = 1;
+        //     $input_notes = "Teacher was tardy.";
+        //     $input_date_of_service = '2017-02-27 01:02:03';
+        //     $input_recurrence = "Wednesdays|3:00pm";
+        //     $input_attendance = "Attended";
+        //     $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
+        //     $test_service->save();
+        //     $test_service->getId();
+        //     $test_service->updateDescription("Golf Lesson");
+        //     // Act
+        //     $result = Service::getAll();
+        //     // Assert
+        //     $this->assertEquals($test_service, $result[0]);
+        // }
+        // function test_updateDescription()
+        // {
+        //     // Arrange
+        //     $input_description = "Music Lesson";
+        //     $input_duration = 40;
+        //     $input_price = 40;
+        //     $input_discount = 95;
+        //     $input_payed_for = 1;
+        //     $input_notes = "Teacher was tardy.";
+        //     $input_date_of_service = '2017-02-27 01:02:03';
+        //     $input_recurrence = "Wednesdays|3:00pm";
+        //     $input_attendance = "Attended";
+        //     $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
+        //     $test_service->save();
+        //     $test_service->getId();
+        //     $test_service->updateDescription("Golf Lesson");
+        //     // Act
+        //     $result = Service::getAll();
+        //     // Assert
+        //     $this->assertEquals($test_service, $result[0]);
+        // }
+        // function test_updateDescription()
+        // {
+        //     // Arrange
+        //     $input_description = "Music Lesson";
+        //     $input_duration = 40;
+        //     $input_price = 40;
+        //     $input_discount = 95;
+        //     $input_payed_for = 1;
+        //     $input_notes = "Teacher was tardy.";
+        //     $input_date_of_service = '2017-02-27 01:02:03';
+        //     $input_recurrence = "Wednesdays|3:00pm";
+        //     $input_attendance = "Attended";
+        //     $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
+        //     $test_service->save();
+        //     $test_service->getId();
+        //     $test_service->updateDescription("Golf Lesson");
+        //     // Act
+        //     $result = Service::getAll();
+        //     // Assert
+        //     $this->assertEquals($test_service, $result[0]);
+        // }
 
     }
 

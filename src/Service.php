@@ -6,7 +6,7 @@
 // | duration        | int(11)             | YES  |     | NULL    |                |
 // | price           | decimal(10,2)       | YES  |     | NULL    |                |
 // | discount        | decimal(10,2)       | YES  |     | NULL    |                |
-// | payed_for       | tinyint(1)          | YES  |     | NULL    |                |
+// | paid_for        | tinyint(1)          | YES  |     | NULL    |                |
 // | notes           | text                | YES  |     | NULL    |                |
 // | date_of_service | datetime            | YES  |     | NULL    |                |
 // | recurrence      | varchar(255)        | YES  |     | NULL    |                |
@@ -20,20 +20,20 @@
         private $duration;
         private $price;
         private $discount;
-        private $payed_for;
+        private $paid_for;
         private $notes;
         private $date_of_service;
         private $recurrence;
         private $attendance;
         private $id;
 
-        function __construct($description, $duration, $price, $discount, $payed_for, $notes, $date_of_service, $recurrence, $attendance,$id = null)
+        function __construct($description, $duration, $price, $discount, $paid_for, $notes, $date_of_service, $recurrence, $attendance,$id = null)
         {
             $this->description = $description;
             $this->duration = (int) $duration; //in minutes
             $this->price = number_format((float) $price, 2); // stored as decimal(10,2)
             $this->discount = number_format((float) $discount, 2); // stored as decimal(10,2) portion of whole price remaining f.e. 90 => 90% discounted price.
-            $this->payed_for = (bool) $payed_for; // convert to TINIINT 1s and 0s for server!!!
+            $this->paid_for = (bool) $paid_for; // convert to TINIINT 1s and 0s for server!!!
             $this->notes = (string) $notes;
             $this->date_of_service = (string) $date_of_service;
             $this->recurrence = (string) $recurrence; // "Wednesdays|3:00pm"
@@ -74,13 +74,13 @@
         {
             return $this->discount;
         }
-        function setPayedFor($new_payed_for)
+        function setPaidFor($new_paid_for)
         {
-            $this->payed_for = (bool) $new_payed_for;
+            $this->paid_for = (bool) $new_paid_for;
         }
-        function getPayedFor()
+        function getPaidFor()
         {
-            return $this->payed_for;
+            return $this->paid_for;
         }
         function setNotes($new_note)
         {
@@ -127,14 +127,14 @@
             $duration = $this->getDuration();
             $price = $this->getPrice();
             $discount = $this->getDiscount();
-            // $payed_for = (int) $this->payed_for;
-            $payed_for = 1;
+            // $paid_for = (int) $this->paid_for;
+            $paid_for = 1;
             $notes = $this->getNotes();
             $date_of_service = $this->GetDateOfService();
             $recurrence = $this->getRecurrence();
             $attendance = $this->getAttendance();
 
-            $GLOBALS['DB']->exec("INSERT INTO service (description, duration, price, discount, payed_for, notes, date_of_service, recurrence, attendance) VALUES ('{$description}', {$duration}, {$price}, {$discount}, {$payed_for}, '{$notes}', '{$date_of_service}', '{$recurrence}', '{$attendance}');");
+            $GLOBALS['DB']->exec("INSERT INTO service (description, duration, price, discount, paid_for, notes, date_of_service, recurrence, attendance) VALUES ('{$description}', {$duration}, {$price}, {$discount}, {$paid_for}, '{$notes}', '{$date_of_service}', '{$recurrence}', '{$attendance}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
@@ -148,13 +148,13 @@
                 $duration = $service['duration'];
                 $price = $service['price'];
                 $discount = $service['discount'];
-                $payed_for = (bool) $service['payed_for'];
+                $paid_for = (bool) $service['paid_for'];
                 $notes = $service['notes'];
                 $date_of_service = $service['date_of_service'];
                 $recurrence = $service['recurrence'];
                 $attendance = $service['attendance'];
                 $id = (int) $service['id'];
-                $new_service = new Service($description, $duration, $price, $discount, $payed_for, $notes, $date_of_service, $recurrence, $attendance, $id);
+                $new_service = new Service($description, $duration, $price, $discount, $paid_for, $notes, $date_of_service, $recurrence, $attendance, $id);
                 array_push($services, $new_service);
             }
             return $services;
@@ -183,7 +183,7 @@
         }
         function updatePaidFor($update)
         {
-            $GLOBALS['DB']->exec("UPDATE service SET payed_for = {$update} WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE service SET paid_for = {$update} WHERE id = {$this->getId()};");
             $this->setPaidFor($update);
         }
         function updateNotes($update)
@@ -226,9 +226,9 @@
         //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
         //         $this->setDiscount($value);
         //     }
-        //     elseif ($field == 'payed_for'){
+        //     elseif ($field == 'paid_for'){
         //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
-        //         $this->setPayedFor($value);
+        //         $this->setPaidFor($value);
         //     }
         //     elseif ($field == 'notes'){
         //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
