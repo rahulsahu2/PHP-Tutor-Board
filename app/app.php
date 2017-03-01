@@ -104,18 +104,7 @@
 
         $course_id = $_POST['course_id'];
 
-        //CHECK DUPLICATION
-        $check_duplication = false;
-        foreach($selected_student->getCourses() as $course){
-            if($course->getId() == $course_id){
-                $check_duplication = true;
-            }
-        }
-        if(!$check_duplication){
-            $selected_student->enrollInCourse($course_id);
-        }
-        //CHECK DUPLICATION END
-
+        $selected_student->enrollInCourse($course_id);
         $teacher_id = $selected_student->getTeacherId($course_id);
         $notes_array = explode("|", $selected_student->getNotes());
         $assigned_teacher = Teacher::findTeacher($teacher_id);
@@ -176,16 +165,7 @@
         $course = Course::find($id);
         $selected_student = Student::findStudent($_POST['student_id']);
 
-        //CHECK DUPLICATION
-        $student_ids = array();
-        foreach($course->getStudents() as $student){
-            array_push($student_ids, $student->getId());
-        }
-        if(!in_array($selected_student->getId(), $student_ids)){
-            $selected_student->enrollInCourse($id);
-        }
-        //CHECK DUPLICATION END
-
+        $selected_student->enrollInCourse($id);
         $students = $course->getStudents();
 
         return $app['twig']->render('course.html.twig', array('course' => $course, 'enrolled_students'=>$course->getStudents(), 'students'=>Student::getAll()));

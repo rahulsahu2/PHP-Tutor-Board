@@ -19,6 +19,7 @@
         {
             Course::deleteAll();
             Student::deleteAll();
+            Student::deleteJoin();
         }
 
         function test_construct()

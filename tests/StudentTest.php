@@ -20,8 +20,9 @@
         {
             Student::deleteAll();
             Teacher::deleteAll();
+            Student::deleteJoin();
         }
-        //1
+
         function test_getName()
         {
             // Arrange
@@ -294,6 +295,37 @@
 
             // Assert
             $this->assertEquals(date("Y-m-d"), $result);
+        }
+
+        function test_enrollInCourse()
+        {
+            // Arrange
+            $input_name = "Mike";
+            $input_instrument = "Banjo";
+            $input_teacher_id = 99;
+            $input_new_note = "Mangia que fa bene. - Nona  ";
+            $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
+            $new_student->setNotes($input_new_note);
+            $new_student->save();
+
+            $input_title = "Science Fiction Novel";
+            $test_course = new Course($input_title);
+            $test_course->save();
+            var_dump($test_course);
+            $test_course_id = $test_course->getId();
+
+            var_dump($new_student);
+            $new_student->enrollInCourse($test_course->getId());
+            // $new_student->enrollInCourse($test_course->getId());
+
+
+            // Act
+            $result = $test_course->getStudents();
+
+            // Assert
+            // $this->assertEquals($test_course_id, 33);
+            $this->assertEquals(1, count($result));
+
         }
     }
  ?>

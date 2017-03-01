@@ -71,6 +71,12 @@
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM student;");
+
+        }
+
+        static function deleteJoin()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM student_course;");
         }
 
         static function getAll()
@@ -130,10 +136,29 @@
             return $found_students;
         }
 
+
+
         function enrollInCourse($course_id)
         {
             $today = date('Y-m-d');
-            $GLOBALS['DB']->exec("INSERT INTO student_course (course_id, student_id, date_of_enrollment) VALUES ({$course_id}, {$this->id}, '{$today}');");
+            $check_duplication = false;
+
+            $query = $GLOBALS['DB']->query("SELECT * FROM student_course WHERE course_id = {$course_id} AND student_id = {$this->id};");
+            $retrieved = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
+            foreach($retrieved as $registration){
+                $student_id = $registration['student_id'];
+                $courseid = $registration['course_id'];
+
+                if($student_id == $this->id && $courseid  == $course_id){
+                    $check_duplication = true;
+                }
+            }
+
+            if($check_duplication == false ){
+                $GLOBALS['DB']->exec("INSERT INTO student_course (course_id, student_id, date_of_enrollment) VALUES ({$course_id}, {$this->id}, '{$today}');");
+            };
         }
 
         function getCourses()
