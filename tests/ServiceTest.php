@@ -107,8 +107,8 @@
 
         }
 
-        //NOTE test is failing !!!
-        function test_updateService()
+
+        function test_updateDescription()
         {
             // Arrange
             $input_description = "Music Lesson";
@@ -123,15 +123,13 @@
             $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
             $test_service->save();
             $test_service->getId();
-            $test_service->update('description','Golf Lesson');
+            $test_service->updateDescription("Golf Lesson");
             // Act
             $result = Service::getAll();
             // Assert
             $this->assertEquals($test_service, $result[0]);
-
         }
 
-
-
     }
+
  ?>

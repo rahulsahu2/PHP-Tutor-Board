@@ -65,18 +65,18 @@ CREATE TABLE service (description VARCHAR(255), duration INT, price DECIMAL(10,2
 CREATE TABLE course (title VARCHAR(255), id serial PRIMARY KEY);
 
 ##lesson
+###content set to varchar(30000) but will not work with certain characters I tryed TEXT but had issues...NOT SURE ABOUT BEST WAY FORWARD?
 | Field       | Type                | Null | Key | Default | Extra          |
 |-------------|---------------------|------|-----|---------|----------------|
 | title       | varchar(255)        | YES  |     | NULL    |                |
 | description | varchar(255)        | YES  |     | NULL    |                |
-| content     | text                | YES  |     | NULL    |                |
+| content     | varchar(30000)      | YES  |     | NULL    |                |
 | id          | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
-CREATE TABLE lesson (title VARCHAR(255), description VARCHAR(255), content TEXT, id serial PRIMARY KEY);
+CREATE TABLE lesson (title VARCHAR(255), description VARCHAR(255), content VARCHAR(30000), id serial PRIMARY KEY);
 
 ##image
-
 | Field   | Type             | Null | Key | Default | Extra          |
-|---------|---------------------|------|-----|---------|----------------|
+|---------|------------------|------|-----|---------|----------------|
 | idpic   | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
 | caption | varchar(45)      | NO   |     | NULL    |                |
 | img     | longblob         | NO   |     | NULL    |                |

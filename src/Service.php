@@ -159,50 +159,98 @@
             }
             return $services;
         }
-        // Update
-        function update($field, $value)
+
+        // Update functions
+        function updateDescription($update)
         {
-            if ($field == 'description'){
-                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
-                $this->setDescription($value);
-            }
-            elseif ($field == 'duration'){
-                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
-                $this->setDuration($value);
-            }
-            elseif ($field == 'price'){
-                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
-                $this->setPrice($value);
-            }
-            elseif ($field == 'discount'){
-                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
-                $this->setDiscount($value);
-            }
-            elseif ($field == 'payed_for'){
-                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
-                $this->setPayedFor($value);
-            }
-            elseif ($field == 'notes'){
-                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
-                $this->setNotes($value);
-            }
-            elseif ($field == 'date_of_service'){
-                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
-                $this->setDateOfService($value);
-            }
-            elseif ($field == 'recurrence')
-            {
-                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
-                $this->setRecurrence($value);
-            }
-            elseif ($field == 'attendance')
-            {
-                $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
-            }
-            else {
-                echo "key not found";
-            }
+            $GLOBALS['DB']->exec("UPDATE service SET description = '{$update}' WHERE id = {$this->getId()};");
+            $this->setDescription($update);
         }
+        function updateDuration($update)
+        {
+            $GLOBALS['DB']->exec("UPDATE service SET duration = {$update} WHERE id = {$this->getId()};");
+            $this->setDuration($update);
+        }
+        function updatePrice($update)
+        {
+            $GLOBALS['DB']->exec("UPDATE service SET price = {$update} WHERE id = {$this->getId()};");
+            $this->setPrice($update);
+        }
+        function updateDiscount($update)
+        {
+            $GLOBALS['DB']->exec("UPDATE service SET discount = {$update} WHERE id = {$this->getId()};");
+            $this->setDiscount($update);
+        }
+        function updatePaidFor($update)
+        {
+            $GLOBALS['DB']->exec("UPDATE service SET payed_for = {$update} WHERE id = {$this->getId()};");
+            $this->setPaidFor($update);
+        }
+        function updateNotes($update)
+        {
+            $GLOBALS['DB']->exec("UPDATE service SET notes = '{$update}' WHERE id = {$this->getId()};");
+            $this->setNotes($update);
+        }
+        function updateDateOfService($update)
+        {
+            $GLOBALS['DB']->exec("UPDATE service SET date_of_service = '{$update}' WHERE id = {$this->getId()};");
+            $this->setDateOfService($update);
+        }
+        function updateRecurrence($update)
+        {
+            $GLOBALS['DB']->exec("UPDATE service SET recurrence = '{$update}' WHERE id = {$this->getId()};");
+            $this->setRecurrence($update);
+        }
+        function updateAttendance($update)
+        {
+            $GLOBALS['DB']->exec("UPDATE service SET attendance = '{$update}' WHERE id = {$this->getId()};");
+            $this->setAttendance($update);
+        }
+
+        // Multi update ... NOTE could not get to work.
+        // function update($field, $value)
+        // {
+        //     if ($field == 'description'){
+        //         $GLOBALS['DB']->exec("UPDATE service SET {$field} = {$value} WHERE id = {$this->getId()};");
+        //         $this->setDescription($value);
+        //     }
+        //     elseif ($field == 'duration'){
+        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
+        //         $this->setDuration($value);
+        //     }
+        //     elseif ($field == 'price'){
+        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
+        //         $this->setPrice($value);
+        //     }
+        //     elseif ($field == 'discount'){
+        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
+        //         $this->setDiscount($value);
+        //     }
+        //     elseif ($field == 'payed_for'){
+        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
+        //         $this->setPayedFor($value);
+        //     }
+        //     elseif ($field == 'notes'){
+        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
+        //         $this->setNotes($value);
+        //     }
+        //     elseif ($field == 'date_of_service'){
+        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
+        //         $this->setDateOfService($value);
+        //     }
+        //     elseif ($field == 'recurrence')
+        //     {
+        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
+        //         $this->setRecurrence($value);
+        //     }
+        //     elseif ($field == 'attendance')
+        //     {
+        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
+        //     }
+        //     else {
+        //         echo "key not found";
+        //     }
+        // }
         // Delete
         static function deleteAll()
         {
