@@ -82,6 +82,8 @@ CREATE TABLE lesson (title VARCHAR(255), description VARCHAR(255), content TEXT,
 | img     | longblob         | NO   |     | NULL    |                |
 CREATE TABLE image (idpic INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, caption VARCHAR(45) NOT NULL, img LONGBLOB NOT NULL, PRIMARY KEY(idpic));
 
+#Join Tables:
+
 ##student_course
 
 | Field              | Type                | Null | Key | Default | Extra          |

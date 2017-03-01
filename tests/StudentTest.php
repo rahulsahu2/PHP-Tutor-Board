@@ -101,7 +101,6 @@
 
             // Act
             $result = Student::getAll();
-            var_dump(array($result));
 
             // Assert
             $this->assertEquals($new_student, $result[0]);
@@ -139,7 +138,6 @@
 
             // Act
             $result = Student::getAll();
-            // var_dump(array($new_student_test, $new_student2_test));
 
             // Assert
             $this->assertEquals(array($new_student_test, $new_student2_test), $result);
@@ -159,7 +157,6 @@
 
             // Act
             $result = Student::getAll();
-            var_dump(array($result));
 
             // Assert
             $this->assertEquals($new_student, $result[0]);
@@ -311,10 +308,8 @@
             $input_title = "Science Fiction Novel";
             $test_course = new Course($input_title);
             $test_course->save();
-            var_dump($test_course);
             $test_course_id = $test_course->getId();
 
-            var_dump($new_student);
             $new_student->enrollInCourse($test_course->getId());
             // $new_student->enrollInCourse($test_course->getId());
 
