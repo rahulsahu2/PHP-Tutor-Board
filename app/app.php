@@ -5,6 +5,7 @@
     require_once __DIR__."/../src/Student.php";
     require_once __DIR__."/../src/Teacher.php";
     require_once __DIR__."/../src/Course.php";
+    require_once __DIR__."/../src/Lesson.php";
 
     $app = new Silex\Application();
 
@@ -156,7 +157,6 @@
     $app->get("/courses/{id}", function($id) use ($app){
         $course = Course::find($id);
 
-
         return $app['twig']->render('course.html.twig', array('course' => $course, 'enrolled_students'=>$course->getStudents(), 'students'=>Student::getAll()));
     });
 
@@ -171,12 +171,27 @@
         return $app['twig']->render('course.html.twig', array('course' => $course, 'enrolled_students'=>$course->getStudents(), 'students'=>Student::getAll()));
     });
 
+    //view lessons
+    $app->get("/lessons", function() use ($app) {
+
+        return $app['twig']->render('lessons.html.twig', array('lessons' => Lesson::getAll()) );
+
+    });
+
+    //create lesson
+    $app->post("/lessons/{id}", function($id) use($app) {
+        
+
+
+        return $app['twig']->render('lesson.html.twig', array('lesson' =>))
+    })
 
 
     // NOTE root page from contacts project
-    $app->get("/contacts", function() use($app) {
-        // Contact::deleteAll();
-        return $app['twig']->render('address_book_home.html.twig', array( 'list_of_contacts'=>Contact::getAll() ));
-    });
+    // $app->get("/contacts", function() use($app) {
+    //     // Contact::deleteAll();
+    //     return $app['twig']->render('address_book_home.html.twig', array( 'list_of_contacts'=>Contact::getAll() ));
+    // });
+
     return $app;
  ?>
