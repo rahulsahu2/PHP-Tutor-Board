@@ -39,9 +39,7 @@
             //
             for($x=0; $x<=($limit - 1); $x++)
             {
-
-                $z = $x;
-                for ($y= $z + 1 ; $y <= ($limit - 1); $y++)
+                for ($y= $x + 1 ; $y <= ($limit - 1); $y++)
                 {
                     $combo = $your_classes[$x] . "|" . $your_classes[$y];
                     array_push($pairs, $combo);
@@ -53,7 +51,7 @@
                 $friends = explode("|", $pair);
                 $first_class = $friends[0];
                 $second_class = $friends[1];
-                $command = 'CREATE ' . $first_class . '_' . $second_class . ' ' . '(id serial PRIMARY KEY, ' . $first_class . '_id INT, ' . $second_class . '_id INT, date_of_join DATE);';
+                $command = 'CREATE TABLE ' . $first_class . '_' . $second_class . ' ' . '(id serial PRIMARY KEY, ' . $first_class . '_id INT, ' . $second_class . '_id INT, date_of_join DATETIME);';
                 array_push($commands, $command);
             }
             return $commands;

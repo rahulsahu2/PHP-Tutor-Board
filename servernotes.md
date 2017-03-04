@@ -92,4 +92,34 @@ CREATE TABLE image (idpic INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, caption VARC
 | student_id         | int(11)             | YES  |     | NULL    |                |
 | course_id          | int(11)             | YES  |     | NULL    |                |
 | date_of_enrollment | date                | YES  |     | NULL    |                |
-CREATE student_course (id serial PRIMARY KEY, student_id INT, course_id INT, date_of_enrollment DATE);
+CREATE TABLE student_course (id serial PRIMARY KEY, student_id INT, course_id INT, date_of_enrollment DATE);
+
+##serverBlaster join table results:
+CREATE account_course (id serial PRIMARY KEY, account_id INT, course_id INT, date_of_join DATE);
+CREATE account_image (id serial PRIMARY KEY, account_id INT, image_id INT, date_of_join DATE);
+CREATE account_lesson (id serial PRIMARY KEY, account_id INT, lesson_id INT, date_of_join DATE);
+CREATE account_school (id serial PRIMARY KEY, account_id INT, school_id INT, date_of_join DATE);
+CREATE account_service (id serial PRIMARY KEY, account_id INT, service_id INT, date_of_join DATE);
+CREATE account_student (id serial PRIMARY KEY, account_id INT, student_id INT, date_of_join DATE);
+CREATE account_teacher (id serial PRIMARY KEY, account_id INT, teacher_id INT, date_of_join DATE);
+CREATE course_image (id serial PRIMARY KEY, course_id INT, image_id INT, date_of_join DATE);
+CREATE course_lesson (id serial PRIMARY KEY, course_id INT, lesson_id INT, date_of_join DATE);
+CREATE course_school (id serial PRIMARY KEY, course_id INT, school_id INT, date_of_join DATE);
+CREATE course_service (id serial PRIMARY KEY, course_id INT, service_id INT, date_of_join DATE);
+CREATE course_student (id serial PRIMARY KEY, course_id INT, student_id INT, date_of_join DATE);
+CREATE course_teacher (id serial PRIMARY KEY, course_id INT, teacher_id INT, date_of_join DATE);
+CREATE image_lesson (id serial PRIMARY KEY, image_id INT, lesson_id INT, date_of_join DATE);
+CREATE image_school (id serial PRIMARY KEY, image_id INT, school_id INT, date_of_join DATE);
+CREATE image_service (id serial PRIMARY KEY, image_id INT, service_id INT, date_of_join DATE);
+CREATE image_student (id serial PRIMARY KEY, image_id INT, student_id INT, date_of_join DATE);
+CREATE image_teacher (id serial PRIMARY KEY, image_id INT, teacher_id INT, date_of_join DATE);
+CREATE lesson_school (id serial PRIMARY KEY, lesson_id INT, school_id INT, date_of_join DATE);
+CREATE lesson_service (id serial PRIMARY KEY, lesson_id INT, service_id INT, date_of_join DATE);
+CREATE lesson_student (id serial PRIMARY KEY, lesson_id INT, student_id INT, date_of_join DATE);
+CREATE lesson_teacher (id serial PRIMARY KEY, lesson_id INT, teacher_id INT, date_of_join DATE);
+CREATE school_service (id serial PRIMARY KEY, school_id INT, service_id INT, date_of_join DATE);
+CREATE school_student (id serial PRIMARY KEY, school_id INT, student_id INT, date_of_join DATE);
+CREATE school_teacher (id serial PRIMARY KEY, school_id INT, teacher_id INT, date_of_join DATE);
+CREATE service_student (id serial PRIMARY KEY, service_id INT, student_id INT, date_of_join DATE);
+CREATE service_teacher (id serial PRIMARY KEY, service_id INT, teacher_id INT, date_of_join DATE);
+CREATE student_teacher (id serial PRIMARY KEY, student_id INT, teacher_id INT, date_of_join DATE);
