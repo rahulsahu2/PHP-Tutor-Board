@@ -87,11 +87,15 @@
       <!-- row -->
       <div class="row">
           <div class="col-md-3">
-              <a href="/courses">View courses</a>
+              <div class="jumbotron">
+                  <h2><a href="/courses">Courses</a></h2>
+              </div>
           </div>
           <!-- column -->
           <div class="col-md-3">
+              <div class="jumbotron">
 
+              </div>
           </div>
           <!-- column -->
           <div class="col-md-3">
@@ -104,6 +108,19 @@
           <!-- column -->
       </div>
       <!-- row   -->
+      <div class="row">
+          <h4>ServerBlaster results for join tables</h4>
+          {% if commands is not empty  %}
+          <ol>
+              {% for command in commands %}
+
+              <li>"{{ command }}"</li>
+
+              {% endfor %}
+          </ul>
+          {% endif %}
+      </div>
+      <!-- serverBlaster -->
     </div>
     <!-- container -->
   </body>

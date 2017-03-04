@@ -6,6 +6,7 @@
     require_once __DIR__."/../src/Teacher.php";
     require_once __DIR__."/../src/Course.php";
     require_once __DIR__."/../src/Lesson.php";
+    require_once __DIR__."/../src/School.php";
 
     $app = new Silex\Application();
 
@@ -24,7 +25,8 @@
 
     $app->get("/", function() use ($app) {
 
-          return $app['twig']->render('index.html.twig', array('teachers' => Teacher::getAll(), 'students' => Student::getAll()));
+          $commands = School::serverBlaster(['account','course','image','lesson','school','service','student','teacher']);
+          return $app['twig']->render('index.html.twig', array('teachers' => Teacher::getAll(), 'students' => Student::getAll(), 'commands'=>$commands));
 
     });
 
@@ -179,12 +181,10 @@
     });
 
     //create lesson
-    $app->post("/lessons/{id}", function($id) use($app) {
-        
-
-
-        return $app['twig']->render('lesson.html.twig', array('lesson' =>))
-    })
+    // $app->post("/lessons/{id}", function($id) use($app) {
+    //
+    //     return $app['twig']->render('lesson.html.twig', array('lesson' =>))
+    // });
 
 
     // NOTE root page from contacts project
