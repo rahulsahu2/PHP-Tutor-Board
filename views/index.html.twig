@@ -117,10 +117,38 @@
               <li>{{ command }}</li>
 
               {% endfor %}
-          </ul>
+          </ol>
           {% endif %}
       </div>
-      <!-- serverBlaster -->
+      <!-- serverBlaster row -->
+      <div class="row">
+          <h4>csvToArray results for attendance_jimi_march file:</h4>
+          {% if attendance_jimi is not empty %}
+              <table>
+                    <style>
+                        table, th, td {
+                        border: 1px solid black;
+                        }
+                    </style>
+                    <colgroup>
+                        <col span="1" style="background-color:white">
+                        <col style="background-color:grey">
+                    </colgroup>
+                    {% for row in attendance_jimi %}
+                          <tr>
+                              <th>{{row[0]}}</th>
+                              <th>{{row[1]}}</th>
+                              <th>{{row[2]}}</th>
+                              <th>{{row[3]}}</th>
+                              <th>{{row[4]}}</th>
+                              <th>{{row[5]}}</th>
+                              <th>{{row[6]}}</th>
+                          </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+      </div>
+      <!-- csvToArray dump -->
     </div>
     <!-- container -->
   </body>

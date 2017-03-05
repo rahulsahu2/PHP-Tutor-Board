@@ -27,7 +27,8 @@
     $app->get("/", function() use ($app) {
 
           $commands = School::serverBlaster(['account','course','image','lesson','school','service','student','teacher']);
-          return $app['twig']->render('index.html.twig', array('teachers' => Teacher::getAll(), 'students' => Student::getAll(), 'commands'=>$commands));
+          $attendance_jimi = School::csvToArray();
+          return $app['twig']->render('index.html.twig', array('teachers' => Teacher::getAll(), 'students' => Student::getAll(), 'commands'=>$commands, 'attendance_jimi'=>$attendance_jimi));
 
     });
 
