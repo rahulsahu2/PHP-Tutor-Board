@@ -37,7 +37,7 @@
             $pairs = array();
             $limit = count($your_classes);
             //
-            for($x=0; $x<=($limit - 1); $x++)
+            for($x=0; $x<=($limit - 2); $x++)
             {
                 for ($y= $x + 1 ; $y <= ($limit - 1); $y++)
                 {
