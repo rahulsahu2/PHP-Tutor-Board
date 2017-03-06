@@ -142,9 +142,10 @@
 
         function enrollInCourse($course_id)
         {
-            $today = date('Y-m-d h:i:sa');
+            $today = date('Y-m-d h:i:s');
+            // $today = '2017-3-6 10:10:10';
 
-            $GLOBALS['DB']->exec("INSERT INTO courses_students (course_id, student_id, date_of_enrollment) VALUES ({$course_id}, {$this->getId()}, '{$today}');");
+            $GLOBALS['DB']->exec("INSERT INTO courses_students (course_id, student_id, date_of_join) VALUES ({$course_id}, {$this->getId()}, '{$today}');");
 
             //
             // $check_duplication = false;
@@ -186,9 +187,9 @@
 
         function getDateOfEnrollment($course_id)
         {
-            // $query = $GLOBALS['DB']->query("SELECT date_of_enrollment FROM courses_students WHERE student_id = {$this->id} AND course_id = {$course_id};");
-            // $returned_date = $query->fetchAll(PDO::FETCH_ASSOC);
-            // return $returned_date['date_of_enrollment'];
+            $query = $GLOBALS['DB']->query("SELECT date_of_join FROM courses_students WHERE student_id = {$this->id} AND course_id = {$course_id};");
+            $returned_date = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $returned_date[0]['date_of_join'];
         }
 
 
