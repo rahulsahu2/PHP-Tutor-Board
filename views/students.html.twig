@@ -3,33 +3,33 @@
 {% block title %}Students{% endblock %}
 
 {% block content %}
-      
-      <div class="jumbotron">
-        {% if students is not empty %}
-        <h1>Students </h1>
-        <p></p>
-      </div>
-      <ul>
-        {% for student in students %}
-          <li><a href="students/{{student.getId}}">{{student.getName}}</a></li>
+
+<div class="jumbotron">
+    {% if students is not empty %}
+    <h1>Students </h1>
+    <p></p>
+</div>
+<ul>
+    {% for student in students %}
+    <li><a href="students/{{student.getId}}">{{student.getName}}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+<form action="/students" method="post">
+    <label for="student_name">Name</label><br>
+    <input type="text" name="student_name" required><br>
+    <label for="student_instrument">Instrument</label><br>
+    <input type="text" name="student_instrument" required><br>
+    {% if teachers is not empty %}
+    <label for="teacher_id">Teacher Id</label><br>
+    <select name="teacher_id">
+        {% for teacher in teachers %}
+        <option value="{{ teacher.getId }}">{{ teacher.getName }}</option>
         {% endfor %}
-      </ul>
-      {% endif %}
-      <form action="/students" method="post">
-        <label for="student_name">Name</label><br>
-        <input type="text" name="student_name" required><br>
-        <label for="student_instrument">Instrument</label><br>
-        <input type="text" name="student_instrument" required><br>
-        {% if teachers is not empty %}
-        <label for="teacher_id">Teacher Id</label><br>
-        <select name="teacher_id">
-          {% for teacher in teachers %}
-          <option value="{{ teacher.getId }}">{{ teacher.getName }}</option>
-          {% endfor %}
-        </select>
-        {% endif %}
-        <button type="submit">Submit</button><br>
-      </form>
+    </select>
+    {% endif %}
+    <button type="submit">Submit</button><br>
+</form>
 
 
-      {% endblock %}
+{% endblock %}

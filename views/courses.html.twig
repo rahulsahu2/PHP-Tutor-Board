@@ -4,22 +4,22 @@
 
 {% block content %}
 
-          {% if courses is not empty %}
-              <div class="jumbotron">
-                  <h1>Courses </h1>
-                  <p></p>
-                  <ul>
-                  {% for course in courses %}
-                      <li><a   href="courses/{{course.getId}}">{{course.getTitle}}</a></li>
-                  {% endfor %}
-                  </ul>
-              </div>
-              <!-- jumbotron -->
-          {% endif %}
-          <form action="/courses" method="post">
-              <label for="course_title">Name</label><br>
-              <input type="text" name="course_title" required><br>
-              <button type="submit">Submit</button><br>
-          </form>
+    {% if courses is not empty %}
+      <div class="jumbotron">
+          <h1>Courses </h1>
+          <p></p>
+          <ul>
+          {% for course in courses %}
+              <li><a   href="courses/{{course.getId}}">{{course.getTitle}}</a></li>
+          {% endfor %}
+          </ul>
+      </div>
+      <!-- jumbotron -->
+    {% endif %}
+    <form action="/courses" method="post">
+      <label for="course_title">Name</label><br>
+      <input type="text" name="course_title" required><br>
+      <button type="submit">Submit</button><br>
+    </form>
 
-    {% endblock %}
+{% endblock %}

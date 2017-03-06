@@ -1,58 +1,62 @@
-{% extends "base.html.twig" %}
+{% extends "base2.html.twig" %}
 
 {% block title %}Teacher{% endblock %}
 
-      <div class="row">
-        <div class="col-md-8">
-          <div class="jumbotron">
+{% block content %}
+
+
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="jumbotron">
             <h1>{{ teacher.getName }}</h1>
             <ul>
-              <li>instruments: {{teacher.getInstrument}} </li>
-              <li>teacher id: {{teacher.getId}} </li>
-              {% if teachers_students is not empty %}
+                <li>instruments: {{teacher.getInstrument}} </li>
+                <li>teacher id: {{teacher.getId}} </li>
+                {% if teachers_students is not empty %}
                 <li> teacher's students</li>
                 <ul>
-                  {% for student in teachers_students %}
-                  <li><a href="/students/{{ student.getId }}">{{ student.getName }}</a></li>
-                  {% endfor %}
+                    {% for student in teachers_students %}
+                    <li><a href="/students/{{ student.getId }}">{{ student.getName }}</a></li>
+                    {% endfor %}
                 </ul>
-              {% endif %}
+                {% endif %}
             </ul>
             <form action="/teachers/{{ teacher.getId }}" method="post">
-              <input name="_method" type="hidden" value="patch">
-              <label for="new_notes">add notes...</label><br>
-              <textarea name="new_notes" rows="3" cols="40"></textarea><br>
-              <input type="reset">
-              <button type="submit" class="btn button-success" name="button">Submit</button>
+                <input name="_method" type="hidden" value="patch">
+                <label for="new_notes">add notes...</label><br>
+                <textarea name="new_notes" rows="3" cols="40"></textarea><br>
+                <input type="reset">
+                <button type="submit" class="btn button-success" name="button">Submit</button>
             </form>
-          </div>
-          <!-- jumbotron -->
         </div>
-        <!-- left column -->
-        <div class="col-md-4">
-          <form action="/teachers/teacher_termination/{{ teacher.getId }}" method="post">
+        <!-- jumbotron -->
+    </div>
+    <!-- left column -->
+    <div class="col-md-4">
+        <form action="/teachers/teacher_termination/{{ teacher.getId }}" method="post">
             <input name="_method" type="hidden" value="delete">
-              <button type="submit" name="button">delete teacher</button>
-          </form>
-        </div>
-        <!-- delete column -->
-      </div>
-      <!-- row -->
+            <button type="submit" name="button">delete teacher</button>
+        </form>
+    </div>
+    <!-- delete column -->
+</div>
+<!-- row -->
 
-      <div class="jumbotron">
-      {% if notes_array is not empty %}
-        <div class="well">
-          <ul>
+<div class="jumbotron">
+    {% if notes_array is not empty %}
+    <div class="well">
+        <ul>
             <label>notes:</label>
             {% for note in notes_array %}
             <li><strong>{{ note }}</strong></li>
             <p></p><br>
             {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-      <!-- well -->
-      </div>
-      <!-- jumbotron -->
+        </ul>
+    </div>
+    {% endif %}
+    <!-- well -->
+</div>
+<!-- jumbotron -->
 
-      {% endblock %}
+{% endblock %}
