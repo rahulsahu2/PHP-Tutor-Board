@@ -248,7 +248,7 @@
             // Act
             $result = $new_student->getDateOfEnrollment($test_course->getId());
             // Assert
-            $this->assertEquals(date("Y-m-d"), $result);
+            $this->assertEquals(date("Y-m-d h:i:s"), $result);
         }
         function test_enrollInCourse()
         {

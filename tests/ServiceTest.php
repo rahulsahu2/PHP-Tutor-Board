@@ -4,6 +4,8 @@
     * @backupStaticAttributes disabled
     */
     require_once "src/Service.php";
+    require_once "src/Student.php";
+    require_once "src/Teacher.php";
     $server = 'mysql:host=localhost:8889;dbname=crm_music_test';
     $username = 'root';
     $password = 'root';
@@ -40,7 +42,7 @@
             $result7 = $test_service->getDateOfService();
             $result8 = $test_service->getRecurrence();
             $result9 = $test_service->getAttendance();
-            $result10 = $test_service->getId();
+
             // Assert
             $this->assertEquals($input_description, $result1);
             $this->assertEquals($input_duration, $result2);
@@ -51,7 +53,6 @@
             $this->assertEquals($input_date_of_service, $result7);
             $this->assertEquals($input_recurrence, $result8);
             $this->assertEquals($input_attendance, $result9);
-            $this->assertEquals($input_id, $result10);
         }
         // test 2
         function test_SaveGetAll()
