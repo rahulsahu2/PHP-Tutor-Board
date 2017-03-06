@@ -51,7 +51,7 @@
 
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO teacher (teacher_name, instrument, notes) VALUES ('{$this->getName()}', '{$this->getInstrument()}', '{$this->getNotes()}');");
+            $GLOBALS['DB']->exec("INSERT INTO teachers (teacher_name, instrument, notes) VALUES ('{$this->getName()}', '{$this->getInstrument()}', '{$this->getNotes()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
@@ -85,12 +85,12 @@
 
         static function deleteAll()
         {
-            $GLOBALS['DB']->exec("DELETE FROM teacher;");
+            $GLOBALS['DB']->exec("DELETE FROM teachers;");
         }
 
         static function getAll()
         {
-            $returned_teachers = $GLOBALS['DB']->query("SELECT * FROM teacher;");
+            $returned_teachers = $GLOBALS['DB']->query("SELECT * FROM teachers;");
             $teachers = array();
             if (empty($returned_teachers)){
                return "returned teachers is empty.";
@@ -111,13 +111,13 @@
 
         function updateNotes($new_note)
         {
-            $GLOBALS['DB']->exec("UPDATE teacher SET notes = '{$new_note}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE teachers SET notes = '{$new_note}' WHERE id = {$this->getId()};");
             $this->setNotes($new_note);
         }
 
         function delete()
         {
-            $GLOBALS['DB']->exec("DELETE FROM teacher WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM teachers WHERE id = {$this->getId()};");
         }
     }
 

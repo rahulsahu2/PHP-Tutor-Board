@@ -30,14 +30,14 @@
         // CRUD
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO course (title) VALUES ('{$this->getTitle()}');");
+            $GLOBALS['DB']->exec("INSERT INTO courses (title) VALUES ('{$this->getTitle()}');");
 
             $this->id = $GLOBALS['DB']->LastInsertId();
         }
 
         static function getAll()
         {
-            $returned_courses = $GLOBALS['DB']->query( "SELECT * FROM course;");
+            $returned_courses = $GLOBALS['DB']->query( "SELECT * FROM courses;");
             $courses = array();
             foreach( $returned_courses as $course)
             {
@@ -51,12 +51,12 @@
 
         static function deleteAll()
         {
-            $GLOBALS['DB']->exec("DELETE FROM course");
+            $GLOBALS['DB']->exec("DELETE FROM courses");
         }
 
         function update($new_title)
         {
-            $GLOBALS['DB']->exec("UPDATE course SET title = '{$new_title}';");
+            $GLOBALS['DB']->exec("UPDATE courses SET title = '{$new_title}';");
 
             $this->setTitle($new_title);
 
@@ -64,7 +64,7 @@
 
         static function find($search_id)
         {
-            $query = $GLOBALS['DB']->query("SELECT * FROM course WHERE id = {$search_id};");
+            $query = $GLOBALS['DB']->query("SELECT * FROM courses WHERE id = {$search_id};");
             $courses = array();
             $returned_courses = $query->fetchAll(PDO::FETCH_ASSOC);
             foreach($returned_courses as $course){
@@ -77,14 +77,14 @@
 
         function deleteCourse()
         {
-            $GLOBALS['DB']->exec("DELETE FROM course WHERE id = '{$this->getId()}';");
+            $GLOBALS['DB']->exec("DELETE FROM courses WHERE id = '{$this->getId()}';");
         }
 
         function getStudents()
         {
-            $students = $GLOBALS['DB']->query("SELECT student.* FROM
-            course  JOIN student_course ON (course.id = student_course.course_id)
-                    JOIN student ON ( student_course.student_id = student.id)
+            $students = $GLOBALS['DB']->query("SELECT students.* FROM
+            courses  JOIN student_course ON (course.id = student_course.course_id)
+                    JOIN students ON ( student_course.student_id = student.id)
             WHERE course.id = {$this->getId()};");
 
             $return_students = array();
@@ -101,6 +101,7 @@
             return $return_students;
         }
 
+        // NOTE ADD getTeachers getLessons
 
 
 

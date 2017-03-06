@@ -134,14 +134,14 @@
             $recurrence = $this->getRecurrence();
             $attendance = $this->getAttendance();
 
-            $GLOBALS['DB']->exec("INSERT INTO service (description, duration, price, discount, paid_for, notes, date_of_service, recurrence, attendance) VALUES ('{$description}', {$duration}, {$price}, {$discount}, {$paid_for}, '{$notes}', '{$date_of_service}', '{$recurrence}', '{$attendance}');");
+            $GLOBALS['DB']->exec("INSERT INTO services (description, duration, price, discount, paid_for, notes, date_of_service, recurrence, attendance) VALUES ('{$description}', {$duration}, {$price}, {$discount}, {$paid_for}, '{$notes}', '{$date_of_service}', '{$recurrence}', '{$attendance}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
         // Retrieve
         static function getAll()
         {
-            $returned_services = $GLOBALS['DB']->query("SELECT * FROM service;");
+            $returned_services = $GLOBALS['DB']->query("SELECT * FROM services;");
             $services = array();
             foreach($returned_services as $service){
                 $description = $service['description'];
@@ -163,47 +163,47 @@
         // Update functions
         function updateDescription($update)
         {
-            $GLOBALS['DB']->exec("UPDATE service SET description = '{$update}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE services SET description = '{$update}' WHERE id = {$this->getId()};");
             $this->setDescription($update);
         }
         function updateDuration($update)
         {
-            $GLOBALS['DB']->exec("UPDATE service SET duration = {$update} WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE services SET duration = {$update} WHERE id = {$this->getId()};");
             $this->setDuration($update);
         }
         function updatePrice($update)
         {
-            $GLOBALS['DB']->exec("UPDATE service SET price = {$update} WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE services SET price = {$update} WHERE id = {$this->getId()};");
             $this->setPrice($update);
         }
         function updateDiscount($update)
         {
-            $GLOBALS['DB']->exec("UPDATE service SET discount = {$update} WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE services SET discount = {$update} WHERE id = {$this->getId()};");
             $this->setDiscount($update);
         }
         function updatePaidFor($update)
         {
-            $GLOBALS['DB']->exec("UPDATE service SET paid_for = {$update} WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE services SET paid_for = {$update} WHERE id = {$this->getId()};");
             $this->setPaidFor($update);
         }
         function updateNotes($update)
         {
-            $GLOBALS['DB']->exec("UPDATE service SET notes = '{$update}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE services SET notes = '{$update}' WHERE id = {$this->getId()};");
             $this->setNotes($update);
         }
         function updateDateOfService($update)
         {
-            $GLOBALS['DB']->exec("UPDATE service SET date_of_service = '{$update}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE services SET date_of_service = '{$update}' WHERE id = {$this->getId()};");
             $this->setDateOfService($update);
         }
         function updateRecurrence($update)
         {
-            $GLOBALS['DB']->exec("UPDATE service SET recurrence = '{$update}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE services SET recurrence = '{$update}' WHERE id = {$this->getId()};");
             $this->setRecurrence($update);
         }
         function updateAttendance($update)
         {
-            $GLOBALS['DB']->exec("UPDATE service SET attendance = '{$update}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE services SET attendance = '{$update}' WHERE id = {$this->getId()};");
             $this->setAttendance($update);
         }
 
@@ -254,7 +254,7 @@
         // Delete
         static function deleteAll()
         {
-            $GLOBALS['DB']->exec("DELETE FROM service;");
+            $GLOBALS['DB']->exec("DELETE FROM services;");
         }
 
     }

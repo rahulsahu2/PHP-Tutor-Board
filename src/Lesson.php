@@ -54,13 +54,13 @@
 
         function save()
         {
-        $GLOBALS['DB']->exec("INSERT INTO lesson (title, description, content) VALUES ('{$this->getTitle()}', '{$this->getDescription()}', '{$this->getContent()}');");
+        $GLOBALS['DB']->exec("INSERT INTO lessons (title, description, content) VALUES ('{$this->getTitle()}', '{$this->getDescription()}', '{$this->getContent()}');");
         $this->id = (int) $GLOBALS['DB']->lastInsertId();
         }
 
         static function getAll()
         {
-            $retrieved_lessons = $GLOBALS['DB']->query("SELECT * FROM lesson;");
+            $retrieved_lessons = $GLOBALS['DB']->query("SELECT * FROM lessons;");
             $lessons = array();
             foreach( $retrieved_lessons as $lesson )
             {
@@ -76,8 +76,9 @@
 
         static function deleteAll()
         {
-            $GLOBALS['DB']->exec("DELETE FROM lesson;");
+            $GLOBALS['DB']->exec("DELETE FROM lessons;");
         }
 
+        // NOTE add find and delete
     }
  ?>

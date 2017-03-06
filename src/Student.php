@@ -64,27 +64,25 @@
         function save()
         {
 
-          $GLOBALS['DB']->exec("INSERT INTO student (student_name, instrument, teacher_id, notes) VALUES ('{$this->getName()}', '{$this->getInstrument()}', {$this->getTeacherId()}, '{$this->getNotes()}');");
+          $GLOBALS['DB']->exec("INSERT INTO students (student_name, instrument, teacher_id, notes) VALUES ('{$this->getName()}', '{$this->getInstrument()}', {$this->getTeacherId()}, '{$this->getNotes()}');");
           $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
         static function deleteAll()
         {
-            $GLOBALS['DB']->exec("DELETE FROM student;");
+            $GLOBALS['DB']->exec("DELETE FROM students;");
 
         }
 
         static function deleteJoin()
         {
-            $GLOBALS['DB']->exec("DELETE FROM student_course;");
+            $GLOBALS['DB']->exec("DELETE FROM students_courses;");
         }
 
         static function getAll()
         {
-            $returned_students = $GLOBALS['DB']->query("SELECT * FROM student;");
+            $returned_students = $GLOBALS['DB']->query("SELECT * FROM students;");
             $students = array();
-            if (empty($returned_students)){
-            } else {
             foreach($returned_students as $student){
                 $name = $student['student_name'];
                 $inst = $student['instrument'];
@@ -94,20 +92,22 @@
                 $new_student = new Student($name, $inst, $teach_id, $id);
                 $new_student->setNotes($notes);
                 array_push($students, $new_student);
-            }
+
           }
           return $students;
         }
 
         function updateNotes($new_note)
         {
-            $GLOBALS['DB']->exec("UPDATE student SET notes = '{$new_note}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE students SET notes = '{$new_note}' WHERE id = {$this->getId()};");
             $this->setNotes($new_note);
         }
 
+        // NOTE  add other updates
+
         function delete()
         {
-            $GLOBALS['DB']->exec("DELETE FROM student WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM students WHERE id = {$this->getId()};");
         }
 
         static function findStudent($search_id)
@@ -122,6 +122,8 @@
            }
            return $found_student;
         }
+
+        // NOTE refactor for join table
 
         static function findStudentsByTeacher($search_id)
         {
@@ -143,7 +145,7 @@
             $today = date('Y-m-d');
             $check_duplication = false;
 
-            $query = $GLOBALS['DB']->query("SELECT * FROM student_course WHERE course_id = {$course_id} AND student_id = {$this->id};");
+            $query = $GLOBALS['DB']->query("SELECT * FROM students_courses WHERE course_id = {$course_id} AND student_id = {$this->id};");
             $retrieved = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
@@ -157,15 +159,15 @@
             }
 
             if($check_duplication == false ){
-                $GLOBALS['DB']->exec("INSERT INTO student_course (course_id, student_id, date_of_enrollment) VALUES ({$course_id}, {$this->id}, '{$today}');");
+                $GLOBALS['DB']->exec("INSERT INTO students_courses (course_id, student_id, date_of_enrollment) VALUES ({$course_id}, {$this->id}, '{$today}');");
             };
         }
 
         function getCourses()
         {
-            $returned_courses = $GLOBALS['DB']->query("SELECT course.* FROM
-            student JOIN student_course ON (student.id = student_course.student_id)
-                    JOIN course ON (student_course.course_id = course.id)
+            $returned_courses = $GLOBALS['DB']->query("SELECT courses.* FROM
+            students JOIN students_courses ON (student.id = student_course.student_id)
+                    JOIN courses ON (student_course.course_id = course.id)
             WHERE student.id = {$this->getId()};");
             $courses = array();
             foreach ($returned_courses as $course )
@@ -180,7 +182,7 @@
 
         function getDateOfEnrollment($course_id)
         {
-            $query = $GLOBALS['DB']->query("SELECT date_of_enrollment FROM student_course WHERE student_id = {$this->id} AND course_id = {$course_id};");
+            $query = $GLOBALS['DB']->query("SELECT date_of_enrollment FROM students_courses WHERE student_id = {$this->id} AND course_id = {$course_id};");
             $returned_date = $query->fetch(PDO::FETCH_ASSOC);
             return $returned_date['date_of_enrollment'];
         }

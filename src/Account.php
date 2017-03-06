@@ -148,5 +148,35 @@ class Account
     {
         $GLOBALS['DB']->exec("DELETE FROM accounts;");
     }
+
+    static function find($search_id)
+    {
+        $returned_accounts = $GLOBALS['DB']->query("SELECT * FROM accounts WHERE id = {$search_id};");
+        $accounts = array();
+        foreach($returned_accounts as $account){
+                $family_name = $account['family_name'];
+                $parent_one_name = $account['parent_one_name'];
+                $parent_two_name = $account['parent_two_name'];
+                $street_address = $account['street_address'];
+                $phone_number = $account['phone_number'];
+                $email_address = $account['email_address'];
+                $notes = $account['notes'];
+                $billing_history = $account['billing_history'];
+                $outstanding_balance = $account['outstanding_balance'];
+                $id = $account['id'];
+                $new_account = new Account($family_name, $parent_one_name, $parent_two_name, $street_address,$phone_number,$email_address,$outstanding_balance, $id);
+                $new_account->setNotes($notes);
+                $new_account->setBillingHistory($billing_history);
+                array_push($accounts, $new_account);
+        }
+        return $accounts;
+    }
+
+    /// NOTE CREATE UPDATE and DELETE FUNCTION 
+
+    function delete()
+    {
+
+    }
 }
 ?>

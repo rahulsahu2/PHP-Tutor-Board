@@ -17,6 +17,9 @@
     $password = 'root';
     $DB = new PDO($server, $username, $password);
 
+
+
+
     $app->register(new Silex\Provider\TwigServiceProvider(), array(
         'twig.path' => __DIR__.'/../views'
     ));
@@ -26,7 +29,7 @@
 
     $app->get("/", function() use ($app) {
 
-          $commands = School::serverBlaster(['account','course','image','lesson','school','service','student','teacher']);
+          $commands = School::serverBlaster(['accounts','courses','images','lessons','schools','services','students','teachers']);
           $attendance_jimi = School::csvToArray();
           return $app['twig']->render('index.html.twig', array('teachers' => Teacher::getAll(), 'students' => Student::getAll(), 'commands'=>$commands, 'attendance_jimi'=>$attendance_jimi));
 

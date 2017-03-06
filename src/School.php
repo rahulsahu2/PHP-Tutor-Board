@@ -28,7 +28,7 @@
         }
 
         // CRUD functions
-
+            // NOTE create crud
         //
 
         // Database Maker // $your_classes is an array with all your object classes LOWERCASE
