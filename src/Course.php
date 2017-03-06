@@ -92,10 +92,8 @@
             foreach($students as $student){
                 $id = $student['id'];
                 $student_name = $student['student_name'];
-                $instrument = $student['instrument'];
-                $teacher_id = $student['teacher_id'];
                 $notes = $student['notes'];
-                $new_student = new Student($student_name, $instrument, $teacher_id, $id);
+                $new_student = new Student($student_name, $id);
                 $new_student->setNotes($notes);
                 array_push($return_students, $new_student);
             }

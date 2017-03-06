@@ -119,10 +119,8 @@
         {
             // Arrange
             $input_name = "Stevo";
-            $input_instrument = "Ukulele";
-            $input_teacher_id = 99;
             $input_new_note = "Mangia que fa bene. - Nona  ";
-            $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
+            $new_student = new Student($input_name);
             $new_student->setNotes($input_new_note);
             $new_student->save();
             $id = $new_student->getId();
@@ -135,10 +133,8 @@
         {
             // Arrange
             $input_name = "Stevo";
-            $input_instrument = "Ukulele";
-            $input_teacher_id = '99';
             $input_new_note = "Mangia que fa bene. - Nona  ";
-            $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
+            $new_student = new Student($input_name);
             $new_student->setNotes($input_new_note);
             $new_student->save();
             $input_title = "Basket weaving";
@@ -154,10 +150,8 @@
         {
             // Arrange
             $input_name = "Stevo";
-            $input_instrument = "Ukulele";
-            $input_teacher_id = 99;
             $input_new_note = "Mangia que fa bene. - Nona  ";
-            $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
+            $new_student = new Student($input_name);
             $new_student->setNotes($input_new_note);
             $new_student->save();
             $input_title = "Basket weaving";
