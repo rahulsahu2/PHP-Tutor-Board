@@ -131,7 +131,7 @@ CREATE student_teacher (id serial PRIMARY KEY, student_id INT, teacher_id INT, d
 // Create our database schema if doesn't exist
 CREATE TABLE teachers (id serial PRIMARY KEY, teacher_name VARCHAR (255), instrument VARCHAR (100), notes TEXT);
 CREATE TABLE students (id serial PRIMARY KEY, student_name VARCHAR (255), instrument VARCHAR (100), teacher_id INT, notes TEXT);
-CREATE TABLE services (id serial PRIMARY KEY, description VARCHAR(255), duration INT, price DECIMAL(10,2), discount DECIMAL(10,2), paid_for TINYINT(1), notes TEXT, date_of_service DATETIME, recurrence VARCHAR(255), attendance VARCHAR(255);
+CREATE TABLE services (id serial PRIMARY KEY, description VARCHAR(255), duration INT, price DECIMAL(10,2), discount DECIMAL(10,2), paid_for TINYINT(1), notes TEXT, date_of_service DATETIME, recurrence VARCHAR(255), attendance VARCHAR(255));
 CREATE TABLE accounts (id serial PRIMARY KEY, family_name VARCHAR (255), street_address VARCHAR (255), phone_number VARCHAR (255), notes TEXT, billing_history TEXT, outstanding_balance INT, parent_one_name VARCHAR (255), parent_two_name VARCHAR (255));
 CREATE TABLE courses (title VARCHAR(255), id serial PRIMARY KEY);
 CREATE TABLE lessons (title VARCHAR(255), description VARCHAR(255), content VARCHAR(30000), id serial PRIMARY KEY);
