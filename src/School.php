@@ -64,14 +64,6 @@
 
             $array = array_map('str_getcsv', file('jimi_attendance_march.csv'));
 
-            // $header = array_shift($array);
-            //
-            // array_walk($array, '_combine_array', $header);
-            //
-            // function _combine_array(&$row, $key, $header) {
-            //   $row = array_combine($header, $row);
-            // }
-
             return $array;
         }
 

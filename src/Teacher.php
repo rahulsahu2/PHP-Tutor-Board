@@ -58,7 +58,7 @@
         function getStudents()
        {
            $students = Array();
-           $returned_students = $GLOBALS['DB']->query("SELECT * FROM students WHERE techer_id = {$this->getId()};");
+           $returned_students = $GLOBALS['DB']->query("SELECT * FROM students WHERE teacher_id = {$this->getId()};");
            foreach($returned_students as $student) {
                $student_name = $student['student_name'];
                $instrument = $student['instrument'];

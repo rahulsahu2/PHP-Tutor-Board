@@ -11,6 +11,7 @@
 | notes        | text                | YES  |     | NULL    |                |
 | id           | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
 ####REFACTOR WITH JOIN TABLE FOR DEPARTMENT INSTEAD OF INSTRUMENT
+CREATE TABLE teachers (id serial PRIMARY KEY, teacher_name VARCHAR (255), instrument VARCHAR (100), notes TEXT);
 
 
 ##student
@@ -22,6 +23,7 @@
 | notes        | text                | YES  |     | NULL    |                |
 | id           | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
 ####REFACTOR WITH JOIN TABLE INSTEAD OF TEACHER_ID
+CREATE TABLE students (id serial PRIMARY KEY, student_name VARCHAR (255), instrument VARCHAR (100), teacher_id INT, notes TEXT);
 
 
 ##service
@@ -55,7 +57,7 @@ CREATE TABLE service (description VARCHAR(255), duration INT, price DECIMAL(10,2
 | id                  | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
 | parent_one_name     | varchar(255)        | YES  |     | NULL    |                |
 | parent_two_name     | varchar(255)        | YES  |     | NULL    |                |
-
+CREATE TABLE accounts (id serial PRIMARY KEY, family_name VARCHAR (255), street_address VARCHAR (255), phone_number VARCHAR (255), notes TEXT, billing_history TEXT, outstanding_balance INT, parent_one_name VARCHAR (255), parent_two_name VARCHAR (255));
 
 ##course
 | Field | Type                | Null | Key | Default | Extra          |
@@ -86,7 +88,6 @@ CREATE TABLE image (idpic INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, caption VARC
 
 ##student_course
 ### refactor -> delete
-
 | Field              | Type                | Null | Key | Default | Extra          |
 |--------------------|---------------------|------|-----|---------|----------------|
 | id                 | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
