@@ -47,6 +47,7 @@
         function test_getFamilyName()
         {
             // Arrange
+            // Arrange
             $input_family_name = "Bobsters";
             $input_parent_one_name = "Lobster";
             $input_parent_two_name = "Momster";
@@ -55,10 +56,12 @@
             $input_email_address = "fdsfsda@fdasfads";
             $input_notes = "galj";
             $input_billing_history = "fdjfdas";
-            $input_outstanding_balance = "afda";
-            $new_account = new Account($input_family_name, $input_parent_one_name, $input_parent_two_name, $input_street_address,$input_phone_number,$input_email_address,$input_outstanding_balance);
+            $input_outstanding_balance = 31;
+            $new_account = new Account($input_family_name, $input_parent_one_name, $input_street_address, $input_phone_number, $input_email_address);
+            $new_account->setParentTwoName($input_parent_two_name);
             $new_account->setNotes($input_notes);
             $new_account->setBillingHistory($input_billing_history);
+            $new_account->setOutstandingBalance($input_outstanding_balance);
 
             // Act
             $result = $new_account->getFamilyName();
@@ -69,6 +72,7 @@
         function test_Constructor()
         {
             // Arrange
+            // Arrange
             $input_family_name = "Bobsters";
             $input_parent_one_name = "Lobster";
             $input_parent_two_name = "Momster";
@@ -77,10 +81,12 @@
             $input_email_address = "fdsfsda@fdasfads";
             $input_notes = "galj";
             $input_billing_history = "fdjfdas";
-            $input_outstanding_balance = "afda";
-            $new_account = new Account($input_family_name, $input_parent_one_name, $input_parent_two_name, $input_street_address,$input_phone_number,$input_email_address,$input_outstanding_balance);
+            $input_outstanding_balance = 31;
+            $new_account = new Account($input_family_name, $input_parent_one_name, $input_street_address, $input_phone_number, $input_email_address);
+            $new_account->setParentTwoName($input_parent_two_name);
             $new_account->setNotes($input_notes);
             $new_account->setBillingHistory($input_billing_history);
+            $new_account->setOutstandingBalance($input_outstanding_balance);
 
             // Act
             $result1 = $new_account->getFamilyName();
@@ -107,25 +113,28 @@
         function testSave()
         {
             // Arrange
-              $input_family_name = "Bobsters";
-              $input_parent_one_name = "Lobster";
-              $input_parent_two_name = "Momster";
-              $input_street_address = "Under the sea";
-              $input_phone_number = "555555555";
-              $input_email_address = "fdsfsda@fdasfads";
-              $input_notes = "galj";
-              $input_billing_history = "fdjfdas";
-              $input_outstanding_balance = 5;
-              $new_account = new Account($input_family_name, $input_parent_one_name, $input_parent2_name, $input_street_address,$input_phone_number,$input_email_address,$input_outstanding_balance);
-              $new_account->setNotes($input_notes);
-              $new_account->setBillingHistory($input_billing_history);
-              $new_account->save();
+            // Arrange
+            $input_family_name = "Bobsters";
+            $input_parent_one_name = "Lobster";
+            $input_parent_two_name = "Momster";
+            $input_street_address = "Under the sea";
+            $input_phone_number = "555555555";
+            $input_email_address = "fdsfsda@fdasfads";
+            $input_notes = "galj";
+            $input_billing_history = "fdjfdas";
+            $input_outstanding_balance = 31;
+            $new_account = new Account($input_family_name, $input_parent_one_name, $input_street_address, $input_phone_number, $input_email_address);
+            $new_account->setParentTwoName($input_parent_two_name);
+            $new_account->setNotes($input_notes);
+            $new_account->setBillingHistory($input_billing_history);
+            $new_account->setOutstandingBalance($input_outstanding_balance);
+            $new_account->save();
 
-              // Act
-              $result = Account::getAll();
+            // Act
+            $result = Account::getAll();
 
-              // Assert
-              $this->assertEquals($new_account, $result[0]);
+            // Assert
+            $this->assertEquals($new_account, $result[0]);
         }
         function testSaveStep()
         {
@@ -138,10 +147,12 @@
             $input_email_address = "fdsfsda@fdasfads";
             $input_notes = "galj";
             $input_billing_history = "fdjfdas";
-            $input_outstanding_balance = 5;
-            $new_account = new Account($input_family_name, $input_parent_one_name, $input_parent_two_name, $input_street_address,$input_phone_number,$input_email_address,$input_outstanding_balance);
+            $input_outstanding_balance = 31;
+            $new_account = new Account($input_family_name, $input_parent_one_name, $input_street_address, $input_phone_number, $input_email_address);
+            $new_account->setParentTwoName($input_parent_two_name);
             $new_account->setNotes($input_notes);
             $new_account->setBillingHistory($input_billing_history);
+            $new_account->setOutstandingBalance($input_outstanding_balance);
             $new_account->save();
 
             // Act
@@ -252,10 +263,12 @@
             $input_email_address = "fdsfsda@fdasfads";
             $input_notes = "galj";
             $input_billing_history = "fdjfdas";
-            $input_outstanding_balance = 5;
-            $new_account = new Account($input_family_name, $input_parent_one_name, $input_parent_two_name, $input_street_address,$input_phone_number,$input_email_address,$input_outstanding_balance);
+            $input_outstanding_balance = 31;
+            $new_account = new Account($input_family_name, $input_parent_one_name, $input_street_address, $input_phone_number, $input_email_address);
+            $new_account->setParentTwoName($input_parent_two_name);
             $new_account->setNotes($input_notes);
             $new_account->setBillingHistory($input_billing_history);
+            $new_account->setOutstandingBalance($input_outstanding_balance);
             $new_account->save();
 
             $input_family_name2 = "Fred";
@@ -267,9 +280,11 @@
             $input_notes2 = "galj";
             $input_billing_history2 = "fdjfdas";
             $input_outstanding_balance2 = 5;
-            $new_account2 = new Account($input_family_name2, $input_parent_one_name2, $input_parent_two_name2, $input_street_address2,$input_phone_number2,$input_email_address2,$input_outstanding_balance2);
+            $new_account2 = new Account($input_family_name2, $input_parent_one_name2, $input_street_address2, $input_phone_number2, $input_email_address2);
+            $new_account2->setParentTwoName($input_parent_two_name2);
             $new_account2->setNotes($input_notes2);
             $new_account2->setBillingHistory($input_billing_history2);
+            $new_account2->setOutstandingBalance($input_outstanding_balance2);
             $new_account2->save();
 
             // Act
@@ -290,10 +305,12 @@
             $input_email_address = "fdsfsda@fdasfads";
             $input_notes = "galj";
             $input_billing_history = "fdjfdas";
-            $input_outstanding_balance = 5;
-            $new_account = new Account($input_family_name, $input_parent_one_name, $input_parent_two_name, $input_street_address,$input_phone_number,$input_email_address,$input_outstanding_balance);
+            $input_outstanding_balance = 31;
+            $new_account = new Account($input_family_name, $input_parent_one_name, $input_street_address, $input_phone_number, $input_email_address);
+            $new_account->setParentTwoName($input_parent_two_name);
             $new_account->setNotes($input_notes);
             $new_account->setBillingHistory($input_billing_history);
+            $new_account->setOutstandingBalance($input_outstanding_balance);
             $new_account->save();
 
             $input_family_name2 = "Fred";
@@ -305,17 +322,20 @@
             $input_notes2 = "galj";
             $input_billing_history2 = "fdjfdas";
             $input_outstanding_balance2 = 5;
-            $new_account2 = new Account($input_family_name2, $input_parent_one_name2, $input_parent_two_name2, $input_street_address2,$input_phone_number2,$input_email_address2,$input_outstanding_balance2);
+            $new_account2 = new Account($input_family_name2, $input_parent_one_name2, $input_street_address2, $input_phone_number2, $input_email_address2);
+            $new_account2->setParentTwoName($input_parent_two_name2);
             $new_account2->setNotes($input_notes2);
             $new_account2->setBillingHistory($input_billing_history2);
+            $new_account2->setOutstandingBalance($input_outstanding_balance2);
             $new_account2->save();
 
+
             //Act
-            $new_student->delete();
+            $new_account->delete();
             $result =  Account::getAll();
 
             //Assert
-            $this->assertEquals([$new_student2], $result);
+            $this->assertEquals([$new_account2], $result);
         }
 
         function test_findAccount()
@@ -329,48 +349,20 @@
             $input_email_address = "fdsfsda@fdasfads";
             $input_notes = "galj";
             $input_billing_history = "fdjfdas";
-            $input_outstanding_balance = 5;
-            $new_account = new Account($input_family_name, $input_parent_one_name, $input_parent_two_name, $input_street_address,$input_phone_number,$input_email_address,$input_outstanding_balance);
+            $input_outstanding_balance = 31;
+            $new_account = new Account($input_family_name, $input_parent_one_name, $input_street_address, $input_phone_number, $input_email_address);
+            $new_account->setParentTwoName($input_parent_two_name);
             $new_account->setNotes($input_notes);
             $new_account->setBillingHistory($input_billing_history);
+            $new_account->setOutstandingBalance($input_outstanding_balance);
             $new_account->save();
 
             // Act
-            $result = Account::find($id);
+            $result = Account::find($new_account->getId());
 
             // Assert
             $this->assertEquals($new_account, $result);
         }
-        function test_findAccountsByTeacher()
-        {
-            // Arrange
-            $input_name = "Stevo";
-            $input_instrument = "Ukulele";
-            $input_teacher_id = 99;
-            $input_new_note = "fadjil;fda. - Nona ";
-            $new_student = new Account($input_name, $input_instrument, $input_teacher_id);
-            $new_student->setNotes($input_new_note);
-            $new_student->save();
-            $teacher_id = $new_student->getTeacherId();
 
-            // Act
-            $result = Account::findAccountsByTeacher($teacher_id);
-
-            // Assert
-            $this->assertEquals([$new_student], $result);
-        }
-
-        function test_delete()
-        {
-            // Arrange
-            $input_name = "Stevo";
-            $input_instrument = "Ukulele";
-            $input_teacher_id = 99;
-            $input_new_note = "fadjil;fda. - Nona ";
-            $new_student = new Account($input_name, $input_instrument, $input_teacher_id);
-
-            // Act
-            // Assert
-        }
     }
  ?>
