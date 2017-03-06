@@ -1,8 +1,9 @@
 {% extends "base.html.twig" %}
 
     <title>CRM Music School</title>
-  </head>
-  <body>
+
+{% block content %}
+
       <div class="nav-bar">
         <div class="logo">
           <img src="/img/splogo.jpg" alt="logo">
@@ -22,3 +23,5 @@
         </div> <!--logo-->
       </div> <!--nav-bar-->
     <h1>{{ deleted_student.getName }} has been deleted</h1>
+    
+  {% endblock %}
