@@ -1,19 +1,15 @@
 <?php
-
     /**
     * @backupGlobals disabled
     * @backupStaticAttributes disabled
     */
-
     require_once "src/Student.php";
     require_once "src/Teacher.php";
     require_once "src/Course.php";
-
     $server = 'mysql:host=localhost:8889;dbname=crm_music_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
-
     class StudentTest extends PHPUnit_Framework_TestCase
     {
         protected function tearDown()
@@ -22,7 +18,6 @@
             Teacher::deleteAll();
             Student::deleteJoin();
         }
-
         function test_getName()
         {
             // Arrange
@@ -30,10 +25,8 @@
             $input_instrument = "Guitar";
             $input_id = 1;
             $new_student = new Student($input_name, $input_instrument, $input_id);
-
             // Act
             $result = $new_student->getName();
-
             // Assert
             $this->assertEquals($input_name, $result);
         }
@@ -45,10 +38,8 @@
             $input_instrument = "Flute";
             $input_id = 2;
             $new_student = new Student($input_name, $input_instrument, $input_id);
-
             // Act
             $result = $new_student->getInstrument();
-
             // Assert
             $this->assertEquals($input_instrument, $result);
         }
@@ -61,10 +52,8 @@
             $input_teacher_id = 4;
             $input_id = 3;
             $new_student = new Student($input_name, $input_instrument, $input_teacher_id, $input_id);
-
             // Act
             $result = $new_student->getId();
-
             // Assert
             $this->assertEquals( true , is_numeric($result));
         }
@@ -78,13 +67,10 @@
             $input_id = 4;
             $new_student = new Student($input_name, $input_instrument, $input_id);
             $new_student->setTeacherId($input_teacher_id);
-
             // Act
             $result = $new_student->getTeacherId();
-
             // Assert
             $this->assertEquals($input_teacher_id, $result);
-
         }
         //5
         function test_save()
@@ -98,10 +84,8 @@
             $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
             $new_student->setNotes($input_notes);
             $new_student->save();
-
             // Act
             $result = Student::getAll();
-
             // Assert
             $this->assertEquals($new_student, $result[0]);
         }
@@ -119,7 +103,6 @@
             $result = $new_student_test->getNotes();
             // Assert
             $this->assertEquals($input_new_note, $result);
-
         }
         // 7
         function test_getAll()
@@ -135,10 +118,8 @@
             $input_teacher_id2 = 2;
             $new_student2_test = new Student($input_name2, $input_instrument2, $input_teacher_id2);
             $new_student2_test->save();
-
             // Act
             $result = Student::getAll();
-
             // Assert
             $this->assertEquals(array($new_student_test, $new_student2_test), $result);
         }
@@ -154,10 +135,8 @@
             $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
             $new_student->setNotes($input_new_note);
             $new_student->save();
-
             // Act
             $result = Student::getAll();
-
             // Assert
             $this->assertEquals($new_student, $result[0]);
         }
@@ -173,16 +152,12 @@
             $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
             $new_student->setNotes($input_new_note);
             $new_student->save();
-
             $new_input_notes = "Had a great lesson.";
-
             //Act
             $new_student->updateNotes($new_input_notes);
-
             //Assert
             $this->assertEquals("Had a great lesson.Blah", $new_student->getNotes());
         }
-
         function testDelete()
         {
             //Arrange
@@ -193,7 +168,6 @@
             $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
             $new_student->setNotes($input_new_note);
             $new_student->save();
-
             $input_name2 = "Test-osterone ";
             $input_instrument2 = "Flugel";
             $input_teacher_id2 = 12;
@@ -201,14 +175,11 @@
             $new_student2 = new Student($input_name2, $input_instrument2, $input_teacher_id2);
             $new_student2->setNotes($input_new_note2);
             $new_student2->save();
-
             //Act
             $new_student->delete();
-
             //Assert
             $this->assertEquals([$new_student2], Student::getAll());
         }
-
         function test_findStudent()
         {
             // Arrange
@@ -220,10 +191,8 @@
             $new_student->setNotes($input_new_note);
             $new_student->save();
             $id = $new_student->getId();
-
             // Act
             $result = Student::getAll();
-
             // Assert
             $this->assertEquals($id, $result[0]->getId());
         }
@@ -238,14 +207,11 @@
             $new_student->setNotes($input_new_note);
             $new_student->save();
             $teacher_id = $new_student->getTeacherId();
-
             // Act
             $result = Student::findStudentsByTeacher($teacher_id);
-
             // Assert
             $this->assertEquals([$new_student], $result);
         }
-
         function test_getCourses()
         {
             // Arrange
@@ -256,20 +222,15 @@
             $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
             $new_student->setNotes($input_new_note);
             $new_student->save();
-
             $input_title = "Basket weaving";
             $test_course = new Course($input_title);
             $test_course->save();
-
             $new_student->enrollInCourse($test_course->getId());
-
             // Act
             $result = $new_student->getCourses();
-
             // Assert
             $this->assertEquals($test_course, $result[0]);
         }
-
         function test_getEnrollmentDate()
         {
             // Arrange
@@ -280,20 +241,15 @@
             $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
             $new_student->setNotes($input_new_note);
             $new_student->save();
-
             $input_title = "Basket weaving";
             $test_course = new Course($input_title);
             $test_course->save();
-
             $new_student->enrollInCourse($test_course->getId());
-
             // Act
             $result = $new_student->getDateOfEnrollment($test_course->getId());
-
             // Assert
             $this->assertEquals(date("Y-m-d"), $result);
         }
-
         function test_enrollInCourse()
         {
             // Arrange
@@ -304,23 +260,17 @@
             $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
             $new_student->setNotes($input_new_note);
             $new_student->save();
-
             $input_title = "Science Fiction Novel";
             $test_course = new Course($input_title);
             $test_course->save();
             $test_course_id = $test_course->getId();
-
             $new_student->enrollInCourse($test_course->getId());
             // $new_student->enrollInCourse($test_course->getId());
-
-
             // Act
             $result = $test_course->getStudents();
-
             // Assert
             // $this->assertEquals($test_course_id, 33);
             $this->assertEquals(1, count($result));
-
         }
     }
  ?>

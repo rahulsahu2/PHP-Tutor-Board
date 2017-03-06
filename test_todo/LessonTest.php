@@ -1,17 +1,13 @@
 <?php
-
     /**
     * @backupGlobals disabled
     * @backupStaticAttributes disabled
     */
-
     require_once "src/Lesson.php";
-
     $server = 'mysql:host=localhost:8889;dbname=crm_music_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
-
     class LessonTest extends PHPUnit_Framework_TestCase
     {
         protected function tearDown()
@@ -20,7 +16,6 @@
             Teacher::deleteAll();
             Student::deleteAll();
         }
-
         function test_construct()
         {
             // Arrange
@@ -32,21 +27,17 @@
             $test_lesson->setTitle($input_title);
             $test_lesson->setDescription($input_description);
             $test_lesson->setContent($input_content);
-
             // Act
             $result1 = $test_lesson->getTitle();
             $result2 = $test_lesson->getDescription();
             $result3 = $test_lesson->getContent();
             $result4 = $test_lesson->getId();
-
             // Assert
             $this->assertEquals($input_title, $result1);
             $this->assertEquals($input_description, $result2);
             $this->assertEquals($input_content, $result3);
             $this->assertEquals($input_id, $result4);
-
         }
-
         function test_save_getAll()
         {
             // Arrange
@@ -59,14 +50,11 @@
             $test_lesson->setContent($input_content);
             $test_lesson->save();
             $test_lesson->getId();
-
             // Act
             $result = Lesson::getAll();
             // var_dump($test_lesson);
-
             // Assert
             $this->assertEquals($test_lesson, $result[0]);
         }
     }
-
 ?>

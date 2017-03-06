@@ -1,17 +1,13 @@
 <?php
-
     /**
     * @backupGlobals disabled
     * @backupStaticAttributes disabled
     */
-
     require_once "src/Service.php";
-
     $server = 'mysql:host=localhost:8889;dbname=crm_music_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
-
     class ServiceTest extends PHPUnit_Framework_TestCase
     {
         protected function tearDown()
@@ -34,7 +30,6 @@
             $input_recurrence = "Wednesdays|3:00pm";
             $input_attendance = "Attended";
             $test_service = new Service ($input_description, $input_duration, $input_price, $input_discount, $input_payed_for, $input_notes, $input_date_of_service, $input_recurrence, $input_attendance);
-
             // Act
             $result1 = $test_service->getDescription();
             $result2 = $test_service->getDuration();
@@ -46,8 +41,6 @@
             $result8 = $test_service->getRecurrence();
             $result9 = $test_service->getAttendance();
             $result10 = $test_service->getId();
-
-
             // Assert
             $this->assertEquals($input_description, $result1);
             $this->assertEquals($input_duration, $result2);
@@ -59,7 +52,6 @@
             $this->assertEquals($input_recurrence, $result8);
             $this->assertEquals($input_attendance, $result9);
             $this->assertEquals($input_id, $result10);
-
         }
         // test 2
         function test_SaveGetAll()
@@ -81,7 +73,6 @@
             $result = Service::getAll();
             // Assert
             $this->assertEquals($test_service, $result[0]);
-
         }
         // test 3
         function test_deleteAll()
@@ -104,10 +95,7 @@
             $result = Service::getAll();
             // Assert
             $this->assertEquals(array(), $result);
-
         }
-
-
         function test_updateDescription()
         {
             // Arrange
@@ -318,7 +306,5 @@
         //     // Assert
         //     $this->assertEquals($test_service, $result[0]);
         // }
-
     }
-
  ?>

@@ -142,32 +142,36 @@
 
         function enrollInCourse($course_id)
         {
-            $today = date('Y-m-d');
-            $check_duplication = false;
+            $today = date('Y-m-d h:i:sa');
 
-            $query = $GLOBALS['DB']->query("SELECT * FROM students_courses WHERE course_id = {$course_id} AND student_id = {$this->id};");
-            $retrieved = $query->fetchAll(PDO::FETCH_ASSOC);
+            $GLOBALS['DB']->exec("INSERT INTO courses_students (course_id, student_id, date_of_enrollment) VALUES ({$course_id}, {$this->getId()}, '{$today}');");
 
-
-            foreach($retrieved as $registration){
-                $student_id = $registration['student_id'];
-                $courseid = $registration['course_id'];
-
-                if($student_id == $this->id && $courseid  == $course_id){
-                    $check_duplication = true;
-                }
-            }
-
-            if($check_duplication == false ){
-                $GLOBALS['DB']->exec("INSERT INTO students_courses (course_id, student_id, date_of_enrollment) VALUES ({$course_id}, {$this->id}, '{$today}');");
-            };
+            //
+            // $check_duplication = false;
+            // $query = $GLOBALS['DB']->query("SELECT * FROM courses_students WHERE course_id = {$course_id} AND student_id = {$this->id};");
+            // var_dump($query);
+            // $retrieved = $query->fetchAll(PDO::FETCH_ASSOC);
+            //
+            //
+            // foreach($retrieved as $registration){
+            //     $student_id = $registration['student_id'];
+            //     $courseid = $registration['course_id'];
+            //
+            //     if($student_id == $this->id && $courseid  == $course_id){
+            //         $check_duplication = true;
+            //     }
+            // }
+            //
+            // if($check_duplication == false ){
+            //     $GLOBALS['DB']->exec("INSERT INTO courses_students (course_id, student_id, date_of_enrollment) VALUES ({$course_id}, {$this->id}, '{$today}');");
+            // };
         }
 
         function getCourses()
         {
             $returned_courses = $GLOBALS['DB']->query("SELECT courses.* FROM
-            students JOIN students_courses ON (students.id = students_courses.student_id)
-                    JOIN courses ON (students_courses.course_id = courses.id)
+            students JOIN courses_students ON (students.id = courses_students.student_id)
+                    JOIN courses ON (courses_students.course_id = courses.id)
             WHERE students.id = {$this->getId()};");
             $courses = array();
             foreach ($returned_courses as $course )
@@ -182,9 +186,9 @@
 
         function getDateOfEnrollment($course_id)
         {
-            $query = $GLOBALS['DB']->query("SELECT date_of_enrollment FROM students_courses WHERE student_id = {$this->id} AND course_id = {$course_id};");
-            $returned_date = $query->fetch(PDO::FETCH_ASSOC);
-            return $returned_date['date_of_enrollment'];
+            // $query = $GLOBALS['DB']->query("SELECT date_of_enrollment FROM courses_students WHERE student_id = {$this->id} AND course_id = {$course_id};");
+            // $returned_date = $query->fetchAll(PDO::FETCH_ASSOC);
+            // return $returned_date['date_of_enrollment'];
         }
 
 
