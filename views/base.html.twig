@@ -7,14 +7,28 @@
     </head>
     <body>
         <div class="container">
-            <div id="nav">
-                <button class="btn btn-info"><a href="/books">All Books</a></button>
-                <button class="btn btn-info"><a href="/authors">All Authors</a></button>
-                <button class="btn btn-info"><a href="/patrons">All Patrons</a></button>
+            <div class="nav-bar">
+              <div class="logo">
+                <img src="img/splogo.jpg" alt="logo">
+                <h1></h1>
+                <p class="intro"></p>
+              </div>
+              <div class="center-div">
+                <div class="sidebar">
+                  <ul>
+                    <li><a href="/teachers">teachers</a></li>
+                    <li><a href="/students">students</a></li>
+                    <li>accounts</li>
+                    <li>billing</li>
+                    <li><a href="/">home</a></li>
+                  </ul>
+                </div>
+                <!--sidebar-->
+              </div>
+              <!--logo-->
             </div>
-
             {% block content %}
-            
+
             {% endblock %}
             <hr>
             <a href="/" ><button class="btn btn-primary">HOME</button></a>

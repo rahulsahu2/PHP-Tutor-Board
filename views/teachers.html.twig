@@ -1,29 +1,7 @@
 {% extends "base.html.twig" %}
 
-    <title>CRM Music School</title>
-  </head>
-  <body>
-      <div class="nav-bar">
-        <div class="logo">
-          <img src="img/splogo.jpg" alt="logo">
-          <h1></h1>
-          <p class="intro"></p>
-        </div>
-        <div class="center-div">
-          <div class="sidebar">
-            <ul>
-              <li><a href="/teachers">teachers</a></li>
-              <li><a href="/students">students</a></li>
-              <li>accounts</li>
-              <li>billing</li>
-              <li><a href="/">home</a></li>
-            </ul>
-          </div>
-          <!--sidebar-->
-        </div>
-        <!--logo-->
-      </div>
-      <!--nav-bar-->
+{% block title %}Teachers{% endblock %}
+
       <div class="jumbotron">
         <h1>Teachers</h1>
         <p></p>
@@ -43,4 +21,5 @@
         <input type="text" name="teacher_instrument" required><br>
         <button type="submit">Submit</button><br>
       </form>
-      <a href="/">Home</a>
+
+{% endblock %}
