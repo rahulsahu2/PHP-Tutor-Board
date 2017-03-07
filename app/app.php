@@ -43,13 +43,13 @@
 
     $app->get("/", function() use ($app) {
 
-        return $app['twig']->render('index.html.twig', array('teachers' => Teacher::getAll(), 'students' => Student::getAll()));
+        return $app['twig']->render('owner_main.html.twig', array('teachers' => Teacher::getAll(), 'students' => Student::getAll()));
 
     });
 
     $app->get("/teachers", function() use ($app) {
 
-        return $app['twig']->render('teachers.html.twig', array('teachers' => Teacher::getAll()));
+        return $app['twig']->render('owner_teachers.html.twig', array('teachers' => Teacher::getAll()));
 
     });
 
@@ -60,7 +60,7 @@
         $new_teacher = new Teacher($new_teacher_name, $new_teacher_instrument);
         $new_teacher->setNotes(date('l jS \of F Y h:i:s A') . " of first entry.");
         $new_teacher->save();
-        return $app['twig']->render('teachers.html.twig', array('teachers' => Teacher::getAll()));
+        return $app['twig']->render('owner_teachers.html.twig', array('teachers' => Teacher::getAll()));
 
     });
 
@@ -69,7 +69,7 @@
         $notes_array = explode("|", $teacher->getNotes());
         $teachers_students = $teacher->getStudents();
 
-        return $app['twig']->render('teacher.html.twig', array('teacher' => $teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array ));
+        return $app['twig']->render('owner_teacher.html.twig', array('teacher' => $teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array ));
 
     });
 
@@ -80,19 +80,18 @@
         $selected_teacher->updateNotes($updated_notes);
         $notes_array = explode("|", $updated_notes);
         $teachers_students = $selected_teacher->getStudents();
-        return $app['twig']->render('teacher.html.twig', array('teacher' => $selected_teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array ));
+        return $app['twig']->render('owner_teacher.html.twig', array('teacher' => $selected_teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array ));
     });
 
     $app->delete("/teachers/teacher_termination/{id}", function($id) use ($app) {
-        $deleted_teacher = Teacher::findTeacher($id);
-        $deleted_teacher->delete();
-
-        return $app['twig']->render('teacher_termination.html.twig', array ('deleted_teacher' => $deleted_teacher ));
+        $teacher = Teacher::findTeacher($id);
+        $teacher->delete();
+        return $app->redirect("/teachers/".$id);
     });
 
     $app->get("/students", function() use ($app) {
 
-          return $app['twig']->render('students.html.twig', array('students' => Student::getAll(), 'teachers' => Teacher::getAll()));
+          return $app['twig']->render('owner_students.html.twig', array('students' => Student::getAll(), 'teachers' => Teacher::getAll()));
     });
 
     $app->post("/students", function() use ($app) {
@@ -100,14 +99,14 @@
           $new_student = new Student($new_student_name);
           $new_student->setNotes(date('l jS \of F Y h:i:s A') . " of first entry.");
           $new_student->save();
-          return $app['twig']->render('students.html.twig', array('students' => Student::getAll(), 'teachers' => Teacher::getAll()));
+          return $app['twig']->render('owner_students.html.twig', array('students' => Student::getAll(), 'teachers' => Teacher::getAll()));
     });
 
     $app->get("/students/{id}", function($id) use ($app) {
         $selected_student = Student::findStudent($id);
         $notes_array = explode("|", $selected_student->getNotes());
         $assigned_teachers = $selected_student->findTeachers();
-        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teachers' => $assigned_teachers, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses()));
+        return $app['twig']->render('owner_student.html.twig', array('student' => $selected_student, 'assigned_teachers' => $assigned_teachers, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses()));
     });
 
     $app->post("/students/{id}", function($id) use ($app) {
@@ -116,7 +115,7 @@
         $selected_student->enrollInCourse($course_id);
         $notes_array = explode("|", $selected_student->getNotes());
         $assigned_teachers = $selected_student->findTeachers();
-        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teachers' => $assigned_teachers, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses() ));
+        return $app['twig']->render('owner_student.html.twig', array('student' => $selected_student, 'assigned_teachers' => $assigned_teachers, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses() ));
     });
 
 
@@ -128,24 +127,24 @@
         $notes_array = explode("|", $updated_notes);
         $assigned_teachers = $selected_student->findTeachers();
 
-        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teachers' => $assigned_teachers, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses()  ));
+        return $app['twig']->render('owner_student.html.twig', array('student' => $selected_student, 'assigned_teachers' => $assigned_teachers, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses()  ));
     });
 
     $app->delete("/students/student_termination/{id}", function($id) use ($app) {
-        $deleted_student = Student::findStudent($id);
-        $deleted_student->delete();
+        $student = Student::findStudent($id);
+        $student->delete();
 
-        return $app['twig']->render('student_termination.html.twig', array('deleted_student' => $deleted_student ));
+        return $app->redirect("/students/".$id);
     });
 
     $app->get("/accounts", function() use ($app) {
-        return $app['twig']->render('account.html.twig', array('accounts' => Account::getAll()) );
+        return $app['twig']->render('owner_account.html.twig', array('accounts' => Account::getAll()) );
     });
 
     // Retrieve courses
     $app->get("/courses", function() use ($app) {
 
-        return $app['twig']->render('courses.html.twig', array('courses'=>Course::getAll() ));
+        return $app['twig']->render('owner_courses.html.twig', array('courses'=>Course::getAll() ));
     });
 
     // Create new course and retrieve courses
@@ -154,14 +153,14 @@
         $new_course = new Course($course_title);
         $new_course->save();
 
-        return $app['twig']->render('courses.html.twig', array('courses'=>Course::getAll() ));
+        return $app['twig']->render('owner_courses.html.twig', array('courses'=>Course::getAll() ));
 
     });
 
     $app->get("/courses/{id}", function($id) use ($app){
         $course = Course::find($id);
 
-        return $app['twig']->render('course.html.twig', array('course' => $course, 'enrolled_students'=>$course->getStudents(), 'students'=>Student::getAll()));
+        return $app['twig']->render('owner_course.html.twig', array('course' => $course, 'enrolled_students'=>$course->getStudents(), 'students'=>Student::getAll()));
     });
 
     //ENROLL STUDENTS
@@ -172,21 +171,20 @@
         $selected_student->enrollInCourse($id);
         $students = $course->getStudents();
 
-        return $app['twig']->render('course.html.twig', array('course' => $course, 'enrolled_students'=>$course->getStudents(), 'students'=>Student::getAll()));
+        return $app['twig']->render('owner_course.html.twig', array('course' => $course, 'enrolled_students'=>$course->getStudents(), 'students'=>Student::getAll()));
     });
 
     //view lessons
     $app->get("/lessons", function() use ($app) {
 
-        return $app['twig']->render('lessons.html.twig', array('lessons' => Lesson::getAll()) );
+        return $app['twig']->render('owner_lessons.html.twig', array('lessons' => Lesson::getAll()) );
 
     });
 
-    //create lesson
-    // $app->post("/lessons/{id}", function($id) use($app) {
-    //
-    //     return $app['twig']->render('lesson.html.twig', array('lesson' =>))
-    // });
+    $app->post("/lessons/{id}", function($id) use($app) {
+
+        return $app['twig']->render('owner_lesson.html.twig', array('lesson' =>))
+    });
 
 
     // NOTE root page from contacts project
@@ -194,6 +192,9 @@
     //     // Contact::deleteAll();
     //     return $app['twig']->render('address_book_home.html.twig', array( 'list_of_contacts'=>Contact::getAll() ));
     // });
+
+//add owner_clients page
+//add owner_delete-accounts page
 
     return $app;
  ?>

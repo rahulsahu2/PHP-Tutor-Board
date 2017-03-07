@@ -17,12 +17,12 @@
                 <li> teacher's students</li>
                 <ul>
                     {% for student in teachers_students %}
-                    <li><a href="/students/{{ student.getId }}">{{ student.getName }}</a></li>
+                    <li><a href="/owner_students/{{ student.getId }}">{{ student.getName }}</a></li>
                     {% endfor %}
                 </ul>
                 {% endif %}
             </ul>
-            <form action="/teachers/{{ teacher.getId }}" method="post">
+            <form action="/owner_teachers/{{ teacher.getId }}" method="post">
                 <input name="_method" type="hidden" value="patch">
                 <label for="new_notes">add notes...</label><br>
                 <textarea name="new_notes" rows="3" cols="40"></textarea><br>
@@ -34,7 +34,7 @@
     </div>
     <!-- left column -->
     <div class="col-md-4">
-        <form action="/teachers/teacher_termination/{{ teacher.getId }}" method="post">
+        <form action="/owner_teachers/teacher_termination/{{ teacher.getId }}" method="post">
             <input name="_method" type="hidden" value="delete">
             <button type="submit" name="button">delete teacher</button>
         </form>

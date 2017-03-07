@@ -13,7 +13,7 @@
         <div class="col-sm-6">
             <div class="jumbotron blue">
                 <h4>Create New Account</h4>
-                <form action="/accounts" method="post">
+                <form action="/owner_accounts" method="post">
                     <div class="form-group">
                         <label for="name_input">Name: </label>
                         <input class="form-control" type="text" name="name_input">
@@ -25,28 +25,23 @@
                     <!-- formgroup -->
                     <button class="btn btn-primary" type="submit" name="new_account_submit">create new account</button>
                 </form>
-                <form class="" action="/search_input" method="post">
+                <form action="/search_input" method="post">
                     <div class="form-group">
                         <label for="search_input"></label>
                         <input class="form-control" type="text" name="search_input" placeholder="first letter search...">
                     </div>
                     <button type="submit" name="view_accounts" class="btn btn-info" value="view">search accounts</button>
                 </form>
-                <form class="" action="/" method="post">
+                <form action="/owner_clients" method="post">
                     <button type="submit" name="view_accounts" class="btn btn-warning" value="view">view accounts</button>
                 </form>
-                <form class="" action="/delete-accounts" method="post">
+                <form class="" action="/owner_delete-clients" method="post">
                     <button type="submit" class="btn btn-danger" name="delete_accounts">delete accounts</button>
                 </form>
             </div>
             <!-- jumbotron blue -->
         </div>
         <!-- right column form -->
-        <div class="col-sm-6">
-            <div class="jumbotron purple">
-
-            </div>
-            <!-- jumbotron purple -->
         </div>
         <!-- column -->
     </div>
