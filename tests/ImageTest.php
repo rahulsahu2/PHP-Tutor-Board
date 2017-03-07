@@ -22,17 +22,12 @@
             $new_image = new Image("",0);
             $new_image->setCaption($input_caption);
             $new_image->setImg($input_img);
-
             // Act
             $result1 = $new_image->getCaption();
             $result2 = $new_image->getImg();
-
             // Assert
             $this->assertEquals($input_caption, $result1);
             $this->assertEquals($input_img, $result2);
         }
-
-
     }
-
 ?>

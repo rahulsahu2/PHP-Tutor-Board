@@ -51,7 +51,7 @@
                 $friends = explode("|", $pair);
                 $first_class = $friends[0];
                 $second_class = $friends[1];
-                $command = 'CREATE TABLE ' . $first_class . '_' . $second_class . ' ' . '(id serial PRIMARY KEY, ' . $first_class . '_id INT, ' . $second_class . '_id INT, date_of_join DATETIME);';
+                $command = 'CREATE TABLE ' . $first_class . 's_' . $second_class . 's ' . '(id serial PRIMARY KEY, ' . $first_class . '_id INT, ' . $second_class . '_id INT, date_of_join DATETIME);';
                 array_push($commands, $command);
             }
             return $commands;
@@ -63,14 +63,6 @@
         {
 
             $array = array_map('str_getcsv', file('jimi_attendance_march.csv'));
-
-            // $header = array_shift($array);
-            //
-            // array_walk($array, '_combine_array', $header);
-            //
-            // function _combine_array(&$row, $key, $header) {
-            //   $row = array_combine($header, $row);
-            // }
 
             return $array;
         }

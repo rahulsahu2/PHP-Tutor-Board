@@ -1,5 +1,7 @@
 <?php
-// CREATE TABLE image (idpic INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, caption VARCHAR(45) NOT NULL, img LONGBLOB NOT NULL, PRIMARY KEY(idpic));
+
+    // NOTE REFACTOR WITH NEW DATABASE NAMES !!
+
     class  Image
     {
         private $caption;

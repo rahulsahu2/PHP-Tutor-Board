@@ -58,17 +58,29 @@
         function getStudents()
        {
            $students = Array();
-           $returned_students = $GLOBALS['DB']->query("SELECT * FROM students WHERE techer_id = {$this->getId()};");
-           foreach($returned_students as $student) {
-               $student_name = $student['student_name'];
-               $instrument = $student['instrument'];
-               $teacher_id = $student['teacher_id'];
-               $id = $student['id'];
-               $new_student = new Student($student_name, $instrument, $teacher_id, $id);
-               array_push($students, $new_student);
-           }
-           return $students;
+           $query = $GLOBALS['DB']->query("SELECT students.* FROM
+           teachers JOIN student_teachers ON teachers.id = students_teachers.teachers_id
+                    JOIN students ON students_teachers.student_id = students.id
+                    WHERE teachers.id = {$this->getId()};");
+
+        if(!empty($query)){
+            foreach($query as $student) {
+                $student_name = $student['student_name'];
+                $id = $student['id'];
+                $new_student = new Student($student_name, $id);
+                array_push($students, $new_student);
+            }
+        }
+        return $students;
+
        }
+
+       function assignStudent($student_id)
+       {
+           $GLOBALS['DB']->exec("INSERT INTO students_teachers (student_id, teacher_id) VALUES ({$this->getId()}, {$student_id});");
+       }
+
+
 
         static function findTeacher($search_id)
         {

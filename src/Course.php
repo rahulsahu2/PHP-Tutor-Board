@@ -83,18 +83,17 @@
         function getStudents()
         {
             $students = $GLOBALS['DB']->query("SELECT students.* FROM
-            courses  JOIN student_course ON (course.id = student_course.course_id)
-                    JOIN students ON ( student_course.student_id = student.id)
-            WHERE course.id = {$this->getId()};");
+            courses  JOIN courses_students ON (courses.id = courses_students.course_id)
+                    JOIN students ON ( courses_students.student_id = students.id)
+            WHERE courses.id = {$this->getId()};");
+
 
             $return_students = array();
             foreach($students as $student){
                 $id = $student['id'];
                 $student_name = $student['student_name'];
-                $instrument = $student['instrument'];
-                $teacher_id = $student['teacher_id'];
                 $notes = $student['notes'];
-                $new_student = new Student($student_name, $instrument, $teacher_id, $id);
+                $new_student = new Student($student_name, $id);
                 $new_student->setNotes($notes);
                 array_push($return_students, $new_student);
             }

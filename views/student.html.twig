@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "base2.html.twig" %}
 
 {% block title %}Student{% endblock %}
@@ -38,6 +39,48 @@
                 {% endfor %}
             {% endif %}
                 </ol>
+=======
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href='/styles.css' rel='stylesheet' type='text/css'>
+    <title>CRM Music School</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav-bar">
+        <div class="logo">
+          <img src="/img/splogo.jpg" alt="logo">
+          <h1></h1>
+          <p class="intro"></p>
+        </div>
+        <div class="center-div">
+          <div class="sidebar">
+            <ul>
+              <li><a href="/teachers">teachers</a></li>
+              <li><a href="/students">students</a></li>
+              <li>accounts</li>
+              <li>billing</li>
+              <li><a href="/">home</a></li>
+            </ul>
+          </div> <!--sidebar-->
+        </div> <!--logo-->
+      </div> <!--nav-bar-->
+      <div class="row">
+        <div class="col-md-8">
+          <div class="jumbotron">
+            <h1>{{ student.getName }}</h1>
+            <p></p>
+            <ul>
+                {% if assigned_teachers is not empty %}
+                    {% for assigned_teacher in assigned_teachers %}
+                        <li>  assigned teacher: <strong>{{ assigned_teacher.getName }}</strong> (id:{{ assigned_teacher.getId }})</li>
+                    {% endfor %}
+                {% endif %}
+
+            </ul>
+>>>>>>> upstream/master
             <form action="/students/{{ student.getId }}" method="post">
                 <label>Enroll in a Course</label>
                 {% if courses is not empty %}

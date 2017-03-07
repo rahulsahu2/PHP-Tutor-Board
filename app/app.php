@@ -7,6 +7,10 @@
     require_once __DIR__."/../src/Course.php";
     require_once __DIR__."/../src/Lesson.php";
     require_once __DIR__."/../src/School.php";
+    require_once __DIR__."/../src/Account.php";
+    require_once __DIR__."/../src/Image.php";
+    require_once __DIR__."/../src/Service.php";
+
 
     $app = new Silex\Application();
 
@@ -26,18 +30,14 @@
 
     $app->get("/", function() use ($app) {
 
-          $commands = School::serverBlaster(['accounts','courses','images','lessons','schools','services','students','teachers']);
-          $attendance_jimi = School::csvToArray();
-          return $app['twig']->render('index.html.twig', array('teachers' => Teacher::getAll(), 'students' => Student::getAll(), 'commands'=>$commands, 'attendance_jimi'=>$attendance_jimi));
+        return $app['twig']->render('index.html.twig', array('teachers' => Teacher::getAll(), 'students' => Student::getAll()));
 
     });
 
     $app->get("/teachers", function() use ($app) {
-        if (empty(Teacher::getAll())) {
-        return $app['twig']->render('teachers.html.twig', array('teachers' => array()));
-        } else {
-          return $app['twig']->render('teachers.html.twig', array('teachers' => Teacher::getAll()));
-        }
+
+        return $app['twig']->render('teachers.html.twig', array('teachers' => Teacher::getAll()));
+
     });
 
     $app->post("/teachers", function() use ($app) {
@@ -54,9 +54,8 @@
     $app->get("/teachers/{id}", function($id) use ($app) {
         $teacher = Teacher::findTeacher($id);
         $notes_array = explode("|", $teacher->getNotes());
-        $teachers_students = Student::findStudentsByTeacher($id);
-        // var_dump($teacher);
-        // var_dump($teachers_students);
+        $teachers_students = $teacher->getStudents();
+
         return $app['twig']->render('teacher.html.twig', array('teacher' => $teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array ));
 
     });
@@ -67,7 +66,7 @@
         $updated_notes =  date('l jS \of F Y ') . "---->"  . $new_notes  . "|" .$selected_teacher->getNotes();
         $selected_teacher->updateNotes($updated_notes);
         $notes_array = explode("|", $updated_notes);
-        $teachers_students = Student::findStudentsByTeacher($id);
+        $teachers_students = $selected_teacher->getStudents();
         return $app['twig']->render('teacher.html.twig', array('teacher' => $selected_teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array ));
     });
 
@@ -85,50 +84,38 @@
 
     $app->post("/students", function() use ($app) {
           $new_student_name = $_POST['student_name'];
-          $new_student_instrument = $_POST['student_instrument'];
-          $new_teacher_id = $_POST['teacher_id'];
-          $new_student = new Student($new_student_name, $new_student_instrument, $new_teacher_id);
+          $new_student = new Student($new_student_name);
           $new_student->setNotes(date('l jS \of F Y h:i:s A') . " of first entry.");
           $new_student->save();
           return $app['twig']->render('students.html.twig', array('students' => Student::getAll(), 'teachers' => Teacher::getAll()));
     });
 
-    // Individual student page  NOTE We could also use find techer by id to return students teacher info.
     $app->get("/students/{id}", function($id) use ($app) {
         $selected_student = Student::findStudent($id);
-        $teacher_id = $selected_student->getTeacherId();
         $notes_array = explode("|", $selected_student->getNotes());
-        $assigned_teacher = Teacher::findTeacher($teacher_id);
-        // var_dump($student);
-        // var_dump($students_students);
-        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teacher' => $assigned_teacher, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses() ));
+        $assigned_teachers = $selected_student->findTeachers();
+        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teachers' => $assigned_teachers, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses()));
     });
 
     $app->post("/students/{id}", function($id) use ($app) {
         $selected_student = Student::findStudent($id);
-
         $course_id = $_POST['course_id'];
-
         $selected_student->enrollInCourse($course_id);
-        $teacher_id = $selected_student->getTeacherId($course_id);
         $notes_array = explode("|", $selected_student->getNotes());
-        $assigned_teacher = Teacher::findTeacher($teacher_id);
-
-        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teacher' => $assigned_teacher, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses() ));
+        $assigned_teachers = $selected_student->findTeachers();
+        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teachers' => $assigned_teachers, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses() ));
     });
 
 
     $app->patch("/students/{id}", function($id) use ($app) {
         $selected_student = Student::findStudent($id);
-        $teacher_id = $selected_student->getTeacherId();
         $new_notes = $_POST['new_notes'];
         $updated_notes =  date('l jS \of F Y ') . "---->"  . $new_notes  . "|" .$selected_student->getNotes();
         $selected_student->updateNotes($updated_notes);
         $notes_array = explode("|", $updated_notes);
-        $assigned_teacher = Teacher::findTeacher($teacher_id);
-        // var_dump($student);
-        // var_dump($students_students);
-        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teacher' => $assigned_teacher, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses()  ));
+        $assigned_teachers = $selected_student->findTeachers();
+        
+        return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teachers' => $assigned_teachers, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses()  ));
     });
 
     $app->delete("/students/student_termination/{id}", function($id) use ($app) {
