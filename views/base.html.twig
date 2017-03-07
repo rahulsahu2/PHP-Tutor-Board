@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+        <link href='/styles.css' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
+        <title>Music School - {% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="nav-bar">
+              <div class="logo">
+                <img src="img/splogo.jpg" alt="logo">
+                <p class="intro"></p>
+              </div>
+              <div class="center-div">
+                <div class="sidebar">
+                  <ul>
+                    <li><a href="/teachers">Teachers</a></li>
+                    <li><a href="/students">Students</a></li>
+                    <li><a href="/accounts">Accounts</a></li>
+                    <li><a href="/courses">Courses</a></li>
+                    <li><a href="/">Home</a></li>
+                  </ul>
+                </div>
+                <!--sidebar-->
+              </div>
+              <!--logo-->
+            </div>
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </body>
+</html>

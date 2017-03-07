@@ -1,57 +1,55 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href='styles.css' rel='stylesheet' type='text/css'>
-    <title>CRM Music School</title>
-  </head>
-  <body>
-    <div class="container">
-      <div class="nav-bar">
-        <div class="logo">
-          <img src="img/splogo.jpg" alt="logo">
-          <h1></h1>
-          <p class="intro"></p>
+{% extends "base.html.twig" %}
+
+{% block title %}Students{% endblock %}
+
+{% block content %}
+
+<div class="jumbotron">
+    {% if students is not empty %}
+    <h1>Students</h1>
+    <hr>
+</div>
+
+<div class="row" id="alignstudents">
+    <div class="col-md-4" id="addstudentbox">
+        <form action="/students" method="post">
+            <div class="panel panel-info">
+                <h3 class="panel-heading">Add New Student</h3>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="student_name">Name</label><br>
+                        <input type="text" name="student_name" required><br>
+                        {% if teachers is not empty %}
+                        <label for="teacher_id">Teacher Id</label><br>
+                        <select name="teacher_id">
+                            {% for teacher in teachers %}
+                            <option value="{{ teacher.getId }}">{{ teacher.getName }}</option>
+                            {% endfor %}
+                        </select>
+                        {% endif %}
+                        <button type="submit">Submit</button><br>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="center-div">
-          <div class="sidebar">
-            <ul>
-              <li><a href="/teachers">teachers</a></li>
-              <li><a href="/students">students</a></li>
-              <li>accounts</li>
-              <li>billing</li>
-              <li><a href="/">home</a></li>
-            </ul>
-          </div> <!--sidebar-->
-        </div> <!--logo-->
-      </div> <!--nav-bar-->
-      <div class="jumbotron">
-        {% if students is not empty %}
-        <h1>Students </h1>
-        <p></p>
-      </div>
-      <ul>
-        {% for student in students %}
-          <li><a href="students/{{student.getId}}">{{student.getName}}</a></li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-      <form action="/students" method="post">
-        <label for="student_name">Name</label><br>
-        <input type="text" name="student_name" required><br>
-        <label for="student_instrument">Instrument</label><br>
-        <input type="text" name="student_instrument" required><br>
-        {% if teachers is not empty %}
-        <label for="teacher_id">Teacher Id</label><br>
-        <select name="teacher_id">
-          {% for teacher in teachers %}
-          <option value="{{ teacher.getId }}">{{ teacher.getName }}</option>
-          {% endfor %}
-        </select>
+        </form>
+
+        <div class="col-md-3">
+            <h3>Current Students</h3>
+            <table class="table table-hover">
+                <thead>
+                    <th>Name</th>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td><a href="students/{{student.getId}}">{{student.getName}}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
         {% endif %}
-        <button type="submit">Submit</button><br>
-      </form>
-      <a href="/">Home</a>
-    </div>
-  </body>
-</html>
+
+</div>
+    {% endblock %}
