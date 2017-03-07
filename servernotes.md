@@ -4,6 +4,7 @@
 ###Table Descriptions:
 
 ##accounts
+
 | Field               | Type                | Null | Key | Default | Extra          |
 |---------------------|---------------------|------|-----|---------|----------------|
 | id                  | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
@@ -19,6 +20,7 @@
 CREATE TABLE accounts (id serial PRIMARY KEY, family_name VARCHAR (255), street_address VARCHAR (255), phone_number VARCHAR (255), email_address VARCHAR(255), notes TEXT, billing_history TEXT, outstanding_balance INT, parent_one_name VARCHAR (255), parent_two_name VARCHAR (255));
 
 ##courses
+
 | Field | Type                | Null | Key | Default | Extra          |
 |-------|---------------------|------|-----|---------|----------------|
 | title | varchar(255)        | YES  |     | NULL    |                |
@@ -26,6 +28,7 @@ CREATE TABLE accounts (id serial PRIMARY KEY, family_name VARCHAR (255), street_
 CREATE TABLE courses (title VARCHAR(255), id serial PRIMARY KEY);
 
 ##images
+
 | Field   | Type             | Null | Key | Default | Extra          |
 |---------|------------------|------|-----|---------|----------------|
 | idpic   | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
@@ -34,17 +37,19 @@ CREATE TABLE courses (title VARCHAR(255), id serial PRIMARY KEY);
 CREATE TABLE images (idpic INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, caption VARCHAR(45) NOT NULL, img LONGBLOB NOT NULL, PRIMARY KEY(idpic));
 
 ##teachers
+
 | Field        | Type                | Null | Key | Default | Extra          |
 |--------------|---------------------|------|-----|---------|----------------|
 | id           | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
 | teacher_name | varchar(255)        | YES  |     | NULL    |                |
 | instrument   | varchar(100)        | YES  |     | NULL    |                |
 | notes        | text                | YES  |     | NULL    |                |
-####REFACTOR WITH JOIN TABLE FOR DEPARTMENT INSTEAD OF INSTRUMENT
+
 CREATE TABLE teachers (id serial PRIMARY KEY, teacher_name VARCHAR (255), instrument VARCHAR (100), notes TEXT);
 
 
 ##students
+
 | Field        | Type                | Null | Key | Default | Extra          |
 |--------------|---------------------|------|-----|---------|----------------|
 | id           | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
@@ -54,30 +59,32 @@ CREATE TABLE teachers (id serial PRIMARY KEY, teacher_name VARCHAR (255), instru
 CREATE TABLE students (id serial PRIMARY KEY, student_name VARCHAR (255), notes TEXT);
 
 ##services
+
 | Field          | Type                | Null | Key | Default | Extra          |
 |----------------|---------------------|------|-----|---------|----------------|
 | description     | varchar(255)        | YES  |     | NULL    |                |
 | duration        | int(11)             | YES  |     | NULL    |                |
 | price           | decimal(10,2)       | YES  |     | NULL    |                |
 | discount        | decimal(10,2)       | YES  |     | NULL    |                |
-| paid_for        | tinyint(1)          | YES  |     | NULL    |                |
+| paid_for        | int                 | YES  |     | NULL    |                |
 | notes           | text                | YES  |     | NULL    |                |
 | date_of_service | datetime            | YES  |     | NULL    |                |
 | recurrence      | varchar(255)        | YES  |     | NULL    |                |
 | attendance      | varchar(255)        | YES  |     | NULL    |                |
 | id              | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
-####  NOTE SPELLING ERROR: payed_for --> paid_for CHECK EVERYWHERE
-CREATE TABLE services (description VARCHAR(255), duration INT, price DECIMAL(10,2), discount DECIMAL(10,2), paid_for TINYINT(1), notes TEXT, date_of_service DATETIME, recurrence VARCHAR(255), attendance VARCHAR(255), id serial PRIMARY KEY);
+
+CREATE TABLE services (description VARCHAR(255), duration INT, price DECIMAL(10,2), discount DECIMAL(10,2), paid_for INT, notes TEXT, date_of_service DATETIME, recurrence VARCHAR(255), attendance VARCHAR(255), id serial PRIMARY KEY);
 
 ##lessons
-###Refactor -> BLOB!!
+
+
 | Field       | Type                | Null | Key | Default | Extra          |
 |-------------|---------------------|------|-----|---------|----------------|
 | title       | varchar(255)        | YES  |     | NULL    |                |
 | description | varchar(255)        | YES  |     | NULL    |                |
-| content     | varchar(30000)      | YES  |     | NULL    |                |
+| content     | TEXT                | YES  |     | NULL    |                |
 | id          | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
-CREATE TABLE lessons (title VARCHAR(255), description VARCHAR(255), content VARCHAR(30000), id serial PRIMARY KEY);
+CREATE TABLE lessons (title VARCHAR(255), description VARCHAR(255), content TEXT, id serial PRIMARY KEY);
 
 
 
