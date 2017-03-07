@@ -60,14 +60,14 @@ CREATE TABLE students (id serial PRIMARY KEY, student_name VARCHAR (255), notes 
 | duration        | int(11)             | YES  |     | NULL    |                |
 | price           | decimal(10,2)       | YES  |     | NULL    |                |
 | discount        | decimal(10,2)       | YES  |     | NULL    |                |
-| paid_for        | tinyint(1)          | YES  |     | NULL    |                |
+| paid_for        | int                 | YES  |     | NULL    |                |
 | notes           | text                | YES  |     | NULL    |                |
-| date_of_service | datetime            | YES  |     | NULL    |                |
+| date_of_service | timestamp           | YES  |     | NULL    |                |
 | recurrence      | varchar(255)        | YES  |     | NULL    |                |
 | attendance      | varchar(255)        | YES  |     | NULL    |                |
 | id              | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
-####  NOTE SPELLING ERROR: payed_for --> paid_for CHECK EVERYWHERE
-CREATE TABLE services (description VARCHAR(255), duration INT, price DECIMAL(10,2), discount DECIMAL(10,2), paid_for TINYINT(1), notes TEXT, date_of_service DATETIME, recurrence VARCHAR(255), attendance VARCHAR(255), id serial PRIMARY KEY);
+
+CREATE TABLE services (description VARCHAR(255), duration INT, price DECIMAL(10,2), discount DECIMAL(10,2), paid_for INT, notes TEXT, date_of_service TIMESTAMP, recurrence VARCHAR(255), attendance VARCHAR(255), id serial PRIMARY KEY);
 
 ##lessons
 ###Refactor -> BLOB!!
@@ -75,40 +75,40 @@ CREATE TABLE services (description VARCHAR(255), duration INT, price DECIMAL(10,
 |-------------|---------------------|------|-----|---------|----------------|
 | title       | varchar(255)        | YES  |     | NULL    |                |
 | description | varchar(255)        | YES  |     | NULL    |                |
-| content     | varchar(30000)      | YES  |     | NULL    |                |
+| content     | TEXT                | YES  |     | NULL    |                |
 | id          | bigint(20) unsigned | NO   | PRI | NULL    | auto_increment |
-CREATE TABLE lessons (title VARCHAR(255), description VARCHAR(255), content VARCHAR(30000), id serial PRIMARY KEY);
+CREATE TABLE lessons (title VARCHAR(255), description VARCHAR(255), content TEXT, id serial PRIMARY KEY);
 
 
 
 #Join Tables:
 
 ##serverBlaster join table results:
-CREATE TABLE accounts_courses (id serial PRIMARY KEY, account_id INT, course_id INT, date_of_join DATETIME);
-CREATE TABLE accounts_images (id serial PRIMARY KEY, account_id INT, image_id INT, date_of_join DATETIME);
-CREATE TABLE accounts_lessons (id serial PRIMARY KEY, account_id INT, lesson_id INT, date_of_join DATETIME);
-CREATE TABLE accounts_schools (id serial PRIMARY KEY, account_id INT, school_id INT, date_of_join DATETIME);
-CREATE TABLE accounts_services (id serial PRIMARY KEY, account_id INT, service_id INT, date_of_join DATETIME);
-CREATE TABLE accounts_students (id serial PRIMARY KEY, account_id INT, student_id INT, date_of_join DATETIME);
-CREATE TABLE accounts_teachers (id serial PRIMARY KEY, account_id INT, teacher_id INT, date_of_join DATETIME);
-CREATE TABLE courses_images (id serial PRIMARY KEY, course_id INT, image_id INT, date_of_join DATETIME);
-CREATE TABLE courses_lessons (id serial PRIMARY KEY, course_id INT, lesson_id INT, date_of_join DATETIME);
-CREATE TABLE courses_schools (id serial PRIMARY KEY, course_id INT, school_id INT, date_of_join DATETIME);
-CREATE TABLE courses_services (id serial PRIMARY KEY, course_id INT, service_id INT, date_of_join DATETIME);
-CREATE TABLE courses_students (id serial PRIMARY KEY, course_id INT, student_id INT, date_of_join DATETIME);
-CREATE TABLE courses_teachers (id serial PRIMARY KEY, course_id INT, teacher_id INT, date_of_join DATETIME);
-CREATE TABLE images_lessons (id serial PRIMARY KEY, image_id INT, lesson_id INT, date_of_join DATETIME);
-CREATE TABLE images_schools (id serial PRIMARY KEY, image_id INT, school_id INT, date_of_join DATETIME);
-CREATE TABLE images_services (id serial PRIMARY KEY, image_id INT, service_id INT, date_of_join DATETIME);
-CREATE TABLE images_students (id serial PRIMARY KEY, image_id INT, student_id INT, date_of_join DATETIME);
-CREATE TABLE images_teachers (id serial PRIMARY KEY, image_id INT, teacher_id INT, date_of_join DATETIME);
-CREATE TABLE lessons_schools (id serial PRIMARY KEY, lesson_id INT, school_id INT, date_of_join DATETIME);
-CREATE TABLE lessons_services (id serial PRIMARY KEY, lesson_id INT, service_id INT, date_of_join DATETIME);
-CREATE TABLE lessons_students (id serial PRIMARY KEY, lesson_id INT, student_id INT, date_of_join DATETIME);
-CREATE TABLE lessons_teachers (id serial PRIMARY KEY, lesson_id INT, teacher_id INT, date_of_join DATETIME);
-CREATE TABLE schools_services (id serial PRIMARY KEY, school_id INT, service_id INT, date_of_join DATETIME);
-CREATE TABLE schools_students (id serial PRIMARY KEY, school_id INT, student_id INT, date_of_join DATETIME);
-CREATE TABLE schools_teachers (id serial PRIMARY KEY, school_id INT, teacher_id INT, date_of_join DATETIME);
-CREATE TABLE services_students (id serial PRIMARY KEY, service_id INT, student_id INT, date_of_join DATETIME);
-CREATE TABLE services_teachers (id serial PRIMARY KEY, service_id INT, teacher_id INT, date_of_join DATETIME);
-CREATE TABLE students_teachers (id serial PRIMARY KEY, student_id INT, teacher_id INT, date_of_join DATETIME);
+CREATE TABLE accounts_courses (id serial PRIMARY KEY, account_id INT, course_id INT, date_of_join TIMESTAMP);
+CREATE TABLE accounts_images (id serial PRIMARY KEY, account_id INT, image_id INT, date_of_join TIMESTAMP);
+CREATE TABLE accounts_lessons (id serial PRIMARY KEY, account_id INT, lesson_id INT, date_of_join TIMESTAMP);
+CREATE TABLE accounts_schools (id serial PRIMARY KEY, account_id INT, school_id INT, date_of_join TIMESTAMP);
+CREATE TABLE accounts_services (id serial PRIMARY KEY, account_id INT, service_id INT, date_of_join TIMESTAMP);
+CREATE TABLE accounts_students (id serial PRIMARY KEY, account_id INT, student_id INT, date_of_join TIMESTAMP);
+CREATE TABLE accounts_teachers (id serial PRIMARY KEY, account_id INT, teacher_id INT, date_of_join TIMESTAMP);
+CREATE TABLE courses_images (id serial PRIMARY KEY, course_id INT, image_id INT, date_of_join TIMESTAMP);
+CREATE TABLE courses_lessons (id serial PRIMARY KEY, course_id INT, lesson_id INT, date_of_join TIMESTAMP);
+CREATE TABLE courses_schools (id serial PRIMARY KEY, course_id INT, school_id INT, date_of_join TIMESTAMP);
+CREATE TABLE courses_services (id serial PRIMARY KEY, course_id INT, service_id INT, date_of_join TIMESTAMP);
+CREATE TABLE courses_students (id serial PRIMARY KEY, course_id INT, student_id INT, date_of_join TIMESTAMP);
+CREATE TABLE courses_teachers (id serial PRIMARY KEY, course_id INT, teacher_id INT, date_of_join TIMESTAMP);
+CREATE TABLE images_lessons (id serial PRIMARY KEY, image_id INT, lesson_id INT, date_of_join TIMESTAMP);
+CREATE TABLE images_schools (id serial PRIMARY KEY, image_id INT, school_id INT, date_of_join TIMESTAMP);
+CREATE TABLE images_services (id serial PRIMARY KEY, image_id INT, service_id INT, date_of_join TIMESTAMP);
+CREATE TABLE images_students (id serial PRIMARY KEY, image_id INT, student_id INT, date_of_join TIMESTAMP);
+CREATE TABLE images_teachers (id serial PRIMARY KEY, image_id INT, teacher_id INT, date_of_join TIMESTAMP);
+CREATE TABLE lessons_schools (id serial PRIMARY KEY, lesson_id INT, school_id INT, date_of_join TIMESTAMP);
+CREATE TABLE lessons_services (id serial PRIMARY KEY, lesson_id INT, service_id INT, date_of_join TIMESTAMP);
+CREATE TABLE lessons_students (id serial PRIMARY KEY, lesson_id INT, student_id INT, date_of_join TIMESTAMP);
+CREATE TABLE lessons_teachers (id serial PRIMARY KEY, lesson_id INT, teacher_id INT, date_of_join TIMESTAMP);
+CREATE TABLE schools_services (id serial PRIMARY KEY, school_id INT, service_id INT, date_of_join TIMESTAMP);
+CREATE TABLE schools_students (id serial PRIMARY KEY, school_id INT, student_id INT, date_of_join TIMESTAMP);
+CREATE TABLE schools_teachers (id serial PRIMARY KEY, school_id INT, teacher_id INT, date_of_join TIMESTAMP);
+CREATE TABLE services_students (id serial PRIMARY KEY, service_id INT, student_id INT, date_of_join TIMESTAMP);
+CREATE TABLE services_teachers (id serial PRIMARY KEY, service_id INT, teacher_id INT, date_of_join TIMESTAMP);
+CREATE TABLE students_teachers (id serial PRIMARY KEY, student_id INT, teacher_id INT, date_of_join TIMESTAMP);
