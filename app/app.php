@@ -11,21 +11,32 @@
     require_once __DIR__."/../src/Image.php";
     require_once __DIR__."/../src/Service.php";
 
+    use Herrera\Pdo\PdoServiceProvider;
+
 
     $app = new Silex\Application();
 
     $app['debug']=true;
 
-    $server = 'mysql:host=localhost:8889;dbname=crm_music';
-    $username = 'root';
-    $password = 'root';
-    $DB = new PDO($server, $username, $password);
+    // $server = 'mysql:host=localhost:8889;dbname=crm_music';
+    // $username = 'root';
+    // $password = 'root';
+    // $DB = new PDO($server, $username, $password);
 
+    $dbopts = parse_url(getenv('DATABASE_URL'));
+    $app->register(new Herrera\Pdo\PdoServiceProvider(),
+    array(
+      'pdo.dsn' => 'pgsql:dbname='.ltrim($dbopts["path"],'/').';host='.$dbopts["host"] . ';port=' . $dbopts["port"],
+      'pdo.username' => $dbopts["user"],
+      'pdo.password' => $dbopts["pass"]
+      )
+    );
+    $DB = $app['pdo'];
 
 
 
     $app->register(new Silex\Provider\TwigServiceProvider(), array(
-        'twig.path' => __DIR__.'/../views'
+        'twig.path' => __DIR__.'/../web/views'
     ));
 
     use Symfony\Component\HttpFoundation\Request;
@@ -117,7 +128,7 @@
         $selected_student->updateNotes($updated_notes);
         $notes_array = explode("|", $updated_notes);
         $assigned_teachers = $selected_student->findTeachers();
-        
+
         return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teachers' => $assigned_teachers, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses()  ));
     });
 
