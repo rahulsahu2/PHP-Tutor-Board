@@ -17,7 +17,7 @@
                     <h4 id="totals" class="stats-numbers">Total: {{ teachers|length }}</h4>
                     <ul>
                         {% for teacher in teachers %}
-                        <li><a href="owner_teachers/{{teacher.getId}}">{{teacher.getName}}</a></li>
+                        <li><a href="owner_teacher/{{teacher.getId}}">{{teacher.getName}}</a></li>
                         {% endfor %}
                     </ul>
                     {% endif %}
@@ -33,7 +33,7 @@
                 <h4 id="totals" class="stats-numbers">Total: {{ students|length }}</h4>
                 <ul>
                     {% for student in students %}
-                    <li><a href="owner_students/{{student.getId}}">{{student.getName}}</a></li>
+                    <li><a href="owner_student/{{student.getId}}">{{student.getName}}</a></li>
                     {% endfor %}
                 </ul>
                 {% endif %}

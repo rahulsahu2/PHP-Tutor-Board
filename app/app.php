@@ -42,18 +42,15 @@
     Request::enableHttpMethodParameterOverride();
 
     $app->get("/", function() use ($app) {
-
         return $app['twig']->render('owner_main.html.twig', array('teachers' => Teacher::getAll(), 'students' => Student::getAll()));
-
     });
 
-    $app->get("/teachers", function() use ($app) {
-
+    $app->get("/owner_teachers", function() use ($app) {
         return $app['twig']->render('owner_teachers.html.twig', array('teachers' => Teacher::getAll()));
 
     });
 
-    $app->post("/teachers", function() use ($app) {
+    $app->post("/owner_teachers", function() use ($app) {
 
         $new_teacher_name = $_POST['teacher_name'];
         $new_teacher_instrument = $_POST['teacher_instrument'];
@@ -64,16 +61,23 @@
 
     });
 
-    $app->get("/teachers/{id}", function($id) use ($app) {
+    $app->get("/owner_teacher/{id}", function($id) use ($app) {
         $teacher = Teacher::findTeacher($id);
         $notes_array = explode("|", $teacher->getNotes());
         $teachers_students = $teacher->getStudents();
 
-        return $app['twig']->render('owner_teacher.html.twig', array('teacher' => $teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array ));
-
+        return $app['twig']->render('owner_teacher.html.twig', array('teacher' => $teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array, 'students' => Student::getAll()));
     });
 
-    $app->patch("/teachers/{id}", function($id) use ($app) {
+    $app->post("/owner_teacher/{id}", function($id) use ($app) {
+        // echo $id;
+        $teacher = Teacher::findTeacher($id);
+        $student = $_POST['student_assign'];
+        $teacher->assignStudent($student);
+        return $app->redirect("/owner_teacher/".$id);
+    });
+
+    $app->patch("/owner_teacher/{id}", function($id) use ($app) {
         $selected_teacher = Teacher::findTeacher($id);
         $new_notes = $_POST['new_notes'];
         $updated_notes =  date('l jS \of F Y ') . "---->"  . $new_notes  . "|" .$selected_teacher->getNotes();
@@ -83,18 +87,17 @@
         return $app['twig']->render('owner_teacher.html.twig', array('teacher' => $selected_teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array ));
     });
 
-    $app->delete("/teachers/teacher_termination/{id}", function($id) use ($app) {
+    $app->delete("/owner_teacher/teacher_termination/{id}", function($id) use ($app) {
         $teacher = Teacher::findTeacher($id);
         $teacher->delete();
         return $app->redirect("/teachers/".$id);
     });
 
-    $app->get("/students", function() use ($app) {
-
+    $app->get("/owner_students", function() use ($app) {
           return $app['twig']->render('owner_students.html.twig', array('students' => Student::getAll(), 'teachers' => Teacher::getAll()));
     });
 
-    $app->post("/students", function() use ($app) {
+    $app->post("/owner_students", function() use ($app) {
           $new_student_name = $_POST['student_name'];
           $new_student = new Student($new_student_name);
           $new_student->setNotes(date('l jS \of F Y h:i:s A') . " of first entry.");
@@ -102,14 +105,20 @@
           return $app['twig']->render('owner_students.html.twig', array('students' => Student::getAll(), 'teachers' => Teacher::getAll()));
     });
 
-    $app->get("/students/{id}", function($id) use ($app) {
+    $app->get("/owner_student/{id}", function($id) use ($app) {
         $selected_student = Student::findStudent($id);
         $notes_array = explode("|", $selected_student->getNotes());
         $assigned_teachers = $selected_student->findTeachers();
-        return $app['twig']->render('owner_student.html.twig', array('student' => $selected_student, 'assigned_teachers' => $assigned_teachers, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses()));
+        var_dump($assigned_teachers);
+
+        return $app['twig']->render('owner_student.html.twig', array(
+            'student' => $selected_student,
+            'assigned_teachers' => $assigned_teachers,
+            'notes_array' => $notes_array,
+            'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses()));
     });
 
-    $app->post("/students/{id}", function($id) use ($app) {
+    $app->post("/owner_students/{id}", function($id) use ($app) {
         $selected_student = Student::findStudent($id);
         $course_id = $_POST['course_id'];
         $selected_student->enrollInCourse($course_id);
@@ -119,7 +128,7 @@
     });
 
 
-    $app->patch("/students/{id}", function($id) use ($app) {
+    $app->patch("/owner_students/{id}", function($id) use ($app) {
         $selected_student = Student::findStudent($id);
         $new_notes = $_POST['new_notes'];
         $updated_notes =  date('l jS \of F Y ') . "---->"  . $new_notes  . "|" .$selected_student->getNotes();
@@ -130,25 +139,25 @@
         return $app['twig']->render('owner_student.html.twig', array('student' => $selected_student, 'assigned_teachers' => $assigned_teachers, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses()  ));
     });
 
-    $app->delete("/students/student_termination/{id}", function($id) use ($app) {
+    $app->delete("/owner_students/student_termination/{id}", function($id) use ($app) {
         $student = Student::findStudent($id);
         $student->delete();
 
         return $app->redirect("/students/".$id);
     });
 
-    $app->get("/accounts", function() use ($app) {
+    $app->get("/owner_accounts", function() use ($app) {
         return $app['twig']->render('owner_account.html.twig', array('accounts' => Account::getAll()) );
     });
 
     // Retrieve courses
-    $app->get("/courses", function() use ($app) {
+    $app->get("/owner_courses", function() use ($app) {
 
         return $app['twig']->render('owner_courses.html.twig', array('courses'=>Course::getAll() ));
     });
 
     // Create new course and retrieve courses
-    $app->post("/courses", function() use ($app) {
+    $app->post("/owner_courses", function() use ($app) {
         $course_title = $_POST['course_title'];
         $new_course = new Course($course_title);
         $new_course->save();
@@ -157,14 +166,14 @@
 
     });
 
-    $app->get("/courses/{id}", function($id) use ($app){
+    $app->get("/owner_courses/{id}", function($id) use ($app){
         $course = Course::find($id);
 
         return $app['twig']->render('owner_course.html.twig', array('course' => $course, 'enrolled_students'=>$course->getStudents(), 'students'=>Student::getAll()));
     });
 
     //ENROLL STUDENTS
-    $app->post("/courses/{id}", function($id) use ($app){
+    $app->post("/owner_courses/{id}", function($id) use ($app){
         $course = Course::find($id);
         $selected_student = Student::findStudent($_POST['student_id']);
 
@@ -175,17 +184,16 @@
     });
 
     //view lessons
-    $app->get("/lessons", function() use ($app) {
+    $app->get("/owner_lessons", function() use ($app) {
 
         return $app['twig']->render('owner_lessons.html.twig', array('lessons' => Lesson::getAll()) );
 
     });
 
-    $app->post("/lessons/{id}", function($id) use($app) {
-
-        return $app['twig']->render('owner_lesson.html.twig', array('lesson' =>))
-    });
-
+    // $app->post("/owner_lessons/{id}", function($id) use($app) {
+    //
+    //     return $app['twig']->render('owner_lesson.html.twig', array('lesson' => ))
+    // });
 
     // NOTE root page from contacts project
     // $app->get("/contacts", function() use($app) {

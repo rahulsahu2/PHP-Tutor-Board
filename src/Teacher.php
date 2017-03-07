@@ -10,7 +10,6 @@
         {
             $this->teacher_name = $teacher_name;
             $this->instrument = $instrument;
-            $this->notes;
             $this->id = $id;
         }
 
@@ -79,8 +78,6 @@
        {
            $GLOBALS['DB']->exec("INSERT INTO students_teachers (student_id, teacher_id) VALUES ({$this->getId()}, {$student_id});");
        }
-
-
 
         static function findTeacher($search_id)
         {

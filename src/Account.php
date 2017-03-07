@@ -13,7 +13,7 @@ class Account
     private $id;
     // public $create_was_clicked;
 
-    function __construct($family_name, $parent_one_name,  $street_address, $phone_number, $email_address, $id = null)
+    function __construct($family_name, $parent_one_name, $street_address, $phone_number, $email_address, $id = null)
     {
         $this->family_name = $family_name;
         $this->parent_one_name = $parent_one_name;
