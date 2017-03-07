@@ -13,6 +13,12 @@
           Send this file: <input name="userfile" type="file" />
           <input type="submit" value="Send File" />
         </form>
+
+        <h3>Image upload</h3>
+        <form method="POST" action="/upload_image" enctype="multipart/form-data">
+         <input type="file" name="myimage">
+         <input type="submit" name="submit_image" value="Upload">
+        </form>
       </div>
       <!-- jumbotron -->
 {% endblock %}

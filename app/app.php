@@ -11,6 +11,8 @@
     require_once __DIR__."/../src/Image.php";
     require_once __DIR__."/../src/Service.php";
 
+    use Herrera\Pdo\PdoServiceProvider;
+
 
     $app = new Silex\Application();
 
@@ -22,7 +24,7 @@
     $DB = new PDO($server, $username, $password);
 
     $app->register(new Silex\Provider\TwigServiceProvider(), array(
-        'twig.path' => __DIR__.'/../views'
+        'twig.path' => __DIR__.'/../web/views'
     ));
 
     use Symfony\Component\HttpFoundation\Request;
@@ -114,7 +116,7 @@
         $selected_student->updateNotes($updated_notes);
         $notes_array = explode("|", $updated_notes);
         $assigned_teachers = $selected_student->findTeachers();
-        
+
         return $app['twig']->render('student.html.twig', array('student' => $selected_student, 'assigned_teachers' => $assigned_teachers, 'notes_array' => $notes_array, 'courses'=>Course::getAll(), 'enrolled_courses'=>$selected_student->getCourses()  ));
     });
 
