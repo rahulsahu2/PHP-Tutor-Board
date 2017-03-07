@@ -1,122 +1,70 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href='styles.css' rel='stylesheet' type='text/css'>
-    <title>CRM Music School</title>
-  </head>
-  <body>
-    <div class="container">
-      <div class="nav-bar">
-        <div class="logo">
-          <img src="img/splogo.jpg" alt="logo">
-          <h1></h1>
-          <p class="intro"></p>
-        </div>
-        <div class="center-div">
-          <div class="sidebar">
-            <ul>
-              <li><a href="/teachers">teachers</a></li>
-              <li><a href="/students">students</a></li>
-              <!-- <li><a href="/contacts">accounts</a></li> -->
-              <li>billing</li>
-              <li><a href="/">home</a></li>
-            </ul>
-          </div> <!--sidebar-->
-        </div> <!--logo-->
-      </div> <!--nav-bar-->
-      <div class="jumbotron">
+{% extends "base.html.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <div class="jumbotron">
         <h1>Home</h1>
-        <p></p>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <div class="jumbotron">
-            <h2>Teachers </h2>
-            {% if teachers is not empty %}
-            <h4 class="stats-numbers">{{ teachers|length }}</h4>
-            <ul>
-              {% for teacher in teachers %}
-                <li><a href="teachers/{{teacher.getId}}">{{teacher.getName}}</a></li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-          </div>
-          <!-- jumbotron -->
-        </div>
-        <!-- column -->
-        <div class="col-md-3">
-          <div class="jumbotron">
-            <h2>Students</h2>
-            {% if students is not empty %}
-            <h4 class="stats-numbers">{{ students|length }}</h4>
-            <ul>
-              {% for student in students %}
-                <li><a href="students/{{student.getId}}">{{student.getName}}</a></li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-          </div>
-          <!-- jumbotron -->
-        </div>
-        <!-- column -->
-        <div class="col-md-3">
-          <div class="jumbotron">
-            <h2>Lessons</h2>
-            <h4 class="stats-numbers">150 </h4>
-            <ul>
-              <li>today: 20 </li>
-              <li>week: 50 </li>
-              <li>month: 150 </li>
-              <li>this month last year: 140 </li>
-            </ul>
-            <p></p>
-          </div>
-          <!-- jumbotron -->
-        </div>
-        <!-- column -->
-        <div class="col-md-3">
-          <div class="jumbotron">
-            <h2>Billing</h2>
-            <p></p>
-          </div>
-          <!-- jumbotron -->
-        </div>
-        <!-- column -->
-      </div>
-      <!-- row -->
-      <div class="row">
-          <div class="col-md-3">
-              <div class="jumbotron">
-                  <h2><a href="/courses">Courses</a></h2>
-              </div>
-          </div>
-          <!-- column -->
-          <div class="col-md-3">
-              <div class="jumbotron">
-
-              </div>
-          </div>
-          <!-- column -->
-          <div class="col-md-3">
-
-          </div>
-          <!-- column -->
-          <div class="col-md-3">
-
-          </div>
-          <!-- column -->
-      </div>
-      <!-- row   -->
-      <div class="row">
-
-      </div>
-      <!-- serverBlaster row -->
-      <div class="row">
-        
-      </div>
-      <!-- csvToArray dump -->
     </div>
-    <!-- container -->
-  </body>
-</html>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-info">
+                <h2 class="panel-heading" >Teachers </h2>
+                {% if teachers is not empty %}
+                <div class="panel-body">
+                    <h4 id="totals" class="stats-numbers">Total: {{ teachers|length }}</h4>
+                    <ul>
+                        {% for teacher in teachers %}
+                        <li><a href="teachers/{{teacher.getId}}">{{teacher.getName}}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    <!-- column -->
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <h2 class="panel-heading" >Students</h2>
+            {% if students is not empty %}
+            <div class="panel-body">
+                <h4 id="totals" class="stats-numbers">Total: {{ students|length }}</h4>
+                <ul>
+                    {% for student in students %}
+                    <li><a href="students/{{student.getId}}">{{student.getName}}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- column -->
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <h2 class="panel-heading" >Lessons</h2>
+            <div class="panel-body">
+                <h4 id="totals" class="stats-numbers">Total: 150 </h4>
+                <ul>
+                    <li>today: 20 </li>
+                    <li>week: 50 </li>
+                    <li>month: 150 </li>
+                    <li>this month last year: 140 </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- column -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-info">
+                <h2 class="panel-heading">Courses</h4>
+                <div class="panel-body">
+                    <h4 id="totals" class="stats-numbers">Total: 250 </h4>
+                    <p>Info goes here </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
