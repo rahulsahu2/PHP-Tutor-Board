@@ -9,135 +9,62 @@
     </div>
 
     <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-info">
+                <h2 class="panel-heading" >Teachers </h2>
+                {% if teachers is not empty %}
+                <div class="panel-body">
+                    <h4 id="totals" class="stats-numbers">Total: {{ teachers|length }}</h4>
+                    <ul>
+                        {% for teacher in teachers %}
+                        <li><a href="teachers/{{teacher.getId}}">{{teacher.getName}}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    <!-- column -->
     <div class="col-md-3">
-      <div class="jumbotron">
-        <h2>Teachers </h2>
-        {% if teachers is not empty %}
-        <h4 class="stats-numbers">{{ teachers|length }}</h4>
-        <ul>
-          {% for teacher in teachers %}
-            <li><a href="teachers/{{teacher.getId}}">{{teacher.getName}}</a></li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-      </div>
-      <!-- jumbotron -->
+        <div class="panel panel-info">
+            <h2 class="panel-heading" >Students</h2>
+            {% if students is not empty %}
+            <div class="panel-body">
+                <h4 id="totals" class="stats-numbers">Total: {{ students|length }}</h4>
+                <ul>
+                    {% for student in students %}
+                    <li><a href="students/{{student.getId}}">{{student.getName}}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
     </div>
     <!-- column -->
     <div class="col-md-3">
-      <div class="jumbotron">
-        <h2>Students</h2>
-        {% if students is not empty %}
-        <h4 class="stats-numbers">{{ students|length }}</h4>
-        <ul>
-          {% for student in students %}
-            <li><a href="students/{{student.getId}}">{{student.getName}}</a></li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-      </div>
-      <!-- jumbotron -->
+        <div class="panel panel-info">
+            <h2 class="panel-heading" >Lessons</h2>
+            <div class="panel-body">
+                <h4 id="totals" class="stats-numbers">Total: 150 </h4>
+                <ul>
+                    <li>today: 20 </li>
+                    <li>week: 50 </li>
+                    <li>month: 150 </li>
+                    <li>this month last year: 140 </li>
+                </ul>
+            </div>
+        </div>
     </div>
     <!-- column -->
-    <div class="col-md-3">
-      <div class="jumbotron">
-        <h2>Lessons</h2>
-        <h4 class="stats-numbers">150 </h4>
-        <ul>
-          <li>today: 20 </li>
-          <li>week: 50 </li>
-          <li>month: 150 </li>
-          <li>this month last year: 140 </li>
-        </ul>
-        <p></p>
-      </div>
-      <!-- jumbotron -->
-    </div>
-    <!-- column -->
-    <div class="col-md-3">
-      <div class="jumbotron">
-        <h2>Billing</h2>
-        <p></p>
-      </div>
-      <!-- jumbotron -->
-    </div>
-    <!-- column -->
-    </div>
-    <!-- row -->
     <div class="row">
-      <div class="col-md-3">
-          <div class="jumbotron">
-              <h2><a href="/courses">Courses</a></h2>
-          </div>
-      </div>
-      <!-- column -->
-      <div class="col-md-3">
-          <div class="jumbotron">
-
-          </div>
-      </div>
-      <!-- column -->
-      <div class="col-md-3">
-
-      </div>
-      <!-- column -->
-      <div class="col-md-3">
-
-      </div>
-<<<<<<< HEAD
-      <!-- column -->
+        <div class="col-md-3">
+            <div class="panel panel-info">
+                <h2 class="panel-heading">Courses</h4>
+                <div class="panel-body">
+                    <h4 id="totals" class="stats-numbers">Total: 250 </h4>
+                    <p>Info goes here </p>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- row   -->
-    <div class="row">
-      <h4>ServerBlaster results for join tables</h4>
-      {% if commands is not empty  %}
-      <ol>
-          {% for command in commands %}
-
-          <li>{{ command }}</li>
-
-          {% endfor %}
-      </ol>
-      {% endif %}
-    </div>
-    <!-- serverBlaster row -->
-    <div class="row">
-      <h4>csvToArray results for attendance_jimi_march file:</h4>
-      {% if attendance_jimi is not empty %}
-          <table>
-                <style>
-                    table, th, td {
-                    border: 1px solid black;
-                    }
-                </style>
-                <colgroup>
-                    <col span="1" style="background-color:white">
-                    <col style="background-color:grey">
-                </colgroup>
-                {% for row in attendance_jimi %}
-                      <tr>
-                          <th>{{row[0]}}</th>
-                          <th>{{row[1]}}</th>
-                          <th>{{row[2]}}</th>
-                          <th>{{row[3]}}</th>
-                          <th>{{row[4]}}</th>
-                          <th>{{row[5]}}</th>
-                          <th>{{row[6]}}</th>
-                      </tr>
-                {% endfor %}
-            </table>
-        {% endif %}
-=======
-      <!-- row   -->
-      <div class="row">
-
-      </div>
-      <!-- serverBlaster row -->
-      <div class="row">
-        
-      </div>
-      <!-- csvToArray dump -->
->>>>>>> upstream/master
-    </div>
-    <!-- csvToArray dump -->
 {% endblock %}

@@ -2,7 +2,12 @@
 li {
      font-family: 'Raleway', sans-serif;
      font-size: 120%;
+     list-style: none;
+ }
+
+ul {
 }
+
 h1 {
     font-family: 'Raleway', sans-serif;
 }
@@ -13,6 +18,10 @@ h2 {
 
 h3 {
   font-family: 'Raleway', sans-serif;
+}
+
+#totals {
+    margin-right: 80px;
 }
 .jumbotron {
     margin-left: auto;
