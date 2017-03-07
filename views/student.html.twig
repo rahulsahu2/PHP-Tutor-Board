@@ -31,8 +31,12 @@
             <h1>{{ student.getName }}</h1>
             <p></p>
             <ul>
-              <li>  instrument: <strong> {{ student.getInstrument }}</strong></li>
-              <li>  assigned teacher: <strong>{{ assigned_teacher.getName }}</strong> (id:{{ assigned_teacher.getId }})</li>
+                {% if assigned_teachers is not empty %}
+                    {% for assigned_teacher in assigned_teachers %}
+                        <li>  assigned teacher: <strong>{{ assigned_teacher.getName }}</strong> (id:{{ assigned_teacher.getId }})</li>
+                    {% endfor %}
+                {% endif %}
+
             </ul>
             <form action="/students/{{ student.getId }}" method="post">
               <input name="_method" type="hidden" value="patch" required>

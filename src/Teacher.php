@@ -63,14 +63,16 @@
                     JOIN students ON students_teachers.student_id = students.id
                     WHERE teachers.id = {$this->getId()};");
 
-           foreach($query as $student) {
-               $student_name = $student['student_name'];
-               $instrument = $student['instrument'];
-               $id = $student['id'];
-               $new_student = new Student($student_name, $instrument, $id);
-               array_push($students, $new_student);
-           }
-           return $students;
+        if(!empty($query)){
+            foreach($query as $student) {
+                $student_name = $student['student_name'];
+                $id = $student['id'];
+                $new_student = new Student($student_name, $id);
+                array_push($students, $new_student);
+            }
+        }
+        return $students;
+
        }
 
        function assignStudent($student_id)
@@ -78,7 +80,7 @@
            $GLOBALS['DB']->exec("INSERT INTO students_teachers (student_id, teacher_id) VALUES ({$this->getId()}, {$student_id});");
        }
 
-       
+
 
         static function findTeacher($search_id)
         {
