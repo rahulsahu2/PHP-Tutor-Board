@@ -11,37 +11,35 @@
 
 <div class="row">
     <div class="col-md-4">
-
-
-<form action="/courses" method="post">
-    <div class="panel panel-info">
-
-    <label for="course_title" class="panel-heading">Add New Course</label><br>
-    <div class="panel-body">
-
-    <input type="text" name="course_title" required><br>
-    <button type="submit">Submit</button><br>
-</div>
-</div>
-</form>
-
-</div>
-{% if courses is not empty %}
-<div class="col-md-4">
-<h3>Current Courses</h3>
-<table class="table table-hover">
-    <thead>
-<th>Course Name</th>
-</thead>
-<tbody>
-    {% for course in courses %}
-    <tr>
-    <td><a   href="courses/{{course.getId}}">{{course.getTitle}}</a></td>
-    {% endfor %}
-</tr>
-</tbody>
-</table>
-</div>
+        <form action="/courses" method="post">
+            <div class="panel panel-info">
+                <h3 for="course_title" class="panel-heading">Add New Course</h3><br>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="new_course">Course Name</label>
+                    <input class="form-control" type="text" name="course_title" required><br>
+                    <button class="btn btn-info" type="submit">Submit</button><br>
+                </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% if courses is not empty %}
+    <div class="col-md-4">
+        <h3>Current Courses</h3>
+        <table class="table table-hover">
+            <thead>
+                <th>Course Name</th>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td><a   href="courses/{{course.getId}}">{{course.getTitle}}</a></td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endif %}
 {% endblock %}
