@@ -11,8 +11,8 @@
         <h1>{{ student.getName }}</h1>
         <p></p>
         <ul>
-          <li>  instrument: <strong> {{ student.getInstrument }}</strong></li>
-          <li>  assigned teacher: <strong>{{ assigned_teacher.getName }}</strong> (id:{{ assigned_teacher.getId }})</li>
+          <li>Instrument: <strong> {{ student.getInstrument }}</strong></li>
+          <li>Assigned teacher: <strong>{{ assigned_teacher.getName }}</strong> (id:{{ assigned_teacher.getId }})</li>
         </ul>
         <form action="/students/{{ student.getId }}" method="post">
           <input name="_method" type="hidden" value="patch" required>
