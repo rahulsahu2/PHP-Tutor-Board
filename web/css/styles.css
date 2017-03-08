@@ -19,8 +19,10 @@ h2 {
 h3 {
   font-family: 'Raleway', sans-serif;
 }
-.banner {
-    background-image: image("/img/bannermusic.jpg");
+
+.jumbotron {
+    background-image: url("/img/bannermusic.jpg");
+    color: #eceff5;
 }
 
 #totals {
