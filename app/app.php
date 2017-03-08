@@ -18,6 +18,10 @@
     {
            $_SESSION['school_id'] = null;
     }
+    if (empty($_SESSION['teacher_id']))
+    {
+           $_SESSION['teacher_id'] = null;
+    }
 
     $app = new Silex\Application();
 
@@ -363,10 +367,81 @@
     });
 
     // TEACHER STORY ROUTES
+    $app->get("/login_teacher", function() use ($app) {
 
+        // NOTE This is going to create the school object from the Login using FIND
+        $input_school_name = "SPMS";
+        $input_manager_name = "Carlos Munoz Kampff";
+        $input_phone_number = "617-780-8362";
+        $input_email = "info@starpowermusic.net";
+        $input_business_address = "PO 6267";
+        $input_city = "Alameda";
+        $input_state = "CA";
+        $input_country = "USA";
+        $input_zip = "94706";
+        $input_type = "music";
+        $school = new School($input_school_name,$input_manager_name,$input_phone_number,$input_email,$input_business_address,$input_city,$input_state,$input_country,$input_zip,$input_type);
+        $school->save();
+        $_SESSION['school_id'] = intval($school->getId());
+
+        // NOTE This is going to create the teacher object from the Login using FIND
+        $input_name2 = "Stina";
+        $input_instrument2 = "Sax";
+        $new_teacher2_test = new Teacher($input_name2, $input_instrument2);
+        $new_teacher2_test->save();
+        $school->addTeacher($new_teacher2_test);
+        $_SESSION['teacher_id'] = intval($new_teacher2_test->getId());
+
+        // This directs to teacher main page and sends in keys with values only relating to that school: School Object, teachers, students, courses, accounts, services
+        return $app['twig']->render('teacher_main.html.twig', array('school_name'=> $school->getName(), 'teacher' => $teacher, 'students' => $teacher->getStudents(), 'courses' => $teacher->getCourses(), 'services' => $teacher->getServices()));
+    });
+
+    //view student
+    $app->get("/teacher_students/{id}", function($id) use($app) {
+
+        $school=School::find($_SESSION['school_id']);
+        $teacher=Teacher::find($_SESSION['teacher_id']);
+        $student=Student::find($id);
+
+        return $app['twig']->render('teacher_student.html.twig', array('school_name'=>$school->getName(), 'teacher' => $teacher, 'student'=>$student, 'lessons'=>$student->getLessons(), 'courses'=>$student->getCourses(), 'services'=>$student->getServices() ));
+
+    });
+
+    //view course
+    $app->get("/teacher_courses/{id}", function($id) use ($app) {
+
+        $school=School::find($_SESSION['school_id']);
+        $teacher=Teacher::find($_SESSION['teacher_id']);
+        $course=Course::find($id);
+        $lessons=$course->getLessons();
+
+        return $app['twig']->render('teacher_course.html.twig', array('school'=>$school->getName(), 'course'=>$course, 'teacher'=>$teacher, 'course_teachers'=>$course->getTeachers(),'lessons'=> $lessons ));
+
+    });
+
+    // create lesson
+    $app->post("/teacher_lessons/{id}", function($id) use ($app) {
+
+        $school=School::find($_SESSION['school_id']);
+        $course = Course::find($id);
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        $content = $_POST['content'];
+        $lesson = new Lesson($title,$description,$content,$input_id);
+        $lesson->save();
+        $lesson_id = $lesson->getId();
+        $course->addLesson($lesson_id);
+        $teacher->addLesson($lesson_id);
+        $lessons=$course->getLessons();
+
+        return $app['twig']->render('teacher_course.html.twig', array('school'=>$school->getName(), 'course'=>$course, 'teacher'=>$teacher, 'course_teachers'=>$course->getTeachers(),'lessons'=> $lessons ));
+
+    });
 
 
     // CLIENT STORY ROUTES
+
+
 
 
     return $app;
