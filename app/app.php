@@ -19,7 +19,6 @@
            $_SESSION['school_id'] = null;
     }
 
-
     $app = new Silex\Application();
 
     $app['debug']=true;
@@ -53,6 +52,7 @@
 
     });
 
+    // OWNER STORY ROUTES
 
     $app->get("/login_owner", function() use ($app) {
 
@@ -70,37 +70,22 @@
         $school = new School($input_school_name,$input_manager_name,$input_phone_number,$input_email,$input_business_address,$input_city,$input_state,$input_country,$input_zip,$input_type);
         $school->save();
         $_SESSION['school_id'] = intval($school->getId());
-        var_dump($_SESSION['school_id']);
-        var_dump($school->getTeachers());
         $school2 = School::find($school->getId());
-        var_dump($school2);
 
         // This directs to owner main page and sends in keys with values only relating to that school: School Object, teachers, students, courses, accounts, services
         return $app['twig']->render('owner_main.html.twig', array('school'=> $school, 'teachers' => $school->getTeachers(), 'students' => $school->getStudents(), 'courses' => $school->getCourses(), 'accounts' => $school->getAccounts(), 'services' => $school->getServices()));
     });
 
-
     $app->get("/owner_teachers", function() use ($app) {
-        // session value of owner id
-
-        // find school object by owner id
-
         $school=School::find($_SESSION['school_id']);
-
-
-
 
         return $app['twig']->render('owner_teachers.html.twig', array('school' => $school, 'teachers' => $school->getTeachers()));
 
     });
 
     $app->post("/owner_teachers", function() use ($app) {
-        // session value of owner id
-
-        // find school object by owner id
 
         $school=School::find($_SESSION['school_id']);
-
 
         $new_teacher_name = $_POST['teacher_name'];
         $new_teacher_instrument = $_POST['teacher_instrument'];
@@ -114,9 +99,6 @@
     });
 
     $app->get("/owner_teacher/{id}", function($id) use ($app) {
-        // session value of owner id
-
-        // find school object by owner id
 
         $school=School::find($_SESSION['school_id']);
 
@@ -135,9 +117,6 @@
     });
 
     $app->patch("/owner_teacher/{id}", function($id) use ($app) {
-        // session value of owner id
-
-        // find school object by owner id
 
         $school=School::find($_SESSION['school_id']);
 
@@ -151,9 +130,6 @@
     });
 
     $app->delete("/owner_teacher/teacher_termination/{id}", function($id) use ($app) {
-        // session value of owner id
-
-        // find school object by owner id
 
         $school=School::find($_SESSION['school_id']);
 
@@ -164,34 +140,26 @@
     });
 
     $app->get("/owner_students", function() use ($app) {
-        // session value of owner id
-
-        // find school object by owner id
 
         $school=School::find($_SESSION['school_id']);
 
-          return $app['twig']->render('owner_students.html.twig', array('school' => $school, 'students' => $school->getStudents(), 'teachers' => $school->getTeachers()));
+        return $app['twig']->render('owner_students.html.twig', array('school' => $school, 'students' => $school->getStudents(), 'teachers' => $school->getTeachers()));
     });
 
     $app->post("/owner_students", function() use ($app) {
-        // session value of owner id
-
-        // find school object by owner id
-
         $school=School::find($_SESSION['school_id']);
 
-          $new_student_name = $_POST['student_name'];
-          $new_student = new Student($new_student_name);
-          $new_student->setNotes(date('l jS \of F Y h:i:s A') . " of first entry.");
-          $new_student->save();
-          $school->addStudent($new_student);
-          return $app['twig']->render('owner_students.html.twig', array('school' => $school, 'students' => $school->getStudents(), 'teachers' => $school->getTeachers()));
+        $new_student_name = $_POST['student_name'];
+        $new_student = new Student($new_student_name);
+        $new_student->setNotes(date('l jS \of F Y h:i:s A') . " of first entry.");
+        $new_student->save();
+        $school->addStudent($new_student->getId());
+
+        return $app['twig']->render('owner_students.html.twig', array('school' => $school, 'students' => $school->getStudents(), 'teachers' => $school->getTeachers()));
+
     });
 
-    $app->get("/owner_student/{id}", function($id) use ($app) {
-        // session value of owner id
-
-        // find school object by owner id
+    $app->get("/owner_students/{id}", function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
         $selected_student = Student::find($id);
@@ -202,13 +170,13 @@
             'student' => $selected_student,
             'assigned_teachers' => $assigned_teachers,
             'notes_array' => $notes_array,
-            'courses'=>$school->getCourses(), 'enrolled_courses'=>$selected_student->getCourses()));
+            'courses'=>$school->getCourses(), 'enrolled_courses'=>$selected_student->getCourses(),
+            'teachers' => $school->getTeachers(),
+            'lessons' => $school->getLessons(),
+            'assigned_lessons' => $selected_student->getLesson()));
     });
 
     $app->post("/owner_students/{id}", function($id) use ($app) {
-        // session value of owner id
-
-        // find school object by owner id
 
         $school=School::find($_SESSION['school_id']);
         $selected_student = Student::find($id);
@@ -221,14 +189,14 @@
             'student' => $selected_student,
             'assigned_teachers' => $assigned_teachers,
             'notes_array' => $notes_array,
-            'courses'=>$school->getCourses(), 'enrolled_courses'=>$selected_student->getCourses()));
+            'courses'=>$school->getCourses(), 'enrolled_courses'=>$selected_student->getCourses(),
+            'teachers' => $school->getTeachers(),
+            'lessons' => $school->getLessons(),
+            'assigned_lessons' => $selected_student->getLesson()));
     });
 
 
     $app->patch("/owner_students/{id}", function($id) use ($app) {
-        // session value of owner id
-
-        // find school object by owner id
 
         $school=School::find($_SESSION['school_id']);
         $selected_student = Student::find($id);
@@ -243,30 +211,64 @@
             'student' => $selected_student,
             'assigned_teachers' => $assigned_teachers,
             'notes_array' => $notes_array,
-            'courses'=>$school->getCourses(), 'enrolled_courses'=>$selected_student->getCourses()));
+            'courses'=>$school->getCourses(), 'enrolled_courses'=>$selected_student->getCourses(),
+            'teachers' => $school->getTeachers(),
+            'lessons' => $school->getLessons(),
+            'assigned_lessons' => $selected_student->getLesson()));
     });
 
     $app->delete("/owner_students/student_termination/{id}", function($id) use ($app) {
         $student = Student::find($id);
         $student->delete();
 
-        return $app->redirect("/students/{$id}");
+        return $app->redirect("/owner_students");
     });
 
     $app->get("/owner_accounts", function() use ($app) {
-        // session value of owner id
-
-        // find school object by owner id
 
         $school=School::find($_SESSION['school_id']);
         return $app['twig']->render('owner_account.html.twig', array('school' => $school, 'accounts' => $school->getAccounts()));
     });
 
+    $app->post("/owner_accounts", function() use ($app) {
+
+        $school=School::find($_SESSION['school_id']);
+
+        $family_name = $_POST['family_name'];
+        $parent_one_name = $_POST['parent_one_name'];
+        $street_address = $_POST['street_address'];
+        $phone_number = $_POST['phone_number'];
+        $email_address = $_POST['email_address'];
+        $new_account = new Account($family_name, $parent_one_name, $street_address, $phone_number, $email_address);
+        $parent_two_name = $_POST['parent_two_name'];
+        $notes = $_POST['notes'];
+        $billing_history = $_POST['billing_history'];
+        $outstanding_balance = $_POST['outstanding_balance'];
+        if ($parent_two_name) {
+            $new_account->setParentTwoName($parent_two_name);
+        }
+        if ($notes) {
+            $new_account->setNotes($notes);
+        }
+        if ($billing_history){
+            $new_account->setBillingHistory($billing_history);
+        }
+        if ($outstanding_balance){
+            $new_account->setOutstandingBalance($outstanding_balance);
+        }
+        $new_account->save();
+        $school->addAccount($new_account->getId());
+
+        return $app['twig']->render('owner_account.html.twig', array('school' => $school, 'accounts' => $school->getAccounts()));
+    });
+
+
+
+
+
+
     // Retrieve courses
     $app->get("/owner_courses", function() use ($app) {
-        // session value of owner id
-
-        // find school object by owner id
 
         $school=School::find($_SESSION['school_id']);
         return $app['twig']->render('owner_courses.html.twig', array('school' => $school, 'courses' => $school->getCourses()));
@@ -326,19 +328,7 @@
 
     });
 
-    // $app->post("/owner_lessons/{id}", function($id) use($app) {
-    //
-    //     return $app['twig']->render('owner_lesson.html.twig', array('lesson' => ))
-    // });
 
-    // NOTE root page from contacts project
-    // $app->get("/contacts", function() use($app) {
-    //     // Contact::deleteAll();
-    //     return $app['twig']->render('address_book_home.html.twig', array( 'list_of_contacts'=>Contact::getAll() ));
-    // });
-
-//add owner_clients page
-//add owner_delete-accounts page
 
     return $app;
  ?>
