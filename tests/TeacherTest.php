@@ -82,7 +82,6 @@
         function test_getAll()
         {
             // Arrange
-            Teacher::deleteAll();
             $input_name = "Tester";
             $input_instrument = "Piano";
             $new_teacher_test = new Teacher($input_name, $input_instrument);
@@ -176,7 +175,7 @@
             $this->assertEquals([$new_teacher2], Teacher::getAll());
         }
 
-        function test_findTeacher()
+        function test_find()
         {
             // Arrange
             $input_name = "Stevo";
@@ -188,10 +187,10 @@
             $id = $new_teacher->getId();
 
             // Act
-            $result = Teacher::getAll();
+            $result = Teacher::find($id);
 
             // Assert
-            $this->assertEquals($id, $result[0]->getId());
+            $this->assertEquals($new_teacher, $result);
         }
 
 

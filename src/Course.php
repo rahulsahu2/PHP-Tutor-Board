@@ -79,6 +79,52 @@
         {
             $GLOBALS['DB']->exec("DELETE FROM courses WHERE id = '{$this->getId()}';");
         }
+        //
+        function addTeacher($teacher_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO courses_teachers (course_id, teacher_id) VALUES ({$this->getId()}, {$teacher_id});");
+        }
+
+        function addStudent($student_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO courses_students (course_id, student_id) VALUES ({$this->getId()}, {$student_id});");
+        }
+
+        function addAccount($account_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO accounts_courses (course_id, account_id) VALUES ({$this->getId()}, {$account_id});");
+        }
+
+        function addLesson($lesson_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO lessons_courses (course_id, lesson_id) VALUES ({$this->getId()}, {$lesson_id});");
+        }
+
+        function getAccounts()
+        {
+            $query = $GLOBALS['DB']->query("SELECT accounts.* FROM courses JOIN accounts_courses ON (courses.id = accounts_courses.course_id) JOIN accounts ON (accounts_courses.account_id = accounts.id) WHERE courses.id = {$this->getId()};");
+            $accounts = array();
+            foreach ($query as $account)
+            {
+                $id = $account['id'];
+                $family_name = $account['family_name'];
+                $parent_one_name = $account['parent_one_name'];
+                $parent_two_name = $account['parent_two_name'];
+                $street_address = $account['street_address'];
+                $phone_number = $account['phone_number'];
+                $email_address = $account['email_address'];
+                $notes = $account['notes'];
+                $billing_history = $account['billing_history'];
+                $outstanding_balance = intval($account['outstanding_balance']);
+                $new_account = new Account($family_name, $parent_one_name,  $street_address, $phone_number, $email_address, $id);
+                $new_account->setParentTwoName($parent_two_name);
+                $new_account->setNotes($notes);
+                $new_account->setBillingHistory($billing_history);
+                $new_account->setOutstandingBalance($outstanding_balance);
+                array_push($accounts, $new_account);
+            }
+            return $accounts;
+        }
 
         function getStudents()
         {
@@ -86,7 +132,6 @@
             courses  JOIN courses_students ON (courses.id = courses_students.course_id)
                     JOIN students ON ( courses_students.student_id = students.id)
             WHERE courses.id = {$this->getId()};");
-
 
             $return_students = array();
             foreach($students as $student){
@@ -100,10 +145,38 @@
             return $return_students;
         }
 
-        // NOTE ADD getTeachers getLessons
 
+        function getTeachers()
+        {
+            $query = $GLOBALS['DB']->query("SELECT teachers.* FROM courses JOIN courses_teachers ON (courses.id = courses_teachers.course_id) JOIN teachers ON (courses_teachers.teacher_id = teachers.id) WHERE courses.id = {$this->getId()};");
+            $teachers = array();
+            foreach ($query as $teacher) {
+                $teacher_name = $teacher['teacher_name'];
+                $instrument = $teacher['instrument'];
+                $notes= $teacher['notes'];
+                $id = $teacher['id'];
+                $found_teacher = new Teacher($teacher_name, $instrument, $id);
+                $found_teacher->setNotes($notes);
+                array_push($teachers, $found_teacher);
+            }
+            return $teachers;
+        }
 
-
+        function getLessons()
+        {
+            $query = $GLOBALS['DB']->query("SELECT lessons.* FROM courses JOIN courses_lessons ON (courses.id = courses_lessons.course_id) JOIN lessons ON (courses_lessons.lesson_id = lessons.id) WHERE courses.id = {$this->getId()};");
+            $lessons = array();
+            foreach ($query as $lesson )
+            {
+                $title = $lesson['title'];
+                $description = $lesson['description'];
+                $content = $lesson['content'];
+                $id = $lesson['id'];
+                $returned_lesson = new Lesson($title, $description, $content, $id);
+                array_push($lessons, $returned_lesson);
+            }
+            return $lessons;
+        }
 
 
 

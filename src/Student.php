@@ -84,7 +84,7 @@
             $GLOBALS['DB']->exec("DELETE FROM students WHERE id = {$this->getId()};");
         }
 
-        static function findStudent($search_id)
+        static function find($search_id)
         {
            $found_student = null;
            $students = Student::getAll();
@@ -99,7 +99,7 @@
 
         // NOTE refactor for join table
 
-        function findTeachers()
+        function getTeachers()
         {
             $query = $GLOBALS['DB']->query("SELECT teachers.* FROM
             students JOIN students_teachers ON students.id = students_teachers.student_id
@@ -118,7 +118,7 @@
             return $teachers;
         }
 
-        function assignTeacher($teacher_id)
+        function addTeacher($teacher_id)
         {
 
             $GLOBALS['DB']->exec("INSERT INTO students_teachers (student_id, teacher_id) VALUES ({$this->getId()}, {$teacher_id});");
@@ -137,7 +137,7 @@
         //     return $found_students;
         // }
 
-        function enrollInCourse($course_id)
+        function addCourse($course_id)
         {
             $today = date('Y-m-d h:i:s');
             // $today = '2017-3-6 10:10:10';
@@ -189,7 +189,66 @@
             return $returned_date[0]['date_of_join'];
         }
 
+        //Join Statements NOTE UNTESTED
 
+        function addAccount($account_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO accounts_students (student_id, account_id) VALUES ({$this->getId()}, {$account_id});");
+        }
+
+        function addLesson($lesson_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO lessons_students (student_id, lesson_id) VALUES ({$this->getId()}, {$lesson_id});");
+        }
+
+        function addService($service_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO service_students (service_id, student_id) VALUES ({$service_id},{$this->getId()})");
+        }
+
+        // NOTE TAKING LESSONS REQUIRES A TRIPPLE JOIN TABLE
+
+        function getAccounts()
+        {
+            $query = $GLOBALS['DB']->query("SELECT accounts.* FROM students JOIN accounts_students ON (students.id = accounts_students.student_id) JOIN accounts ON (accounts_students.account_id = accounts.id) WHERE students.id = {$this->getId()};");
+            $accounts = array();
+            foreach ($query as $account)
+            {
+                $id = $account['id'];
+                $family_name = $account['family_name'];
+                $parent_one_name = $account['parent_one_name'];
+                $parent_two_name = $account['parent_two_name'];
+                $street_address = $account['street_address'];
+                $phone_number = $account['phone_number'];
+                $email_address = $account['email_address'];
+                $notes = $account['notes'];
+                $billing_history = $account['billing_history'];
+                $outstanding_balance = intval($account['outstanding_balance']);
+                $new_account = new Account($family_name, $parent_one_name,  $street_address, $phone_number, $email_address, $id);
+                $new_account->setParentTwoName($parent_two_name);
+                $new_account->setNotes($notes);
+                $new_account->setBillingHistory($billing_history);
+                $new_account->setOutstandingBalance($outstanding_balance);
+                array_push($accounts, $new_account);
+            }
+            return $accounts;
+        }
+
+        function getLessons()
+        {
+            $query = $GLOBALS['DB']->query("SELECT lessons.* FROM students JOIN lessons_students ON (students.id = lessons_students.student_id) JOIN lessons ON (lessons_students.lesson_id = lessons.id) WHERE students.id = {$this->getId()};");
+            $lessons = array();
+            foreach ($query as $lesson )
+            {
+                $title = $lesson['title'];
+                $description = $lesson['description'];
+                $content = $lesson['content'];
+                $id = $lesson['id'];
+                $returned_lesson = new Lesson($title, $description, $content, $id);
+                array_push($lessons, $returned_lesson);
+            }
+            return $lessons;
+        }
     }
 
 

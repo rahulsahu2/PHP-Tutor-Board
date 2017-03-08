@@ -145,7 +145,7 @@ class Account
                 $email_address = $account['email_address'];
                 $notes = $account['notes'];
                 $billing_history = $account['billing_history'];
-                $outstanding_balance = $account['outstanding_balance'];
+                $outstanding_balance = intval($account['outstanding_balance']);
                 $id = $account['id'];
                 $new_account = new Account($family_name, $parent_one_name,  $street_address, $phone_number, $email_address, $id);
                 $new_account->setParentTwoName($parent_two_name);
@@ -194,6 +194,97 @@ class Account
     function delete()
     {
         $GLOBALS['DB']->exec("DELETE FROM accounts WHERE id = {$this->getId()};");
+    }
+
+    // Join functions
+    function addTeacher($teacher_id)
+    {
+        $GLOBALS['DB']->exec("INSERT INTO accounts_teachers (account_id, teacher_id) VALUES ({$this->getId()}, {$teacher_id});");
+    }
+
+    function addCourse($course_id)
+    {
+        $GLOBALS['DB']->exec("INSERT INTO courses_accounts (account_id, course_id) VALUES ({$this->getId()}, {$course_id});");
+    }
+
+    function addStudent($student_id)
+    {
+        $GLOBALS['DB']->exec("INSERT INTO accounts_students (account_id, student_id) VALUES ({$this->getId()}, {$student_id});");
+    }
+
+    function addLesson($lesson_id)
+    {
+        $GLOBALS['DB']->exec("INSERT INTO lessons_accounts (account_id, lesson_id) VALUES ({$this->getId()}, {$lesson_id});");
+    }
+
+    function getTeachers()
+    {
+        $query = $GLOBALS['DB']->query("SELECT teachers.* FROM accounts JOIN accounts_teachers ON (accounts.id = accounts_teachers.account_id) JOIN teachers ON (accounts_teachers.teacher_id = teachers.id) WHERE accounts.id = {$this->getId()};");
+        $teachers = array();
+        foreach ($query as $teacher) {
+            $teacher_name = $teacher['teacher_name'];
+            $instrument = $teacher['instrument'];
+            $notes= $teacher['notes'];
+            $id = $teacher['id'];
+            $found_teacher = new Teacher($teacher_name, $instrument, $id);
+            $found_teacher->setNotes($notes);
+            array_push($teachers, $found_teacher);
+        }
+        return $teachers;
+    }
+
+    function getCourses()
+    {
+        $query = $GLOBALS['DB']->query("SELECT courses.* FROM accounts JOIN accounts_courses ON (accounts.id = accounts_courses.account_id) JOIN courses ON (accounts_courses.course_id = courses.id) WHERE accounts.id = {$this->getId()};");
+        $courses = array();
+        foreach ($query as $course )
+        {
+            $title = $course['title'];
+            $id = $course['id'];
+            $returned_course = new Course($title, $id);
+            array_push($courses, $returned_course);
+        }
+        return $courses;
+    }
+
+    function getStudents()
+    {
+        $query = $GLOBALS['DB']->query("SELECT students.* FROM accounts JOIN accounts_students ON (accounts.id = accounts_students.account_id) JOIN students ON (accounts_students.student_id = students.id) WHERE accounts.id = {$this->getId()};");
+        $students = array()
+        foreach($query as $student) {
+                $student_name = $student['student_name'];
+                $id = intval($student['id']);
+                $new_student = new Student($student_name, $id);
+                $new_student->setNotes($student['notes']);
+                array_push($students, $new_student);
+        }
+        return $students;
+    }
+
+    function getLessons()
+    {
+        $query = $GLOBALS['DB']->query("SELECT lessons.* FROM accounts JOIN accounts_lessons ON (accounts.id = accounts_lessons.account_id) JOIN lessons ON (accounts_lessons.lesson_id = lessons.id) WHERE accounts.id = {$this->getId()};");
+        $lessons = array();
+        foreach ($query as $lesson )
+        {
+            $title = $lesson['title'];
+            $description = $lesson['description'];
+            $content = $lesson['content'];
+            $id = $lesson['id'];
+            $returned_lesson = new Lesson($title, $description, $content, $id);
+            array_push($lessons, $returned_lesson);
+        }
+        return $lessons;
+    }
+
+
+
+    static function csvToArray()
+    {
+
+        $array = array_map('str_getcsv', file('jimi_attendance_march.csv'));
+
+        return $array;
     }
 }
 ?>

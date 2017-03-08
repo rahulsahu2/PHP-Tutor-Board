@@ -54,32 +54,10 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        function getStudents()
-       {
-           $students = Array();
-           $query = $GLOBALS['DB']->query("SELECT students.* FROM
-           teachers JOIN students_teachers ON teachers.id = students_teachers.teacher_id
-                    JOIN students ON students_teachers.student_id = students.id
-                    WHERE teachers.id = {$this->getId()};");
 
-        if(!empty($query)){
-            foreach($query as $student) {
-                $student_name = $student['student_name'];
-                $id = $student['id'];
-                $new_student = new Student($student_name, $id);
-                array_push($students, $new_student);
-            }
-        }
-        return $students;
 
-       }
 
-       function assignStudent($student_id)
-       {
-           $GLOBALS['DB']->exec("INSERT INTO students_teachers (student_id, teacher_id) VALUES ({$student_id}, {$this->getId()});");
-       }
-
-        static function findTeacher($search_id)
+        static function find($search_id)
         {
            $found_teacher = null;
            $teachers = Teacher::getAll();
@@ -128,6 +106,104 @@
         {
             $GLOBALS['DB']->exec("DELETE FROM teachers WHERE id = {$this->getId()};");
         }
+
+        // JOIN methods NOTE UNTESTED
+
+       function addStudent($student_id)
+       {
+           $GLOBALS['DB']->exec("INSERT INTO students_teachers (student_id, teacher_id) VALUES ({$this->getId()}, {$student_id});");
+       }
+
+        function addCourse($course_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO courses_teachers (teacher_id, course_id) VALUES ({$this->getId()}, {$course_id});");
+        }
+
+        function addAccount($account_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO accounts_teachers (teacher_id, account_id) VALUES ({$this->getId()}, {$account_id});");
+        }
+
+        function addLesson($lesson_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO lessons_teachers (teacher_id, lesson_id) VALUES ({$this->getId()}, {$lesson_id});");
+        }
+
+            function getStudents()
+           {
+               $students = Array();
+               $query = $GLOBALS['DB']->query("SELECT students.* FROM
+               teachers JOIN student_teachers ON teachers.id = students_teachers.teachers_id
+                        JOIN students ON students_teachers.student_id = students.id
+                        WHERE teachers.id = {$this->getId()};");
+
+            if(!empty($query)){
+                foreach($query as $student) {
+                    $student_name = $student['student_name'];
+                    $id = $student['id'];
+                    $new_student = new Student($student_name, $id);
+                    array_push($students, $new_student);
+                }
+            }
+            return $students;
+
+           }
+        function getCourses()
+        {
+            $query = $GLOBALS['DB']->query("SELECT courses.* FROM teachers JOIN courses_teachers ON (teachers.id = courses_teachers.teacher_id) JOIN courses ON (courses_teachers.course_id = courses.id) WHERE teachers.id = {$this->getId()};");
+            $courses = array();
+            foreach ($query as $course )
+            {
+                $title = $course['title'];
+                $id = $course['id'];
+                $returned_course = new Course($title, $id);
+                array_push($courses, $returned_course);
+            }
+            return $courses;
+        }
+
+        function getAccounts()
+        {
+            $query = $GLOBALS['DB']->query("SELECT accounts.* FROM teachers JOIN accounts_teachers ON (teachers.id = accounts_teachers.teacher_id) JOIN accounts ON (accounts_teachers.account_id = accounts.id) WHERE teachers.id = {$this->getId()};");
+            $accounts = array();
+            foreach ($query as $account)
+            {
+                $id = $account['id'];
+                $family_name = $account['family_name'];
+                $parent_one_name = $account['parent_one_name'];
+                $parent_two_name = $account['parent_two_name'];
+                $street_address = $account['street_address'];
+                $phone_number = $account['phone_number'];
+                $email_address = $account['email_address'];
+                $notes = $account['notes'];
+                $billing_history = $account['billing_history'];
+                $outstanding_balance = intval($account['outstanding_balance']);
+                $new_account = new Account($family_name, $parent_one_name,  $street_address, $phone_number, $email_address, $id);
+                $new_account->setParentTwoName($parent_two_name);
+                $new_account->setNotes($notes);
+                $new_account->setBillingHistory($billing_history);
+                $new_account->setOutstandingBalance($outstanding_balance);
+                array_push($accounts, $new_account);
+            }
+            return $accounts;
+        }
+
+        function getLessons()
+        {
+            $query = $GLOBALS['DB']->query("SELECT lessons.* FROM teachers JOIN lessons_teachers ON (teachers.id = lessons_teachers.teacher_id) JOIN lessons ON (lessons_teachers.lesson_id = lessons.id) WHERE teachers.id = {$this->getId()};");
+            $lessons = array();
+            foreach ($query as $lesson )
+            {
+                $title = $lesson['title'];
+                $description = $lesson['description'];
+                $content = $lesson['content'];
+                $id = $lesson['id'];
+                $returned_lesson = new Lesson($title, $description, $content, $id);
+                array_push($lessons, $returned_lesson);
+            }
+            return $lessons;
+        }
+
     }
 
 

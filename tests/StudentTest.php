@@ -141,11 +141,11 @@
             $new_student->save();
             $id = $new_student->getId();
             // Act
-            $result = Student::getAll();
+            $result = Student::find($id);
             // Assert
-            $this->assertEquals($id, $result[0]->getId());
+            $this->assertEquals($new_student, $result);
         }
-        function test_findTeachers()
+        function test_getTeachers()
         {
             // Arrange
 
@@ -162,10 +162,10 @@
             $new_student = new Student($input_name);
             $new_student->setNotes($input_new_note);
             $new_student->save();
-            $new_student->assignTeacher($teacher_id);
+            $new_student->addTeacher($teacher_id);
 
             // Act
-            $result = $new_student->findTeachers();
+            $result = $new_student->getTeachers();
             // Assert
             $this->assertEquals([$new_teacher], $result);
         }
@@ -205,7 +205,7 @@
             // Assert
             $this->assertEquals(date("Y-m-d h:i:s"), $result);
         }
-        function test_enrollInCourse()
+        function test_addCourse()
         {
             // Arrange
             $input_name = "Mike";
@@ -219,7 +219,7 @@
             $test_course = new Course($input_title);
             $test_course->save();
             $test_course_id = $test_course->getId();
-            $new_student->enrollInCourse($test_course->getId());
+            $new_student->addCourse($test_course->getId());
             // $new_student->enrollInCourse($test_course->getId());
             // Act
             $result = $test_course->getStudents();
