@@ -80,6 +80,25 @@
         }
 
         // NOTE add find and delete
+        static function find()
+        {
+            $retrieved_lessons = $GLOBALS['DB']->query("SELECT * FROM lessons;");
+            $re_lesson = null;
+            foreach( $retrieved_lessons as $lesson )
+            {
+                $title_re = $lesson['title'];
+                $description_re = $lesson['description'];
+                $content_re = $lesson['content'];
+                $id_re = $lesson['id'];
+                $re_lesson = new Lesson($title_re, $description_re, $content_re, $id_re);
+            }
+            return $re_lesson;
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM lessons WHERE id = {$this->getId()};");
+        }
 
         // Join methods INSERTS
         function addTeacher($teacher_id)
