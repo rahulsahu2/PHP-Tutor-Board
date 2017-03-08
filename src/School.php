@@ -219,7 +219,7 @@
         {
             $query = $GLOBALS['DB']->query("SELECT courses.* FROM schools JOIN courses_schools ON schools.id = courses_schools.school_id JOIN courses ON courses_schools.course_id = courses.id WHERE schools.id = {$this->getId()};");
             $courses = array();
-            foreach ($returned_courses as $course )
+            foreach ($query as $course )
             {
                 $title = $course['title'];
                 $id = $course['id'];
