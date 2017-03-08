@@ -82,7 +82,6 @@
         function test_getAll()
         {
             // Arrange
-            Teacher::deleteAll();
             $input_name = "Tester";
             $input_instrument = "Piano";
             $new_teacher_test = new Teacher($input_name, $input_instrument);
