@@ -250,7 +250,7 @@ class Account
     function getStudents()
     {
         $query = $GLOBALS['DB']->query("SELECT students.* FROM accounts JOIN accounts_students ON (accounts.id = accounts_students.account_id) JOIN students ON (accounts_students.student_id = students.id) WHERE accounts.id = {$this->getId()};");
-        $students = array()
+        $students = array();
         foreach($query as $student) {
                 $student_name = $student['student_name'];
                 $id = intval($student['id']);
