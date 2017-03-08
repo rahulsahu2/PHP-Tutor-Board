@@ -5,6 +5,7 @@
 {% block content %}
 <div class="jumbotron">
     Enrolled Students
+    <hr>
 </div>
 <h1>{{ course.getTitle }} </h1>
 
@@ -14,17 +15,7 @@
     <li><a href="/../teacher_students/{{student.getId}}">{{student.getName}}</a></li>
     {% endfor %}
 </ul>
+
 {% endif %}
-<form action="/teacher_courses/{{ course.getId }}" method="post">
-    <label>Enroll Students</label>
-    {% if students is not empty %}
-    <select class="form-control" name="student_id">
-        {% for student in students %}
-        <option value="{{student.getId}}">{{student.getName}}</option>
-        {% endfor %}
-    </select>
-    <button type="submit" name="button">submit</button>
-    {% endif %}
-</form>
-<!-- jumbotron -->
+
 {% endblock %}

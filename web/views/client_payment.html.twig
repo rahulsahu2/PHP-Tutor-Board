@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h1>Payments</h1>
+    <hr>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <h2 class="panel-heading" >Current Payments </h2>
+            {% if payments is not empty %}
+            <div class="panel-body">
+                <h4 id="totals" class="stats-numbers">Total: {{ payments|length }}</h4>
+                <ul>
+                    {% for payment in payments %}
+                    <li><a href="payments/{{client.getId}}">{{payment.getAmount}}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- // Enter form for payment?? -->
+{% endblock %}

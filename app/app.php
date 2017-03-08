@@ -224,10 +224,13 @@
         return $app->redirect("/owner_students");
     });
 
+
     $app->get("/owner_accounts", function() use ($app) {
 
         $school=School::find($_SESSION['school_id']);
+
         return $app['twig']->render('owner_clients.html.twig', array('school' => $school, 'accounts' => $school->getAccounts()));
+
     });
 
     // create account
