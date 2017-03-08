@@ -275,13 +275,13 @@
         {
             $query = $GLOBALS['DB']->query("SELECT lessons.* FROM schools JOIN lessons_schools ON schools.id = lessons_schools.school_id JOIN lessons ON lessons_schools.lesson_id = lessons.id WHERE schools.id = {$this->getId()};");
             $lessons = array();
-            foreach ($returned_lessons as $lesson )
+            foreach ($query as $lesson )
             {
                 $title = $lesson['title'];
                 $description = $lesson['description'];
                 $content = $lesson['content'];
                 $id = $lesson['id'];
-                $returned_lesson = new Course($title, $description, $content, $id);
+                $returned_lesson = new Lesson($title, $description, $content, $id);
                 array_push($lessons, $returned_lesson);
             }
             return $lessons;
