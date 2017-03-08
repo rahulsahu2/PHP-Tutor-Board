@@ -84,7 +84,7 @@
             $GLOBALS['DB']->exec("DELETE FROM students WHERE id = {$this->getId()};");
         }
 
-        static function findStudent($search_id)
+        static function find($search_id)
         {
            $found_student = null;
            $students = Student::getAll();
@@ -99,7 +99,7 @@
 
         // NOTE refactor for join table
 
-        function findTeachers()
+        function getTeachers()
         {
             $query = $GLOBALS['DB']->query("SELECT teachers.* FROM
             students JOIN students_teachers ON students.id = students_teachers.student_id
@@ -118,7 +118,7 @@
             return $teachers;
         }
 
-        function assignTeacher($teacher_id)
+        function addTeacher($teacher_id)
         {
 
             $GLOBALS['DB']->exec("INSERT INTO students_teachers (student_id, teacher_id) VALUES ({$this->getId()}, {$teacher_id});");
@@ -137,7 +137,7 @@
         //     return $found_students;
         // }
 
-        function enrollInCourse($course_id)
+        function addCourse($course_id)
         {
             $today = date('Y-m-d h:i:s');
             // $today = '2017-3-6 10:10:10';
@@ -207,22 +207,6 @@
         }
 
         // NOTE TAKING LESSONS REQUIRES A TRIPPLE JOIN TABLE
-
-        function getTeachers()
-        {
-            $query = $GLOBALS['DB']->query("SELECT teachers.* FROM students JOIN students_teachers ON (students.id = students_teachers.student_id) JOIN teachers ON (students_teachers.teacher_id = teachers.id) WHERE students.id = {$this->getId()};");
-            $teachers = array();
-            foreach ($query as $teacher) {
-                $teacher_name = $teacher['teacher_name'];
-                $instrument = $teacher['instrument'];
-                $notes= $teacher['notes'];
-                $id = $teacher['id'];
-                $found_teacher = new Teacher($teacher_name, $instrument, $id);
-                $found_teacher->setNotes($notes);
-                array_push($teachers, $found_teacher);
-            }
-            return $teachers;
-        }
 
         function getAccounts()
         {

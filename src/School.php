@@ -201,7 +201,7 @@
 
         function addService($service_id)
         {
-            $GLOBALS['DB']->exec("INSERT INTO schools_services (school_id, service_id) VALUES ({$service_id}, {$this->getId()})");
+            $GLOBALS['DB']->exec("INSERT INTO schools_services (school_id, service_id) VALUES ({$this->getId()}, {$service_id})");
         }
 
         function getTeachers()

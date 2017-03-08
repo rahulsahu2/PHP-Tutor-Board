@@ -85,11 +85,6 @@
             $GLOBALS['DB']->exec("INSERT INTO courses_teachers (course_id, teacher_id) VALUES ({$this->getId()}, {$teacher_id});");
         }
 
-        function addCourse($course_id)
-        {
-            $GLOBALS['DB']->exec("INSERT INTO courses_courses (course_id, course_id) VALUES ({$this->getId()}, {$course_id});");
-        }
-
         function addStudent($student_id)
         {
             $GLOBALS['DB']->exec("INSERT INTO courses_students (course_id, student_id) VALUES ({$this->getId()}, {$student_id});");
