@@ -11,11 +11,11 @@
 {% if enrolled_students is not empty %}
 <ul>
     {% for student in enrolled_students  %}
-    <li><a href="/../students/{{student.getId}}">{{student.getName}}</a></li>
+    <li><a href="/../teacher_students/{{student.getId}}">{{student.getName}}</a></li>
     {% endfor %}
 </ul>
 {% endif %}
-<form action="/courses/{{ course.getId }}" method="post">
+<form action="/teacher_courses/{{ course.getId }}" method="post">
     <label>Enroll Students</label>
     {% if students is not empty %}
     <select class="form-control" name="student_id">

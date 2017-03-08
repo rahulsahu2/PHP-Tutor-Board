@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <div class="jumbotron">
+        <h1>Home</h1>
+    </div>
+
+    <div class="row">
+        <!-- column -->
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <h2 class="panel-heading" >Students</h2>
+            {% if students is not empty %}
+            <div class="panel-body">
+                <h4 id="totals" class="stats-numbers">Total: {{ students|length }}</h4>
+                <ul>
+                    {% for student in students %}
+                    <li><a href="students/{{student.getId}}">{{student.getName}}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- column -->
+    <div class="col-md-3">
+        <div class="panel panel-info">
+            <h2 class="panel-heading" >Lessons</h2>
+            <div class="panel-body">
+                <h4 id="totals" class="stats-numbers">Total: 150 </h4>
+                <ul>
+                    <li>today: 20 </li>
+                    <li>week: 50 </li>
+                    <li>month: 150 </li>
+                    <li>this month last year: 140 </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- column -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-info">
+                <h2 class="panel-heading">Courses</h4>
+                <div class="panel-body">
+                    <h4 id="totals" class="stats-numbers">Total: 250 </h4>
+                    <p>Info goes here </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

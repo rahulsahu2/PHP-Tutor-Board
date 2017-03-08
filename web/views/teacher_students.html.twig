@@ -12,21 +12,13 @@
 
 <div class="row" id="alignstudents">
     <div class="col-md-4" id="addstudentbox">
-        <form action="/students" method="post">
+        <form action="/teacher_students" method="post">
             <div class="panel panel-info">
                 <h3 class="panel-heading">Add New Student</h3>
                 <div class="panel-body">
                     <div class="form-group">
                         <label for="student_name">Name</label><br>
                         <input type="text" name="student_name" required><br>
-                        {% if teachers is not empty %}
-                        <label for="teacher_id">Teacher Id</label><br>
-                        <select name="teacher_id">
-                            {% for teacher in teachers %}
-                            <option value="{{ teacher.getId }}">{{ teacher.getName }}</option>
-                            {% endfor %}
-                        </select>
-                        {% endif %}
                         <button type="submit">Submit</button><br>
                     </div>
                 </div>
@@ -43,13 +35,13 @@
                 <tbody>
                     {% for student in students %}
                     <tr>
-                        <td><a href="students/{{student.getId}}">{{student.getName}}</a></td>
+                        <td><a href="teacher_students/{{student.getId}}">{{student.getName}}</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-        {% endif %}
+    {% endif %}
 
 </div>
     {% endblock %}
