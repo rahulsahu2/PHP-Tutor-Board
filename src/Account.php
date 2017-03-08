@@ -212,11 +212,6 @@ class Account
         $GLOBALS['DB']->exec("INSERT INTO accounts_students (account_id, student_id) VALUES ({$this->getId()}, {$student_id});");
     }
 
-    function addAccount($account_id)
-    {
-        $GLOBALS['DB']->exec("INSERT INTO accounts_accounts (account_id, account_id) VALUES ({$this->getId()}, {$account_id});");
-    }
-
     function addLesson($lesson_id)
     {
         $GLOBALS['DB']->exec("INSERT INTO lessons_accounts (account_id, lesson_id) VALUES ({$this->getId()}, {$lesson_id});");
