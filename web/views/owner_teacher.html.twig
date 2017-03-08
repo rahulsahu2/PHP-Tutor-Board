@@ -10,18 +10,6 @@
     <div class="col-md-8">
         <div class="jumbotron">
             <h1>{{ teacher.getName }}</h1>
-            <ul>
-                <li>instruments: {{teacher.getInstrument}} </li>
-                <li>teacher id: {{teacher.getId}} </li>
-                {% if teachers_students is not empty %}
-                <li> teacher's students</li>
-                <ul>
-                    {% for student in teachers_students %}
-                    <li><a href="/owner_students/{{ student.getId }}">{{ student.getName }}</a></li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </ul>
             <form action="/owner_teacher/{{ teacher.getId }}" method="post">
                 <input name="_method" type="hidden" value="patch">
                 <label for="new_notes">add notes...</label><br>
@@ -29,19 +17,40 @@
                 <input type="reset">
                 <button type="submit" class="btn button-success" name="button">Submit</button>
             </form>
+            <ul>
+                <li>instruments: {{teacher.getInstrument}} </li>
+                <li>teacher id: {{teacher.getId}} </li>
+            </ul>
         </div>
         <!-- jumbotron -->
     </div>
+
     <!-- left column -->
     <div class="col-md-4">
         <form action="/owner_teacher/teacher_termination/{{ teacher.getId }}" method="post">
             <input name="_method" type="hidden" value="delete">
             <button type="submit" name="button">delete teacher</button>
         </form>
+
+        {% if teachers_students is not empty %}
+        <div class="panel panel-info">
+            <h2 class="panel-heading">Assigned Teachers</h2>
+            <table class="table table-hover">
+                <thead>
+                        <th>Student Name</th>
+                </thead>
+                <tbody>
+                {% for student in teachers_students %}
+                <tr>
+                    <td><a href="/owner_students/{{ student.getId }}">{{ student.getName }}</a></td>
+                </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    <!-- delete column -->
-</div>
-<!-- row -->
 
 <div class="jumbotron">
     {% if notes_array is not empty %}
@@ -62,7 +71,7 @@
     <input id="teacher_id" name="teacher_id" type="hidden" value="{{ teacher.getId }}">
     <label for="student_id">Assign a student</label>
     {% if students is not empty %}
-    <select id="student_id" class="form-control" name="student_assign">
+    <select id="student_id" class="form-control" name="student_id">
         {% for student in students %}
         <option value="{{student.getId}}">{{student.getName}}</option>
         {% endfor %}

@@ -58,7 +58,7 @@
        {
            $students = Array();
            $query = $GLOBALS['DB']->query("SELECT students.* FROM
-           teachers JOIN student_teachers ON teachers.id = students_teachers.teachers_id
+           teachers JOIN students_teachers ON teachers.id = students_teachers.teacher_id
                     JOIN students ON students_teachers.student_id = students.id
                     WHERE teachers.id = {$this->getId()};");
 
@@ -76,7 +76,7 @@
 
        function assignStudent($student_id)
        {
-           $GLOBALS['DB']->exec("INSERT INTO students_teachers (student_id, teacher_id) VALUES ({$this->getId()}, {$student_id});");
+           $GLOBALS['DB']->exec("INSERT INTO students_teachers (student_id, teacher_id) VALUES ({$student_id}, {$this->getId()});");
        }
 
         static function findTeacher($search_id)

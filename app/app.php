@@ -70,10 +70,11 @@
     });
 
     $app->post("/owner_teacher/{id}", function($id) use ($app) {
-        // echo $id;
-        $teacher = Teacher::findTeacher($id);
-        $student = $_POST['student_assign'];
-        $teacher->assignStudent($student);
+        $teacher = Teacher::findTeacher($_POST['teacher_id']);
+        $student = Student::findStudent($_POST['student_id']);
+        $new_marriage = $teacher->assignStudent($_POST['student_id']);
+        var_dump($new_marriage);
+        $teacher=[];
         return $app->redirect("/owner_teacher/".$id);
     });
 
