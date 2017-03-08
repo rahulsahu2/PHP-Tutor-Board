@@ -194,6 +194,11 @@
             return $ret_school;
         }
 
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM schools WHERE id = {$this->getId()};");
+        }
+
         //Join Methods
 
         function addTeacher($teacher_id)

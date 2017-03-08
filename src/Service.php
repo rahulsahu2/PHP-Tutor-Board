@@ -160,6 +160,26 @@
             return $services;
         }
 
+        static function find($service_id)
+        {
+            $returned_services = $GLOBALS['DB']->query("SELECT * FROM services WHERE id = {$service_id};");
+            $re_service = null;
+            foreach($returned_services as $service){
+                $description = $service['description'];
+                $duration = $service['duration'];
+                $price = $service['price'];
+                $discount = $service['discount'];
+                $paid_for = (bool) $service['paid_for'];
+                $notes = $service['notes'];
+                $date_of_service = $service['date_of_service'];
+                $recurrence = $service['recurrence'];
+                $attendance = $service['attendance'];
+                $id = (int) $service['id'];
+                $re_service = new Service($description, $duration, $price, $discount, $paid_for, $notes, $date_of_service, $recurrence, $attendance, $id);
+            }
+            return $re_service;
+        }
+
         // Update functions
         function updateDescription($update)
         {
@@ -255,6 +275,11 @@
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM services;");
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM services WHERE id = {$this->getId()};");
         }
 
         // JOIN methods NOTE UNTESTED
