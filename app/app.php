@@ -143,8 +143,8 @@
         return $app->redirect("/students/".$id);
     });
 
-    $app->get("/owner_accounts", function() use ($app) {
-        return $app['twig']->render('owner_account.html.twig', array('accounts' => Account::getAll()) );
+    $app->get("/owner_clients", function() use ($app) {
+        return $app['twig']->render('owner_clients.html.twig', array('accounts' => Account::getAll()) );
     });
 
     // Retrieve courses

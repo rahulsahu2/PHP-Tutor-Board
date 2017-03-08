@@ -25,6 +25,15 @@ h3 {
     color: #eceff5;
 }
 
+#courses-table {
+    margin-left: 150px;
+    margin-top: 20px;
+}
+
+#add_course {
+    margin-left: px;
+    margin-top: 90px;
+}
 #totals {
     margin-right: 80px;
 }
@@ -35,7 +44,7 @@ h3 {
 }
 
 #addstudentbox {
-    margin-right: 200px;
+    margin-right: 20px;
     margin-top: 30px;
 }
 
