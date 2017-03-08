@@ -80,5 +80,100 @@
         }
 
         // NOTE add find and delete
+
+        // Join methods INSERTS
+        function addTeacher($teacher_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO lessons_teachers (lesson_id, teacher_id) VALUES ({$this->getId()}, {$teacher_id});");
+        }
+
+        function addCourse($course_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO courses_lessons (lesson_id, course_id) VALUES ({$this->getId()}, {$course_id});");
+        }
+
+        function addStudent($student_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO lessons_students (lesson_id, student_id) VALUES ({$this->getId()}, {$student_id});");
+        }
+
+        function addAccount($account_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO accounts_lessons (lesson_id, account_id) VALUES ({$this->getId()}, {$account_id});");
+        }
+
+        // Join statements QUERY
+        function getTeachers()
+        {
+            $query = $GLOBALS['DB']->query("SELECT teachers.* FROM lessons JOIN lessons_teachers ON (lessons.id = lessons_teachers.lesson_id) JOIN teachers ON (lessons_teachers.teacher_id = teachers.id) WHERE lessons.id = {$this->getId()};");
+            $teachers = array();
+            foreach ($query as $teacher) {
+                $teacher_name = $teacher['teacher_name'];
+                $instrument = $teacher['instrument'];
+                $notes= $teacher['notes'];
+                $id = $teacher['id'];
+                $found_teacher = new Teacher($teacher_name, $instrument, $id);
+                $found_teacher->setNotes($notes);
+                array_push($teachers, $found_teacher);
+            }
+            return $teachers;
+        }
+
+        function getCourses()
+        {
+            $query = $GLOBALS['DB']->query("SELECT courses.* FROM lessons JOIN courses_lessons ON (lessons.id = courses_lessons.lesson_id) JOIN courses ON (courses_lessons.course_id = courses.id) WHERE lessons.id = {$this->getId()};");
+            $courses = array();
+            foreach ($query as $course )
+            {
+                $title = $course['title'];
+                $id = $course['id'];
+                $returned_course = new Course($title, $id);
+                array_push($courses, $returned_course);
+            }
+            return $courses;
+        }
+
+        function getStudents()
+        {
+            $query = $GLOBALS['DB']->query("SELECT students.* FROM lessons JOIN lessons_students ON (lessons.id = lessons_students.lesson_id) JOIN students ON (lessons_students.student_id = students.id) WHERE lessons.id = {$this->getId()};");
+            $students = array();
+            if(!empty($query)){
+                foreach($query as $student) {
+                    $student_name = $student['student_name'];
+                    $id = intval($student['id']);
+                    $new_student = new Student($student_name, $id);
+                    $new_student->setNotes($student['notes']);
+                    array_push($students, $new_student);
+                }
+            }
+            return $students;
+        }
+
+        function getAccounts()
+        {
+            $query = $GLOBALS['DB']->query("SELECT accounts.* FROM lessons JOIN accounts_lessons ON (lessons.id = accounts_lessons.lesson_id) JOIN accounts ON (accounts_lessons.account_id = accounts.id) WHERE lessons.id = {$this->getId()};");
+            $accounts = array();
+            foreach ($query as $account)
+            {
+                $id = $account['id'];
+                $family_name = $account['family_name'];
+                $parent_one_name = $account['parent_one_name'];
+                $parent_two_name = $account['parent_two_name'];
+                $street_address = $account['street_address'];
+                $phone_number = $account['phone_number'];
+                $email_address = $account['email_address'];
+                $notes = $account['notes'];
+                $billing_history = $account['billing_history'];
+                $outstanding_balance = intval($account['outstanding_balance']);
+                $new_account = new Account($family_name, $parent_one_name,  $street_address, $phone_number, $email_address, $id);
+                $new_account->setParentTwoName($parent_two_name);
+                $new_account->setNotes($notes);
+                $new_account->setBillingHistory($billing_history);
+                $new_account->setOutstandingBalance($outstanding_balance);
+                array_push($accounts, $new_account);
+            }
+            return $accounts;
+        }
+
     }
  ?>

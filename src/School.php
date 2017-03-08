@@ -172,7 +172,7 @@
             $GLOBALS['DB']->exec("DELETE FROM schools;");
         }
 
-        //Join Statements
+        //Join Methods
 
         function addTeacher($teacher_id)
         {
@@ -197,6 +197,11 @@
         function addLesson($lesson_id)
         {
             $GLOBALS['DB']->exec("INSERT INTO lessons_schools (school_id, lesson_id) VALUES ({$this->getId()}, {$lesson_id});");
+        }
+
+        function addService($service_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO schools_services (school_id, service_id) VALUES ({$service_id}, {$this->getId()})");
         }
 
         function getTeachers()
@@ -285,6 +290,29 @@
                 array_push($lessons, $returned_lesson);
             }
             return $lessons;
+        }
+
+        // NOTE UNTESTED
+
+        function getServices()
+        {
+            $query = $GLOBALS['DB']->query("SELECT services.* FROM schools JOIN schools_services ON (schools.id = schools_services.school_id) JOIN services ON (schools_services.service_id = services.id) WHERE schools.id = {$this->getId()};");
+            $services = array();
+            foreach($query as $service){
+                $description = $service['description'];
+                $duration = $service['duration'];
+                $price = $service['price'];
+                $discount = $service['discount'];
+                $paid_for = (bool) $service['paid_for'];
+                $notes = $service['notes'];
+                $date_of_service = $service['date_of_service'];
+                $recurrence = $service['recurrence'];
+                $attendance = $service['attendance'];
+                $id = (int) $service['id'];
+                $new_service = new Service($description, $duration, $price, $discount, $paid_for, $notes, $date_of_service, $recurrence, $attendance, $id);
+                array_push($services, $new_service);
+            }
+            return $services;
         }
 
 
