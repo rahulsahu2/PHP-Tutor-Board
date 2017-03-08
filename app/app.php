@@ -253,6 +253,7 @@
         return $app->redirect("/students/{$id}");
     });
 
+
     $app->get("/owner_accounts", function() use ($app) {
         // session value of owner id
 
@@ -260,6 +261,7 @@
 
         $school=School::find($_SESSION['school_id']);
         return $app['twig']->render('owner_account.html.twig', array('school' => $school, 'accounts' => $school->getAccounts()));
+
     });
 
     // Retrieve courses

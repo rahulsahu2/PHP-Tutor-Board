@@ -1,11 +1,73 @@
 
+/*// Styling for static border */
+/*#topleft, #topright, #bottomleft, #bottomright {
+ height: 24px;
+ width: 24px;
+ border-radius: 10px;
+ position: fixed;
+ display: block;
+ z-index: 20;
+}
+
+#top, #bottom {
+ height: 24px;
+ position: fixed;
+ left: 0;
+ right: 0;
+ display: block;
+ background-color: grey;
+ z-index: 30;
+}
+#left, #right {
+ width: 50px;
+ position: fixed;
+ top: 0;
+ bottom: 0;
+ display: block;
+ background-color: grey;
+ z-index: 50;
+}
+
+#top {
+ top: 0;
+}
+#bottom {
+ bottom: 0;
+}
+#left {
+ left: 0;
+}
+#right {
+ right: 0;
+}
+#topleft {
+ top: 0;
+ left: 0;
+}
+#topright {
+ top: 0;
+ right: 0;
+}
+ #bottomleft {
+ bottom: 0;
+ left: 0;
+}
+ #bottomright {
+ bottom: 0;
+ right: 0;
+}*/
+
 li {
      font-family: 'Raleway', sans-serif;
      font-size: 120%;
      list-style: none;
  }
 
-ul {
+.border {
+    border-style: solid;
+    border-width: .5px;
+    border-radius: 5px;
+    margin-left: 50px;
 }
 
 h1 {
@@ -19,10 +81,21 @@ h2 {
 h3 {
   font-family: 'Raleway', sans-serif;
 }
-.banner {
-    background-image: image("/img/bannermusic.jpg");
+
+.jumbotron {
+    background-image: url("/img/bannermusic.jpg");
+    color: #eceff5;
 }
 
+#courses-table {
+    margin-left: 150px;
+    margin-top: 20px;
+}
+
+#add_course {
+    margin-left: px;
+    margin-top: 90px;
+}
 #totals {
     margin-right: 80px;
 }
@@ -33,9 +106,24 @@ h3 {
 }
 
 #addstudentbox {
-    margin-right: 200px;
+    margin-right:100px;
     margin-top: 30px;
 }
+
+#currentstudentsbox {
+    margin-right: 30px;
+}
+
+#currentteachers {
+    margin-left: 100px;
+}
+
+#addteacher {
+    margin-left: 25%;
+    margin-top: 100px;
+    font-family: 'Raleway', sans-serif;
+}
+
 
 .container {
     margin-top: 80px;
@@ -49,17 +137,6 @@ h3 {
     text-align: center;
     background-color: rgba(117, 119, 117,0.2);
 }
-
-#currentteachers {
-    margin-left: 100px;
-}
-
-#addteacher {
-    margin-left: 25%;
-    margin-top: 100px;
-    font-family: 'Raleway', sans-serif;
-}
-
 #teachersalign {
     margin-left: 110px;
 }
