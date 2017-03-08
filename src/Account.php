@@ -145,7 +145,7 @@ class Account
                 $email_address = $account['email_address'];
                 $notes = $account['notes'];
                 $billing_history = $account['billing_history'];
-                $outstanding_balance = $account['outstanding_balance'];
+                $outstanding_balance = intval($account['outstanding_balance']);
                 $id = $account['id'];
                 $new_account = new Account($family_name, $parent_one_name,  $street_address, $phone_number, $email_address, $id);
                 $new_account->setParentTwoName($parent_two_name);

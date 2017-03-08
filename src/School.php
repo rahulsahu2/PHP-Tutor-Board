@@ -130,21 +130,164 @@
         {
             return $this->country;
         }
-        
+
         function getId()
         {
             return $this->id;
         }
 
-        // $school_name, $manager_name, $phone_number, $email, $business_address, $city, $state, $country, $zip, $type, $id
         // CRUD functions
-            // NOTE create crud
-        //
+
+        function save()
+        {
+            $GLOBALS['DB']->exec("INSERT INTO schools (school_name, manager_name, phone_number, email, business_address, city, state, country, zip, type) VALUES ('{$this->getSchoolName()}','{$this->getManagerName()}','{$this->getPhoneNumber()}','{$this->getEmail()}','{$this->getBusinessAddress()}','{$this->getCity()}','{$this->getState()}','{$this->getCountry()}','{$this->getZip()}','{$this->getType()}');");
+            $this->id = $GLOBALS['DB']->lastInsertId();
+        }
+
+        static function getAll()
+        {
+            $query = $GLOBALS['DB']->query("SELECT * FROM schools");
+            $schools = array();
+            foreach( $query as $school )
+            {
+                $school_name = $school['school_name'];
+                $manager_name = $school['manager_name'];
+                $phone_number = $school['phone_number'];
+                $email = $school['email'];
+                $business_address = $school['business_address'];
+                $city = $school['city'];
+                $state = $school['state'];
+                $country = $school['country'];
+                $zip = $school['zip'];
+                $type = $school['type'];
+                $id = $school['id'];
+                $retrieved_school = new School($school_name, $manager_name, $phone_number, $email, $business_address, $city, $state, $country, $zip, $type, $id);
+                array_push($schools, $retrieved_school);
+            }
+            return $schools;
+        }
+
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM schools;");
+        }
+
+        //Join Statements
+
+        function addTeacher($teacher_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO schools_teachers (school_id, teacher_id) VALUES ({$this->getId()}, {$teacher_id});");
+        }
+
+        function addCourse($course_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO courses_schools (school_id, course_id) VALUES ({$this->getId()}, {$course_id});");
+        }
+
+        function addStudent($student_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO schools_students (school_id, student_id) VALUES ({$this->getId()}, {$student_id});");
+        }
+
+        function addAccount($account_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO accounts_schools (school_id, account_id) VALUES ({$this->getId()}, {$account_id});");
+        }
+
+        function addLesson($lesson_id)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO lessons_schools (school_id, lesson_id) VALUES ({$this->getId()}, {$lesson_id});");
+        }
+
+        function getTeachers()
+        {
+            $query = $GLOBALS['DB']->query("SELECT teachers.* FROM schools JOIN schools_teachers ON schools.id = schools_teachers.school_id JOIN teachers ON schools_teachers.teacher_id = teachers.id WHERE schools.id = {$this->getId()};");
+            $teachers = array();
+            foreach ($query as $teacher) {
+                $teacher_name = $teacher['teacher_name'];
+                $instrument = $teacher['instrument'];
+                $notes= $teacher['notes'];
+                $id = $teacher['id'];
+                $found_teacher = new Teacher($teacher_name, $instrument, $id);
+                $found_teacher->setNotes($notes);
+                array_push($teachers, $found_teacher);
+            }
+            return $teachers;
+        }
+
+        function getCourses()
+        {
+            $query = $GLOBALS['DB']->query("SELECT courses.* FROM schools JOIN courses_schools ON schools.id = courses_schools.school_id JOIN courses ON courses_schools.course_id = courses.id WHERE schools.id = {$this->getId()};");
+            $courses = array();
+            foreach ($returned_courses as $course )
+            {
+                $title = $course['title'];
+                $id = $course['id'];
+                $returned_course = new Course($title, $id);
+                array_push($courses, $returned_course);
+            }
+            return $courses;
+        }
+
+        function getStudents()
+        {
+            $query = $GLOBALS['DB']->query("SELECT students.* FROM schools JOIN schools_students ON students.id = schools_students.school_id JOIN students ON schools_students.student_id = schools.id WHERE students.id = {$this->getId()};");
+            $students = array();
+            if(!empty($query)){
+                foreach($query as $student) {
+                    $student_name = $student['student_name'];
+                    $id = $student['id'];
+                    $new_student = new Student($student_name, $id);
+                    array_push($students, $new_student);
+                }
+            }
+            return $students;
+        }
+
+        function getAccounts()
+        {
+            $query = $GLOBALS['DB']->query("SELECT accounts.* FROM schools JOIN accounts_schools ON schools.id = accounts_schools.school_id JOIN accounts ON accounts_schools.account_id = accounts.id WHERE schools.id = {$this->getId()};");
+            $accounts = array();
+            foreach ($query as $account)
+            {
+                $id = $account['id'];
+                $family_name = $account['family_name'];
+                $parent_one_name = $account['parent_one_name'];
+                $parent_two_name = $account['parent_two_name'];
+                $street_address = $account['street_address'];
+                $phone_number = $account['phone_number'];
+                $email_address = $account['email_address'];
+                $notes = $account['notes'];
+                $billing_history = $account['billing_history'];
+                $outstanding_balance = intval($account['outstanding_balance']);
+                $new_account = new Account($family_name, $parent_one_name,  $street_address, $phone_number, $email_address, $id);
+                $new_account->setParentTwoName($parent_two_name);
+                $new_account->setNotes($notes);
+                $new_account->setBillingHistory($billing_history);
+                $new_account->setOutstandingBalance($outstanding_balance);
+                array_push($accounts, $new_account);
+            }
+            return $accounts;
+        }
+
+        function getLessons()
+        {
+            $query = $GLOBALS['DB']->query("SELECT lessons.* FROM schools JOIN lessons_schools ON schools.id = lessons_schools.school_id JOIN lessons ON lessons_schools.lesson_id = lessons.id WHERE schools.id = {$this->getId()};");
+            $lessons = array();
+            foreach ($returned_lessons as $lesson )
+            {
+                $title = $lesson['title'];
+                $description = $lesson['description'];
+                $content = $lesson['content'];
+                $id = $lesson['id'];
+                $returned_lesson = new Course($title, $description, $content, $id);
+                array_push($lessons, $returned_lesson);
+            }
+            return $lessons;
+        }
 
 
 
-        // dejiakala at gmail dot com ¶
-        // DON'T FULLY UNDERSTAND ...
         static function csvToArray()
         {
 

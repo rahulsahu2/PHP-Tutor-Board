@@ -72,7 +72,6 @@
         function test_Constructor()
         {
             // Arrange
-            // Arrange
             $input_family_name = "Bobsters";
             $input_parent_one_name = "Lobster";
             $input_parent_two_name = "Momster";
