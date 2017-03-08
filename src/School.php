@@ -231,13 +231,14 @@
 
         function getStudents()
         {
-            $query = $GLOBALS['DB']->query("SELECT students.* FROM schools JOIN schools_students ON students.id = schools_students.school_id JOIN students ON schools_students.student_id = schools.id WHERE students.id = {$this->getId()};");
+            $query = $GLOBALS['DB']->query("SELECT students.* FROM schools JOIN schools_students ON schools.id = schools_students.school_id JOIN students ON schools_students.student_id = students.id WHERE schools.id = {$this->getId()};");
             $students = array();
             if(!empty($query)){
                 foreach($query as $student) {
                     $student_name = $student['student_name'];
-                    $id = $student['id'];
+                    $id = intval($student['id']);
                     $new_student = new Student($student_name, $id);
+                    $new_student->setNotes($student['notes']);
                     array_push($students, $new_student);
                 }
             }

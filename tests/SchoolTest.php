@@ -166,5 +166,35 @@
             $this->assertEquals([$new_teacher_test], $result);
 
         }
+
+        function test_getStudents()
+        {
+            // Arrange
+            $input_name = "Test-9io ";
+            $input_new_note = "Blah";
+            $new_student = new Student($input_name);
+            $new_student->setNotes($input_new_note);
+            $new_student->save();
+
+            $input_school_name = "SPMS";
+            $input_manager_name = "Carlos Munoz Kampff";
+            $input_phone_number = "617-780-8362";
+            $input_email = "info@starpowermusic.net";
+            $input_business_address = "PO 6267";
+            $input_city = "Alameda";
+            $input_state = "CA";
+            $input_country = "USA";
+            $input_zip = "94706";
+            $input_type = "music";
+            $test_school = new School($input_school_name,$input_manager_name,$input_phone_number,$input_email,$input_business_address,$input_city,$input_state,$input_country,$input_zip,$input_type);
+            $test_school->save();
+            // Act
+            $test_school->addStudent($new_student->getId());
+            $result = $test_school->getStudents();
+
+            // Assert
+            $this->assertEquals([$new_student], $result);
+
+        }
     }
 ?>
