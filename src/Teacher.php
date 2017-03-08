@@ -133,7 +133,7 @@
            {
                $students = Array();
                $query = $GLOBALS['DB']->query("SELECT students.* FROM
-               teachers JOIN student_teachers ON teachers.id = students_teachers.teachers_id
+               teachers JOIN student_teachers ON teachers.id = students_teachers.teacher_id
                         JOIN students ON students_teachers.student_id = students.id
                         WHERE teachers.id = {$this->getId()};");
 
