@@ -72,9 +72,7 @@
     $app->post("/owner_teacher/{id}", function($id) use ($app) {
         $teacher = Teacher::findTeacher($_POST['teacher_id']);
         $student = Student::findStudent($_POST['student_id']);
-        $new_marriage = $teacher->assignStudent($_POST['student_id']);
-        var_dump($new_marriage);
-        $teacher=[];
+        $teacher->assignStudent($_POST['student_id']);
         return $app->redirect("/owner_teacher/".$id);
     });
 
@@ -110,8 +108,6 @@
         $selected_student = Student::findStudent($id);
         $notes_array = explode("|", $selected_student->getNotes());
         $assigned_teachers = $selected_student->findTeachers();
-        var_dump($assigned_teachers);
-
         return $app['twig']->render('owner_student.html.twig', array(
             'student' => $selected_student,
             'assigned_teachers' => $assigned_teachers,

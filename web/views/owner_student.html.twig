@@ -3,16 +3,17 @@
 {% block title %}Student{% endblock %}
 
 {% block content %}
+<div class="jumbotron">
+    <h1>{{ student.getName }}</h1>
+    <hr>
+</div>
 
 <div class="row">
     <div class="col-md-8">
-        <div class="jumbotron">
-            <h1>{{ student.getName }}</h1>
-            <p></p>
             {% if assigned_teachers is not empty %}
             <ul>
                 {% for teacher in assigned_teachers %}
-                <li>Assigned teacher: <strong>{{ teacher.getName }}</strong> (id:{{ teacher.getId }})</li>
+                <li>Assigned teacher: <strong>{{ teacher.getName }}</strong></li>
                 {% endfor %}
             </ul>
             {% endif %}
@@ -27,8 +28,6 @@
                 <input name="_method" type="hidden" value="delete">
                 <button type="submit" name="button">Delete Student</button>
             </form>
-        </div>
-        <!-- jumbotron -->
     </div>
     <!-- left column -->
     <div class="col-md-4">
@@ -57,10 +56,8 @@
 <!-- enroll column -->
 </div>
 <!-- row -->
-
-
     {% if notes_array is not empty %}
-    <div class="well">
+    <div class="notes">
         <ul>
             <label>notes:</label>
             {% for note in notes_array %}
@@ -70,5 +67,4 @@
         </ul>
     </div>
     {% endif %}
-<!-- jumbotron -->
 {% endblock %}
