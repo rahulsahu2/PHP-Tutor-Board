@@ -98,7 +98,7 @@
 
     });
 
-    $app->get("/owner_teacher/{id}", function($id) use ($app) {
+    $app->get("/owner_teachers/{id}", function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
 
@@ -109,14 +109,14 @@
         return $app['twig']->render('owner_teacher.html.twig', array('school' => $school, 'teacher' => $teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array, 'students' => $school->getStudents()));
     });
 
-    $app->post("/owner_teacher/{id}", function($id) use ($app) {
+    $app->post("/owner_teachers/{id}", function($id) use ($app) {
         $teacher = Teacher::find($_POST['teacher_id']);
         $student = Student::find($_POST['student_id']);
         $teacher->addStudent($_POST['student_id']);
-        return $app->redirect("/owner_teacher/{$id}");
+        return $app->redirect("/owner_teachers/{$id}");
     });
 
-    $app->patch("/owner_teacher/{id}", function($id) use ($app) {
+    $app->patch("/owner_teachers/{id}", function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
 
@@ -129,7 +129,7 @@
         return $app['twig']->render('owner_teacher.html.twig', array('school' => $school, 'teacher' => $selected_teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array ));
     });
 
-    $app->delete("/owner_teacher/teacher_termination/{id}", function($id) use ($app) {
+    $app->delete("/owner_teachers/teacher_termination/{id}", function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
 
@@ -361,5 +361,13 @@
             'course'=>$course,
             'lesson'=>$lesson));
     });
+
+    // TEACHER STORY ROUTES
+
+
+
+    // CLIENT STORY ROUTES
+
+
     return $app;
  ?>
