@@ -172,6 +172,28 @@
             $GLOBALS['DB']->exec("DELETE FROM schools;");
         }
 
+        static function find($school_id)
+        {
+            $query = $GLOBALS['DB']->query("SELECT * FROM schools WHERE id = {$school_id};");
+            $ret_school = null;
+            foreach( $query as $school )
+            {
+                $school_name = $school['school_name'];
+                $manager_name = $school['manager_name'];
+                $phone_number = $school['phone_number'];
+                $email = $school['email'];
+                $business_address = $school['business_address'];
+                $city = $school['city'];
+                $state = $school['state'];
+                $country = $school['country'];
+                $zip = $school['zip'];
+                $type = $school['type'];
+                $id = $school['id'];
+                $ret_school = new School($school_name, $manager_name, $phone_number, $email, $business_address, $city, $state, $country, $zip, $type, $id);
+            }
+            return $ret_school;
+        }
+
         //Join Methods
 
         function addTeacher($teacher_id)
