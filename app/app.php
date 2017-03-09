@@ -62,7 +62,7 @@
 
     // OWNER STORY ROUTES
     // ROOT
-    $app->get("/login_owner", function() use ($app) {
+    $app->get("/owner_login", function() use ($app) {
 
         // NOTE This is going to create the school object from the Login using FIND
         // $input_school_name = "SPMS";
