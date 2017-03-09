@@ -53,9 +53,29 @@
             $test_lesson->getId();
             // Act
             $result = Lesson::getAll();
-            // var_dump($test_lesson);
             // Assert
             $this->assertEquals($test_lesson, $result[0]);
         }
+        function test_updates()
+        {
+            // Arrange
+            $input_title = "Sweet-Child-of-Mine";
+            $input_description = "Lesson that teaches the song.";
+            $input_content = "CONTENTjfdas;afdsjfdsa;safdfdsadfsj;fdj;dfasjfd;jfas;jfdsaj;fdsj;fdsaj;fdsj;fdsa;jfdsj;fds;jfdsa;jfdsaj;fdsaj;fdsj;fds;j;jdfsjadfs;fdj;fadj;fdsaj;fdasj;fd;jfdasj;fdsaj;fdsaj;fdsj;fdsaj;fdsaj;fdsj;fdsj;fdsaj;fdsj;fdsj;fdsj;fdsj;fdsaj;fsdaj;fdsj;fdj;fdsj;fdsj;dfsaj;fdsaj;fdsaj;fdsj;fdsj;fdsj;fdsaj;fdsaj;fdsj;fdsj;d;ldansf;kandsfjnowejewiopqjnjanfadskfnafsj;fadsj;fdj;dfasj;fadsj;fdasj;fdsj;fdsaj;fasdj;fdsaj;fadsj;fdsaj;fsdaj;fdsajfdsfdsajoiioe !@#%%^%$&^&*%%$^%^%jiijrwijnbvndsndasnmdfsmdfmvnvzcvzcxnfdhjgahrorwqhjropdfaifajfnanfandjfnadsjfndasjfnjadnkdmaslcmal;sdmckladmflkandsjgnadsjkgfnadsklnfladksmflkasdmfkjadnsfjkandsfkjandsf;adsf;ladjnsf;ldasnf;lkdasnf;ladsnf;ladsnfl;adskfna;lksdnfasj;fdsj;fdsaj;fdasj;fdasj;fdasj;fdsaj;dfsaj;dfsaj;fdasj;fdsj;fdsaj;fdasj;fdsj;dfsaj;fdsaj;dfsaj;fdsj;dfsaj;fdssa;j";
+            $test_lesson = new Lesson("","","");
+            $test_lesson->save();
+            $test_lesson->updateTitle($input_title);
+            $test_lesson->updateDescription($input_description);
+            $test_lesson->updateContent($input_content);
+            $test_lesson->setTitle($input_title);
+            $test_lesson->setDescription($input_description);
+            $test_lesson->setContent($input_content);
+            // Act
+            $result = Lesson::getAll();
+            // Assert
+            $this->assertEquals($test_lesson, $result[0]);
+        }
+
+
     }
 ?>

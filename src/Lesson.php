@@ -100,6 +100,24 @@
             $GLOBALS['DB']->exec("DELETE FROM lessons WHERE id = {$this->getId()};");
         }
 
+        function updateTitle($update)
+        {
+            $GLOBALS['DB']->exec("UPDATE lessons SET title = '{$update}' WHERE id = {$this->getId()};");
+            $this->setTitle($update);
+        }
+
+        function updateDescription($update)
+        {
+            $GLOBALS['DB']->exec("UPDATE lessons SET description = '{$update}' WHERE id = {$this->getId()};");
+            $this->setDescription($update);
+        }
+
+        function updateContent($update)
+        {
+            $GLOBALS['DB']->exec("UPDATE lessons SET content = '{$update}' WHERE id = {$this->getId()};");
+            $this->setContent($update);
+        }
+
         // Join methods INSERTS
         function addTeacher($teacher_id)
         {
