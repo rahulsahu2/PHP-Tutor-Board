@@ -97,7 +97,7 @@
         // NOTE UNTESTED
         function addLesson($lesson_id)
         {
-            $GLOBALS['DB']->exec("INSERT INTO lessons_courses (course_id, lesson_id) VALUES ({$this->getId()}, {$lesson_id});");
+            $GLOBALS['DB']->exec("INSERT INTO courses_lessons (course_id, lesson_id) VALUES ({$this->getId()}, {$lesson_id});");
         }
         // NOTE UNTESTED
         function getAccounts()

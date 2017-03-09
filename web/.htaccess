@@ -1,4 +1,3 @@
-
 <IfModule mod_rewrite.c>
      Options +FollowSymLinks -MultiViews
      # Turn mod_rewrite on
