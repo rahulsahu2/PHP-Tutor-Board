@@ -279,20 +279,13 @@
         $parent_two_name = $_POST['parent_two_name'];
         $notes = $_POST['notes'];
         $billing_history = $_POST['billing_history'];
-        $outstanding_balance = $_POST['outstanding_balance'];
-        if ($parent_two_name) {
-            $new_account->setParentTwoName($parent_two_name);
-        }
-        if ($notes) {
-            $new_account->setNotes($notes);
-        }
-        if ($billing_history){
-            $new_account->setBillingHistory($billing_history);
-        }
-        if ($outstanding_balance){
-            $new_account->setOutstandingBalance($outstanding_balance);
-        }
+        $outstanding_balance = intval($_POST['outstanding_balance']);
+        $new_account->setParentTwoName($parent_two_name);
+        $new_account->setNotes($notes);
+        $new_account->setBillingHistory($billing_history);
+        $new_account->setOutstandingBalance($outstanding_balance);
         $new_account->save();
+        var_dump($new_account);
         $school->addAccount($new_account->getId());
 
         return $app['twig']->render('owner_clients.html.twig', array('school' => $school, 'accounts' => $school->getAccounts()));
