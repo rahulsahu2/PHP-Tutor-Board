@@ -15,7 +15,7 @@
 
         function setName($new_teacher_name)
         {
-            $this->name = (string) $new_teacher_name;
+            $this->teacher_name = (string) $new_teacher_name;
         }
 
         function getName()
@@ -53,9 +53,6 @@
             $GLOBALS['DB']->exec("INSERT INTO teachers (teacher_name, instrument, notes) VALUES ('{$this->getName()}', '{$this->getInstrument()}', '{$this->getNotes()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
-
-
-
 
         static function find($search_id)
         {
@@ -100,6 +97,18 @@
         {
             $GLOBALS['DB']->exec("UPDATE teachers SET notes = '{$new_note}' WHERE id = {$this->getId()};");
             $this->setNotes($new_note);
+        }
+
+        function updateName($new_name)
+        {
+            $GLOBALS['DB']->exec("UPDATE teachers SET teacher_name = '{$new_name}' WHERE id = {$this->getId()};");
+            $this->setName($new_name);
+        }
+
+        function updateInstrument($new_instrument)
+        {
+            $GLOBALS['DB']->exec("UPDATE teachers SET instrument = '{$new_instrument}' WHERE id = {$this->getId()};");
+            $this->setInstrument($new_instrument);
         }
 
         function delete()

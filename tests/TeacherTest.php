@@ -138,17 +138,35 @@
             $input_teacher_id = 13;
             $input_new_note = "Blah";
             $input_id = 1;
-            $new_student = new Student($input_name, $input_instrument, $input_teacher_id);
-            $new_student->setNotes($input_new_note);
-            $new_student->save();
+            $new_teacher = new Teacher($input_name, $input_instrument, $input_teacher_id);
+            $new_teacher->setNotes($input_new_note);
+            $new_teacher->save();
 
             $new_input_notes = "Had a great lesson.";
 
             //Act
-            $new_student->updateNotes($new_input_notes);
+            $new_teacher->updateNotes($new_input_notes);
 
             //Assert
-            $this->assertEquals($new_input_notes . $input_new_note, $new_student->getNotes());
+            $this->assertEquals($new_input_notes . $input_new_note, $new_teacher->getNotes());
+        }
+        function test_updates()
+        {
+            //Arrange
+            $input_name = "Tester";
+            $input_instrument = "Horn";
+            $input_new_note = "Blah";
+            $new_teacher = new Teacher("","","");
+            $new_teacher->setNotes($input_new_note);
+            $new_teacher->save();
+            //Act
+            $new_teacher->updateName($input_name);
+            $new_teacher->updateInstrument($input_instrument);
+            var_dump($new_teacher);
+
+            //Assert
+            $this->assertEquals($input_name, $new_teacher->getName());
+            $this->assertEquals($input_instrument, $new_teacher->getInstrument());
         }
 
         function testDelete()
