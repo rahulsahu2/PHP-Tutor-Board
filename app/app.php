@@ -299,14 +299,40 @@
         $selected_teachers = $selected_account->getTeachers();
         $selected_courses = $selected_account->getCourses();
         $selected_lessons = $selected_account->getLessons();
+        $notes_array = explode("|", $selected_account->getNotes());
 
         return $app['twig']->render('owner_client.html.twig', array('school'=>$school,
         'account'=>$selected_account,
         'accounts'=>$school->getAccounts(),
         'selected_students'=>$selected_students, 'selected_teachers'=>$selected_teachers,
         'selected_courses'=>$selected_courses,
+        'notes_array'=>$notes_array,
         'selected_lessons'=>$selected_lessons));
 
+    });
+
+    //UPDATE account notes
+    $app->patch("/owner_accounts/{id}", function($id) use ($app) {
+
+        $school=School::find($_SESSION['school_id']);
+
+        $selected_account = Account::find($id);
+        $selected_students = $selected_account->getStudents();
+        $selected_teachers = $selected_account->getTeachers();
+        $selected_courses = $selected_account->getCourses();
+        $selected_lessons = $selected_account->getLessons();
+        $new_notes = $_POST['new_notes'];
+        $updated_notes =  date('l jS \of F Y ') . "---->"  . $new_notes  . "|" .$selected_account->getNotes();
+        $selected_account->updateNotes($updated_notes);
+        $notes_array = explode("|", $updated_notes);
+
+        return $app['twig']->render('owner_client.html.twig', array('school'=>$school,
+        'account'=>$selected_account,
+        'accounts'=>$school->getAccounts(),
+        'selected_students'=>$selected_students, 'selected_teachers'=>$selected_teachers,
+        'selected_courses'=>$selected_courses,
+        'notes_array'=>$notes_array,
+        'selected_lessons'=>$selected_lessons));
     });
 
     // JOIN add student to account
