@@ -299,12 +299,38 @@
         $selected_students = $selected_account->getStudents();
         $selected_teachers = $selected_account->getTeachers();
         $selected_courses = $selected_account->getCourses();
-        $selected_services = $selected_account->getServices();
         $selected_lessons = $selected_account->getLessons();
 
-        return $app['twig']->render('owner_client.html.twig', array('school'=>$school, 'selected_students'=>$selected_students, 'selected_teachers'=>$selected_teachers,
+        return $app['twig']->render('owner_client.html.twig', array('school'=>$school,
+        'account'=>$selected_account,
+        'accounts'=>$school->getAccounts(),
+        'selected_students'=>$selected_students, 'selected_teachers'=>$selected_teachers,
         'selected_courses'=>$selected_courses,
-        'selected_services'=>$selected_services, 'selected_lessons'=>$selected_lessons));
+        'selected_lessons'=>$selected_lessons));
+
+    });
+
+    // JOIN add student to account
+    $app->post('/owner_add_student_to_account', function() use($app) {
+        $school=School::find($_SESSION['school_id']);
+        $selected_account = Account::find($_POST['account_id']);
+        $student=new Student($_POST['student_name']);
+        $student->save();
+        $student_id = $student->getId();
+        $school->addStudent($student_id);
+        $selected_account->addStudent($student_id);
+        $selected_students = $selected_account->getStudents();
+        $selected_teachers = $selected_account->getTeachers();
+        $selected_courses = $selected_account->getCourses();
+        $selected_lessons = $selected_account->getLessons();
+
+        return $app['twig']->render('owner_client.html.twig', array('school'=>$school,
+        'account'=>$selected_account,
+        'accounts'=>$school->getAccounts(),
+        'selected_students'=>$selected_students, 'selected_teachers'=>$selected_teachers,
+        'selected_courses'=>$selected_courses,
+        'selected_lessons'=>$selected_lessons));
+
 
     });
 
