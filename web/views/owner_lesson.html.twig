@@ -4,5 +4,36 @@
 
 {% block content %}
 
-<p>ADD STUFF HERE</p>
+<div class="jumbotron">
+  <h1>{{ lesson.getTitle }} </h1>
+</div>
+<div class="row">
+    <div class="col-sm-8">
+        <h1>{{lesson.getTitle}}</h1>
+        <h4>{{lesson.getDescription}}</h4>
+        <div class="well">
+            <p>
+                {{lesson.getContent}}
+            </p>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <form class="form-control" action="/add_lesson_to_course" method="post">
+
+            <p>Create another Lesson for a course</p>
+            <select class="form-control" name="course_id">
+                {% for course in school.getCourses %}
+                    <option value="{{course.getId}}">{{course.getTitle}}</option>
+                {% endfor %}
+            </select>
+            <label for="title">Lesson title</label><br>
+            <input type="text" name="title" value=""><br>
+            <label for="description">Lesson Description</label><br>
+            <input type="text" name="description"><br>
+            <label for="content">Content</label><br>
+            <textarea name="content" rows="8" cols="40"></textarea>
+            <button type="submit">Add Lesson</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
