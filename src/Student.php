@@ -77,7 +77,11 @@
             $this->setNotes($new_note);
         }
 
-        // NOTE  add other updates
+        function updateName($update)
+        {
+            $GLOBALS['DB']->exec("UPDATE students SET student_name = '{$update}' WHERE id = {$this->getId()};");
+            $this->setName($update);
+        }
 
         function delete()
         {
@@ -96,8 +100,6 @@
            }
            return $found_student;
         }
-
-        // NOTE refactor for join table
 
         function getTeachers()
         {
@@ -123,19 +125,6 @@
 
             $GLOBALS['DB']->exec("INSERT INTO students_teachers (student_id, teacher_id) VALUES ({$this->getId()}, {$teacher_id});");
         }
-
-        // static function findStudentsByTeacher($search_id)
-        // {
-        //     $found_students = array();
-        //     $students = Student::getAll();
-        //     foreach($students as $student){
-        //         $teacher_id = $student->getTeacherId();
-        //         if ($teacher_id == $search_id){
-        //             array_push($found_students, $student);
-        //         }
-        //     }
-        //     return $found_students;
-        // }
 
         function addCourse($course_id)
         {

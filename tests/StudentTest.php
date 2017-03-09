@@ -227,5 +227,17 @@
             // $this->assertEquals($test_course_id, 33);
             $this->assertEquals(1, count($result));
         }
+        function test_updateName()
+        {
+            // Arrange
+            $input_name = "Tester";
+            $new_student_test = new Student("");
+            $new_student_test->save();
+            // Act
+            $new_student_test->updateName($input_name);
+            $result = Student::getAll();
+            // Assert
+            $this->assertEquals($input_name, $result[0]->getName());
+        }
     }
  ?>
