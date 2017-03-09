@@ -5,7 +5,6 @@
 {% block content %}
 
 <div class="jumbotron">
-    {% if students is not empty %}
     <h1>Students</h1>
     <hr>
 </div>
@@ -26,6 +25,7 @@
         </div>
         </form>
 
+        {% if students is not empty %}
         <div id="currentstudentsbox" class="col-md-4">
             <h3 >Current Students</h3>
             <table class="table table-hover">
@@ -35,7 +35,7 @@
                 <tbody>
                     {% for student in students %}
                     <tr>
-                        <td><a href="owner_student/{{student.getId}}">{{student.getName}}</a></td>
+                        <td><a href="owner_students/{{student.getId}}">{{student.getName}}</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
