@@ -82,7 +82,7 @@
         $school2 = School::find($school->getId());
 
         // This directs to owner main page and sends in keys with values only relating to that school: School Object, teachers, students, courses, accounts, services
-        return $app['twig']->render('owner_main.html.twig', array('school'=> $school, 'teachers' => $school->getTeachers(), 'students' => $school->getStudents(), 'courses' => $school->getCourses(), 'accounts' => $school->getAccounts(), 'services' => $school->getServices()));
+        return $app['twig']->render('owner_main.html.twig', array('school'=> $school, 'teachers' => $school->getTeachers(), 'students' => $school->getStudents(), 'courses' => $school->getCourses(), 'accounts' => $school->getAccounts(), 'services' => $school->getServices(), 'lessons' => $school->getLessons()));
     });
 
     //READ teachers
@@ -117,7 +117,6 @@
         $teacher = Teacher::find($id);
         $notes_array = explode("|", $teacher->getNotes());
         $students_teachers = $teacher->getStudents();
-        var_dump($students_teachers);
         return $app['twig']->render('owner_teacher.html.twig', array('school' => $school, 'teacher' => $teacher, 'students_teachers' => $students_teachers, 'notes_array' => $notes_array, 'students' => $school->getStudents()));
     });
 

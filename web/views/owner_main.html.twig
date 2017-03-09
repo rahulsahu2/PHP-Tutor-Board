@@ -46,12 +46,11 @@
         <div class="panel panel-info">
             <h2 class="panel-heading" >Lessons</h2>
             <div class="panel-body">
-                <h4 id="totals" class="stats-numbers">Total: 150 </h4>
+                <h4 id="totals" class="stats-numbers">Total: {{lessons|length}} </h4>
                 <ul>
-                    <li>today: 20 </li>
-                    <li>week: 50 </li>
-                    <li>month: 150 </li>
-                    <li>this month last year: 140 </li>
+                    {% for lesson in lessons %}
+                    <li><a href="owner_lessons/{{lesson.getId}}">{{lesson.getTitle}}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -62,8 +61,12 @@
             <div class="panel panel-info">
                 <h2 class="panel-heading">Courses</h4>
                 <div class="panel-body">
-                    <h4 id="totals" class="stats-numbers">Total: 250 </h4>
-                    <p>Info goes here </p>
+                    <h4 id="totals" class="stats-numbers">Total: {{courses|length}} </h4>
+                    <ul>
+                        {% for course in courses %}
+                        <li><a href="owner_courses/{{course.getId}}">{{course.getTitle}}</a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>
