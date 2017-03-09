@@ -180,7 +180,7 @@
             $input_title = "Basket weaving";
             $test_course = new Course($input_title);
             $test_course->save();
-            $new_student->enrollInCourse($test_course->getId());
+            $new_student->addCourse($test_course->getId());
             // Act
             $result = $new_student->getCourses();
             // Assert
@@ -199,7 +199,7 @@
             $input_title = "Basket weaving";
             $test_course = new Course($input_title);
             $test_course->save();
-            $new_student->enrollInCourse($test_course->getId());
+            $new_student->addCourse($test_course->getId());
             // Act
             $result = $new_student->getDateOfEnrollment($test_course->getId());
             // Assert

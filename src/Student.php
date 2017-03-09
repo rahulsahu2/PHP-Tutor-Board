@@ -187,6 +187,7 @@
             $query = $GLOBALS['DB']->query("SELECT date_of_join FROM courses_students WHERE student_id = {$this->id} AND course_id = {$course_id};");
             $returned_date = $query->fetchAll(PDO::FETCH_ASSOC);
             return $returned_date[0]['date_of_join'];
+
         }
 
         //Join Statements NOTE UNTESTED

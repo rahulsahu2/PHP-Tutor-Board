@@ -189,11 +189,63 @@ class Account
         return $found_account;
     }
 
-    /// NOTE CREATE UPDATE
-
     function delete()
     {
         $GLOBALS['DB']->exec("DELETE FROM accounts WHERE id = {$this->getId()};");
+    }
+
+    function updateFamilyName($update)
+    {
+        $GLOBALS['DB']->exec("UPDATE accounts SET family_name = '{$update}' WHERE id = {$this->getId()};");
+        $this->setFamilyName($update);
+    }
+
+    function updateParentOneName($update)
+    {
+        $GLOBALS['DB']->exec("UPDATE accounts SET parent_one_name = '{$update}' WHERE id = {$this->getId()};");
+        $this->setParentOneName($update);
+    }
+
+    function updateParentTwoName($update)
+    {
+        $GLOBALS['DB']->exec("UPDATE accounts SET parent_two_name = '{$update}' WHERE id = {$this->getId()};");
+        $this->setParentTwoName($update);
+    }
+
+    function updateSteetAddress($update)
+    {
+        $GLOBALS['DB']->exec("UPDATE accounts SET street_address = '{$update}' WHERE id = {$this->getId()};");
+        $this->setStreetAddress($update);
+    }
+
+    function updatePhoneNumber($update)
+    {
+        $GLOBALS['DB']->exec("UPDATE accounts SET phone_number = '{$update}' WHERE id = {$this->getId()};");
+        $this->setPhoneNumber($update);
+    }
+
+    function updateEmailAddress($update)
+    {
+        $GLOBALS['DB']->exec("UPDATE accounts SET email_address = '{$update}' WHERE id = {$this->getId()};");
+        $this->setEmailAddress($update);
+    }
+
+    function updateNotes($update)
+    {
+        $GLOBALS['DB']->exec("UPDATE accounts SET notes = '{$update}' WHERE id = {$this->getId()};");
+        $this->setNotes($update);
+    }
+
+    function updateBillingHistory($update)
+    {
+        $GLOBALS['DB']->exec("UPDATE accounts SET billing_history = '{$update}' WHERE id = {$this->getId()};");
+        $this->setBillingHistory($update);
+    }
+
+    function updateOutstandingBalance($update)
+    {
+        $GLOBALS['DB']->exec("UPDATE accounts SET outstanding_balance = {$update} WHERE id = {$this->getId()};");
+        $this->setOutstandingBalance($update);
     }
 
     // Join functions

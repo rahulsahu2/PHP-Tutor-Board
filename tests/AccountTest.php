@@ -112,7 +112,6 @@
         function testSave()
         {
             // Arrange
-            // Arrange
             $input_family_name = "Bobsters";
             $input_parent_one_name = "Lobster";
             $input_parent_two_name = "Momster";
@@ -155,6 +154,59 @@
             $new_account->save();
 
             // Act
+            $result_accounts = Account::getAll();
+            $result1 = $result_accounts[0]->getFamilyName();
+            $result2 = $result_accounts[0]->getParentOneName();
+            $result3 = $result_accounts[0]->getParentTwoName();
+            $result4 = $result_accounts[0]->getStreetAddress();
+            $result5 = $result_accounts[0]->getPhoneNumber();
+            $result6 = $result_accounts[0]->getEmailAddress();
+            $result7 = $result_accounts[0]->getNotes();
+            $result8 = $result_accounts[0]->getBillingHistory();
+            $result9 = $result_accounts[0]->getOutstandingBalance();
+            $result10 = $result_accounts[0]->getId();
+
+            // Assert
+            $this->assertEquals($input_family_name, $result1);
+            $this->assertEquals($input_parent_one_name, $result2);
+            $this->assertEquals($input_parent_two_name, $result3);
+            $this->assertEquals($input_street_address, $result4);
+            $this->assertEquals($input_phone_number, $result5);
+            $this->assertEquals($input_email_address, $result6);
+            $this->assertEquals($input_notes, $result7);
+            $this->assertEquals($input_billing_history, $result8);
+            $this->assertEquals($input_outstanding_balance, $result9);
+            $this->assertEquals($new_account->getId(), $result10);
+        }
+        function test_updates()
+        {
+            // Arrange
+            $new_account = new Account("", "", "", "", "");
+            $input_family_name = "Bobsters";
+            $input_parent_one_name = "Lobster";
+            $input_parent_two_name = "Momster";
+            $input_street_address = "Under the sea";
+            $input_phone_number = "555555555";
+            $input_email_address = "fdsfsda@fdasfads";
+            $input_notes = "galj";
+            $input_billing_history = "fdjfdas";
+            $input_outstanding_balance = 31;
+            $new_account->setParentTwoName("");
+            $new_account->setNotes("");
+            $new_account->setBillingHistory("");
+            $new_account->setOutstandingBalance(0);
+            $new_account->save();
+
+            // Act
+            $new_account->updateFamilyName($input_family_name);
+            $new_account->updateParentOneName($input_parent_one_name);
+            $new_account->updateParentTwoName($input_parent_two_name);
+            $new_account->updateSteetAddress($input_street_address);
+            $new_account->updatePhoneNumber($input_phone_number);
+            $new_account->updateEmailAddress($input_email_address);
+            $new_account->updateNotes($input_notes);
+            $new_account->updateBillingHistory($input_billing_history);
+            $new_account->updateOutstandingBalance($input_outstanding_balance);
             $result_accounts = Account::getAll();
             $result1 = $result_accounts[0]->getFamilyName();
             $result2 = $result_accounts[0]->getParentOneName();

@@ -37,7 +37,7 @@
 
         static function getAll()
         {
-            $returned_courses = $GLOBALS['DB']->query( "SELECT * FROM courses;");
+            $returned_courses = $GLOBALS['DB']->query("SELECT * FROM courses;");
             $courses = array();
             foreach( $returned_courses as $course)
             {
@@ -66,8 +66,7 @@
         {
             $query = $GLOBALS['DB']->query("SELECT * FROM courses WHERE id = {$search_id};");
             $courses = array();
-            $returned_courses = $query->fetchAll(PDO::FETCH_ASSOC);
-            foreach($returned_courses as $course){
+            foreach( $query as $course){
                 $id = $course['id'];
                 $title = $course['title'];
                 $found_course = new Course($title, $id);
@@ -178,11 +177,5 @@
             return $lessons;
         }
 
-
-
-            // $returned_courses = $GLOBALS['DB']->query("SELECT course.* FROM
-            // student JOIN student_course ON (student.id = student_course.student_id)
-            //         JOIN course ON (student_course.course_id = course.id)
-            // WHERE student.id = {$this->getId()};");
     }
  ?>

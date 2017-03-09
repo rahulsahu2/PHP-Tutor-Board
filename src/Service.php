@@ -231,7 +231,7 @@
         // function update($field, $value)
         // {
         //     if ($field == 'description'){
-        //         $GLOBALS['DB']->exec("UPDATE service SET {$field} = {$value} WHERE id = {$this->getId()};");
+        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
         //         $this->setDescription($value);
         //     }
         //     elseif ($field == 'duration'){
