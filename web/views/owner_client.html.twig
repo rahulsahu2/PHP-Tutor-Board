@@ -65,23 +65,6 @@
                 </div>
             {% endfor %}
         {% endif %}
-        <form  id="addclient" action="/owner_accounts" method="post">
-            <div class="panel panel-info">
-                <h4 class="panel-heading">{{account.getFamilyName}}</h4>
-                <ul>
-                    <li>Parent Name: {{account.getParentOneName}}</li>
-                    <li>Other Parent Name:{{account.getParentTwoName}}</li>
-                    <li>Street Address:{{account.getStreetAddress}}</li>
-                    <li>Phone Number:{{account.getPhoneNumber}}</li>
-                    <li>Email Address:{{account.getEmailAddress}}</li>
-                    {% if account.getStudents is not empty %}
-                    {% for student in account.getStudents %}
-                    <li>Student Name:{{student.getName}}</li>
-                    {% endfor %}
-                    {% endif %}
-                </ul>
-            </div>
-        </form>
     </div>
     <!-- row -->
     <div class="col-sm-2">
