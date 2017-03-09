@@ -65,19 +65,19 @@
     $app->get("/login_owner", function() use ($app) {
 
         // NOTE This is going to create the school object from the Login using FIND
-        // $input_school_name = "SPMS";
-        // $input_manager_name = "Carlos Munoz Kampff";
-        // $input_phone_number = "617-780-8362";
-        // $input_email = "info@starpowermusic.net";
-        // $input_business_address = "PO 6267";
-        // $input_city = "Alameda";
-        // $input_state = "CA";
-        // $input_country = "USA";
-        // $input_zip = "94706";
-        // $input_type = "music";
-        // $school = new School($input_school_name,$input_manager_name,$input_phone_number,$input_email,$input_business_address,$input_city,$input_state,$input_country,$input_zip,$input_type);
-        // $school->save();
-        $school = School::find(1); // NOTE placeholder for login
+        $input_school_name = "SPMS";
+        $input_manager_name = "Carlos Munoz Kampff";
+        $input_phone_number = "617-780-8362";
+        $input_email = "info@starpowermusic.net";
+        $input_business_address = "PO 6267";
+        $input_city = "Alameda";
+        $input_state = "CA";
+        $input_country = "USA";
+        $input_zip = "94706";
+        $input_type = "music";
+        $school = new School($input_school_name,$input_manager_name,$input_phone_number,$input_email,$input_business_address,$input_city,$input_state,$input_country,$input_zip,$input_type);
+        $school->save();
+        // $school = School::find(1); // NOTE placeholder for login
         $_SESSION['school_id'] = intval($school->getId());
         $school2 = School::find($school->getId());
 
