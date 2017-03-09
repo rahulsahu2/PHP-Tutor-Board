@@ -2,20 +2,12 @@
 
 #### _Customer Relationship Manager for Music School._
 
-#### By _** Dan Lauby, Andrew Devlin and Carlos Munoz Kampff**_
+#### By _** Carlos Munoz Kampff, Jennifer Beem, Jay Freeman, and David Quisenberry**_
 
 ## Description
 
-__
+A web application for managing tutors and clients for small tutoring businesses.
 
-
-| Behavior                                              |   Input example   |  Output example |
-|-------------------------------------------------------|:-----------------:|:---------------:|
-| 1) User-Admin registers a teacher  | | |
-| 2) User-Admin registers a student | | |
-| 3) User-Admin registers an account | | |
-| 4) User-Admin registers a service | | |
-| 5) User-Admin registers a subject | | |
 
 
 ## Specifications
@@ -44,9 +36,12 @@ _No support._
 
 * _PHP_
 * _Silex_
+* _HTML_
+* _Bootstrap_
+* _MySQL
 
 ### License
 
 *MIT*
 
-Copyright (c) 2017 **_Dan Lauby and Carlos Munoz Kampff_**
+Copyright (c) 2017 **_Carlos Munoz Kampff_Jennifer Beem_Jay Freeman_David Quisenberry**
