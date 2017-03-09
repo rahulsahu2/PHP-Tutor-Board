@@ -13,9 +13,7 @@
     <div class="col-md-4">
         <h3>Teacher Info:</h3>
         <hr>
-        <div class="panel panel-info">
-        <h3 class="panel-heading">{{ teacher.getName }}'s Information</h3>
-        Instruments:
+        <h4 class="panel-heading">
         <table class="table table-hover">
             <thead>
                 <th>Instruments</th>
@@ -29,20 +27,18 @@
 
         <form action="/owner_teacher/teacher_termination/{{ teacher.getId }}" method="post">
             <input name="_method" type="hidden" value="delete">
-            <button type="submit" class="btn btn-warning" name="button">delete teacher</button>
+            <button type="submit" class="btn btn-danger btn-sm"  name="button">delete</button>
         </form>
     </div>
-</div>
 
 <div class="col-md-4">
     <h3>Student Info:</h3>
     <hr>
-    <div class="panel panel-info">
-        <h3 class="panel-heading">Assigned Students</h3>
-        {% if students_teachers is not empty %}
+    {% if students_teachers is not empty %}
+        <h4 class="panel-heading">
         <table class="table table-hover">
             <thead>
-                <th>Student Name</th>
+                <th>Name</th>
             </thead>
             <tbody>
                 {% for student in students_teachers %}
@@ -53,7 +49,6 @@
             </tbody>
         </table>
         {% endif %}
-    </div>
 
     <form action="/owner_teachers/{{ teacher.getId }}" method="post">
         <label for="student_id">Assign a student</label>
@@ -69,14 +64,17 @@
 </div>
 
 <div class="col-md-4">
-    <h3>Teacher Notes:</h3>
+    <h3>Add Notes:</h3>
     <hr>
     <form action="/owner_teachers/{{ teacher.getId }}" method="post">
         <input name="_method" type="hidden" value="patch">
-        <label for="new_notes">add notes...</label><br>
-        <textarea name="new_notes" rows="10" cols="40"></textarea><br>
-        <input type="reset">
-        <button type="submit" class="btn button-success" name="button">Submit</button>
+        <div class="form-group">
+            <label class ="control-label" for="new_notes">Notes</label><br>
+            <textarea class="form-control" name="new_notes" rows="10" cols="40"></textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-info btn-sm" name="button">Submit</button>
+        </div>
     </form>
 </div>
 </div>

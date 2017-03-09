@@ -16,7 +16,7 @@
         {% if assigned_teachers is not empty %}
         <ul>
             {% for teacher in assigned_teachers %}
-            <li><strong>{{ teacher.getName }}</strong></li>
+            <li>&#9654;  <strong>{{ teacher.getName }}</strong></li>
             {% endfor %}
         </ul>
         {% endif %}
@@ -39,16 +39,17 @@
 
         <hr>
 
-        <h3>Current Enrollment:</h3>
         {% if enrolled_courses is not empty %}
         <table class="table table-hover">
             <thead>
-                <th>Course Name</th>
+                <th>Course Enrollment</th>
+                <th>Date of Enrollment</th>
             </thead>
             <tbody>
                 {% for course in enrolled_courses %}
                 <tr>
-                    <td>{{ course.getTitle }}: {{ student.getDateOfEnrollment(course.getId) }}</td>
+                    <td>{{ course.getTitle }}</td>
+                    <td>{{ student.getDateOfEnrollment(course.getId) }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -57,7 +58,7 @@
     </div>
 
     <div class="col-md-4" >
-        <h3>Notes:</h3>
+        <h3>Add Notes:</h3>
         <hr>
         <form action="/owner_students/{{ student.getId }}" method="post">
             <input name="_method" type="hidden" value="patch" required>
