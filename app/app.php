@@ -145,8 +145,8 @@
         $updated_notes =  date('l jS \of F Y ') . "---->"  . $new_notes  . "|" .$selected_teacher->getNotes();
         $selected_teacher->updateNotes($updated_notes);
         $notes_array = explode("|", $updated_notes);
-        $teachers_students = $selected_teacher->getStudents();
-        return $app['twig']->render('owner_teacher.html.twig', array('school' => $school, 'teacher' => $selected_teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array ));
+        $students_teachers = $selected_teacher->getStudents();
+        return $app['twig']->render('owner_teacher.html.twig', array('school' => $school, 'teacher' => $selected_teacher, 'students_teachers' => $students_teachers,  'notes_array' => $notes_array, 'students' => $school->getStudents()));
     });
 
     //DELETE JOIN remove teacher from school
