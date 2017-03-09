@@ -344,10 +344,47 @@
         return $app['twig']->render('owner_course.html.twig', array(
             'school'=>$school,
             'course' => $course,
+            'courses' => $school->getCourses(),
             'enrolled_students'=>$course->getStudents(), 'students'=>$school->getStudents(),
             'lessons' => $school->getLessons() ));
     });
 
+    //REDIRECT post to course
+    $app->post("/owner_courses/redirect", function() use ($app) {
+        $school=School::find($_SESSION['school_id']);
+        $course = Course::find($_POST['course_select']);
+        $id = $course->getId();
+
+        return $app['twig']->render('owner_course.html.twig', array(
+            'school'=>$school,
+            'course' => $course,
+            'courses' => $school->getCourses(),
+            'enrolled_students'=>$course->getStudents(), 'students'=>$school->getStudents(),
+            'lessons' => $school->getLessons() ));
+    });
+
+    //JOIN add a lesson to a course
+    $app->post("/add_lesson_to_course", function() use($app) {
+        $school=School::find($_SESSION['school_id']);
+        $course = Course::find($_POST['course_id']);
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        $content = $_POST['content'];
+        $lesson = new Lesson($title, $description, $content);
+        $lesson->save();
+        $lesson_id = $lesson->getId();
+        $school->addLesson($lesson_id);
+        $course->addLesson($lesson_id);
+
+        return $app['twig']->render('owner_course.html.twig', array(
+            'school'=>$school,
+            'course' => $course,
+            'courses' => $school->getCourses(),
+            'enrolled_students'=>$course->getStudents(),
+            'students'=>$school->getStudents(),
+            'lessons' => $school->getLessons() ));
+
+    });
     //JOIN students to course
     $app->post("/owner_courses/{id}", function($id) use ($app){
 
@@ -360,6 +397,7 @@
         return $app['twig']->render('owner_course.html.twig', array(
             'school'=>$school,
             'course' => $course,
+            'courses' => $school->getCourses(),
             'enrolled_students'=>$course->getStudents(), 'students'=>$school->getStudents(),
             'lessons' => $school->getLessons() ));
     });
@@ -386,15 +424,13 @@
     });
 
     //READ lesson
-    $app->get("/owner_lessons/{id}/{lessons_id}", function($id, $lesson_id) use ($app){
+    $app->get("/owner_lessons/{lesson_id}", function($lesson_id) use ($app){
 
         $school = School::find($_SESSION['school_id']);
-        $course = Course::find($id);
         $lesson = Lesson::find($lesson_id);
 
         return $app['twig']->render('owner_lesson.html.twig', array(
             'school'=>$school,
-            'course'=>$course,
             'lesson'=>$lesson));
     });
 
