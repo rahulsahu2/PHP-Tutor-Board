@@ -116,17 +116,24 @@
 
         $teacher = Teacher::find($id);
         $notes_array = explode("|", $teacher->getNotes());
-        $teachers_students = $teacher->getStudents();
-
-        return $app['twig']->render('owner_teacher.html.twig', array('school' => $school, 'teacher' => $teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array, 'students' => $school->getStudents()));
+        $students_teachers = $teacher->getStudents();
+        var_dump($students_teachers);
+        return $app['twig']->render('owner_teacher.html.twig', array('school' => $school, 'teacher' => $teacher, 'students_teachers' => $students_teachers, 'notes_array' => $notes_array, 'students' => $school->getStudents()));
     });
 
     //JOIN teacher with student
     $app->post("/owner_teachers/{id}", function($id) use ($app) {
-        $teacher = Teacher::find($_POST['teacher_id']);
+        $school=School::find($_SESSION['school_id']);
+        $teacher = Teacher::find($id);
+        echo $teacher->getName();
         $student = Student::find($_POST['student_id']);
+        echo $student->getName();
+        $notes_array = explode("|", $teacher->getNotes());
         $teacher->addStudent($_POST['student_id']);
-        return $app->redirect("/owner_teachers/{$id}");
+        $students_teachers = $teacher->getStudents();
+        var_dump($teacher->getStudents());
+        return $app['twig']->render('owner_teacher.html.twig', array('school' => $school, 'teacher' => $teacher, 'students_teachers' => $students_teachers, 'notes_array' => $notes_array, 'students' => $school->getStudents()));
+        // return $app->redirect("/owner_teachers/".$id);
     });
 
     //UPDATE teacher notes
@@ -192,7 +199,7 @@
             'courses'=>$school->getCourses(), 'enrolled_courses'=>$selected_student->getCourses(),
             'teachers' => $school->getTeachers(),
             'lessons' => $school->getLessons(),
-            'assigned_lessons' => $selected_student->getLesson()));
+            'assigned_lessons' => $selected_student->getLessons()));
     });
 
     //JOIN student to course
@@ -212,7 +219,7 @@
             'courses'=>$school->getCourses(), 'enrolled_courses'=>$selected_student->getCourses(),
             'teachers' => $school->getTeachers(),
             'lessons' => $school->getLessons(),
-            'assigned_lessons' => $selected_student->getLesson()));
+            'assigned_lessons' => $selected_student->getLessons()));
     });
 
     //UPDATE student notes
@@ -234,7 +241,7 @@
             'courses'=>$school->getCourses(), 'enrolled_courses'=>$selected_student->getCourses(),
             'teachers' => $school->getTeachers(),
             'lessons' => $school->getLessons(),
-            'assigned_lessons' => $selected_student->getLesson()));
+            'assigned_lessons' => $selected_student->getLessons()));
     });
 
     //DELETE student from school
