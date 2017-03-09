@@ -53,7 +53,7 @@
 
     use Symfony\Component\HttpFoundation\Request;
     Request::enableHttpMethodParameterOverride();
-
+    //LOGIN
     $app->get("/", function() use ($app) {
 
         return $app['twig']->render('index.html.twig');
@@ -61,7 +61,7 @@
     });
 
     // OWNER STORY ROUTES
-
+    // ROOT
     $app->get("/login_owner", function() use ($app) {
 
         // NOTE This is going to create the school object from the Login using FIND
@@ -84,6 +84,7 @@
         return $app['twig']->render('owner_main.html.twig', array('school'=> $school, 'teachers' => $school->getTeachers(), 'students' => $school->getStudents(), 'courses' => $school->getCourses(), 'accounts' => $school->getAccounts(), 'services' => $school->getServices()));
     });
 
+    //READ teachers
     $app->get("/owner_teachers", function() use ($app) {
         $school=School::find($_SESSION['school_id']);
 
@@ -91,6 +92,7 @@
 
     });
 
+    //CREATE teacher
     $app->post("/owner_teachers", function() use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -106,6 +108,7 @@
 
     });
 
+    //READ teacher
     $app->get("/owner_teachers/{id}", function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -117,6 +120,7 @@
         return $app['twig']->render('owner_teacher.html.twig', array('school' => $school, 'teacher' => $teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array, 'students' => $school->getStudents()));
     });
 
+    //JOIN teacher with student
     $app->post("/owner_teachers/{id}", function($id) use ($app) {
         $teacher = Teacher::find($_POST['teacher_id']);
         $student = Student::find($_POST['student_id']);
@@ -124,6 +128,7 @@
         return $app->redirect("/owner_teachers/{$id}");
     });
 
+    //UPDATE teacher notes
     $app->patch("/owner_teachers/{id}", function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -137,16 +142,19 @@
         return $app['twig']->render('owner_teacher.html.twig', array('school' => $school, 'teacher' => $selected_teacher, 'teachers_students' => $teachers_students, 'notes_array' => $notes_array ));
     });
 
+    //DELETE JOIN remove teacher from school
     $app->delete("/owner_teachers/teacher_termination/{id}", function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
 
         $teacher = Teacher::find($id);
         // refactor to remove teacher from school not entire database
-        $teacher->delete();
+        // $teacher->delete(); NOTE CHECK IF WORKS
+        $school->removeTeacher($id);
         return $app['twig']->render('owner_teachers.html.twig', array('school' => $school, 'teachers' => $school->getTeachers()));
     });
 
+    //READ students
     $app->get("/owner_students", function() use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -154,6 +162,7 @@
         return $app['twig']->render('owner_students.html.twig', array('school' => $school, 'students' => $school->getStudents(), 'teachers' => $school->getTeachers()));
     });
 
+    //CREATE students
     $app->post("/owner_students", function() use ($app) {
         $school=School::find($_SESSION['school_id']);
 
@@ -167,6 +176,7 @@
 
     });
 
+    //READ student
     $app->get("/owner_students/{id}", function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -184,6 +194,7 @@
             'assigned_lessons' => $selected_student->getLesson()));
     });
 
+    //JOIN student to course
     $app->post("/owner_students/{id}", function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -203,7 +214,7 @@
             'assigned_lessons' => $selected_student->getLesson()));
     });
 
-
+    //UPDATE student notes
     $app->patch("/owner_students/{id}", function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -225,14 +236,19 @@
             'assigned_lessons' => $selected_student->getLesson()));
     });
 
+    //DELETE student from school
     $app->delete("/owner_students/student_termination/{id}", function($id) use ($app) {
-        $student = Student::find($id);
-        $student->delete();
+        $school=School::find($_SESSION['school_id']);
+        $school->removeStudent($id);
+
+        // NOTE CHECK IF WORKS
+        // $student = Student::find($id);
+        // $student->delete();
 
         return $app->redirect("/owner_students");
     });
 
-
+    //READ accounts
     $app->get("/owner_accounts", function() use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -241,7 +257,7 @@
 
     });
 
-    // create account
+    // CREATE account
     $app->post("/owner_accounts", function() use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -274,7 +290,7 @@
         return $app['twig']->render('owner_clients.html.twig', array('school' => $school, 'accounts' => $school->getAccounts()));
     });
 
-    // retrieve client
+    // READ account
     $app->get('/owner_accounts/{id}', function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -291,7 +307,7 @@
 
     });
 
-    // Retrieve courses
+    // READ courses
     $app->get("/owner_courses", function() use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -299,7 +315,7 @@
         return $app['twig']->render('owner_courses.html.twig', array('school' => $school, 'courses' => $school->getCourses()));
     });
 
-    // Create new course and retrieve courses
+    // CREATE new course
     $app->post("/owner_courses", function() use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -310,6 +326,7 @@
         return $app['twig']->render('owner_courses.html.twig', array('school' => $school, 'courses' => $school->getCourses()));
     });
 
+    //READ course
     $app->get("/owner_courses/{id}", function($id) use ($app){
 
         $school=School::find($_SESSION['school_id']);
@@ -323,7 +340,7 @@
             'lessons' => $school->getLessons() ));
     });
 
-    //ENROLL STUDENTS
+    //JOIN students to course
     $app->post("/owner_courses/{id}", function($id) use ($app){
 
         $school=School::find($_SESSION['school_id']);
@@ -339,7 +356,7 @@
             'lessons' => $school->getLessons() ));
     });
 
-    //create a Lesson NOTE GO BACK TO COURSES THOUGH
+    //CREATE a Lesson NOTE GO BACK TO COURSES THOUGH
     $app->post("/owner_lessons/{id}", function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -360,7 +377,7 @@
 
     });
 
-    // view lesson
+    //READ lesson
     $app->get("/owner_lessons/{id}/{lessons_id}", function($id, $lesson_id) use ($app){
 
         $school = School::find($_SESSION['school_id']);
@@ -374,6 +391,7 @@
     });
 
     // TEACHER STORY ROUTES
+    // ROOT
     $app->get("/login_teacher", function() use ($app) {
 
         // NOTE This is going to create the school object from the Login using FIND
@@ -403,7 +421,7 @@
         return $app['twig']->render('teacher_main.html.twig', array('school_name'=> $school->getName(), 'teacher' => $teacher, 'students' => $teacher->getStudents(), 'courses' => $teacher->getCourses(), 'services' => $teacher->getServices()));
     });
 
-    //view student
+    //READ student
     $app->get("/teacher_students/{id}", function($id) use($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -414,7 +432,7 @@
 
     });
 
-    //view course
+    //READ course
     $app->get("/teacher_courses/{id}", function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -426,7 +444,7 @@
 
     });
 
-    // create lesson
+    // CREATE lesson
     $app->post("/teacher_lessons/{id}", function($id) use ($app) {
 
         $school=School::find($_SESSION['school_id']);
@@ -447,6 +465,7 @@
 
 
     // CLIENT STORY ROUTES
+    // ROOT
     $app->get("/login_client", function() use ($app) {
 
         // NOTE This is going to create the school object from the Login using FIND
@@ -488,7 +507,7 @@
         // This directs to teacher main page and sends in keys with values only relating to that school: School Object, teachers, students, courses, accounts, services
         return $app['twig']->render('client_main.html.twig', array('school_name'=> $school->getName(), 'client' => $new_account, 'students'=>$new_account->getStudents(), 'services'=>$new_account->getServices()));
     });
-
+    //UPDATE service payments
     $app->get("/payments", function() use($app) {
 
         $school = School::find($_SESSION['school_id']);

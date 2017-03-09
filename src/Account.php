@@ -248,27 +248,28 @@ class Account
         $this->setOutstandingBalance($update);
     }
 
+    // NOTE UNTESTED
     // Join functions
     function addTeacher($teacher_id)
     {
         $GLOBALS['DB']->exec("INSERT INTO accounts_teachers (account_id, teacher_id) VALUES ({$this->getId()}, {$teacher_id});");
     }
-
+    // NOTE UNTESTED
     function addCourse($course_id)
     {
         $GLOBALS['DB']->exec("INSERT INTO courses_accounts (account_id, course_id) VALUES ({$this->getId()}, {$course_id});");
     }
-
+    // NOTE UNTESTED
     function addStudent($student_id)
     {
         $GLOBALS['DB']->exec("INSERT INTO accounts_students (account_id, student_id) VALUES ({$this->getId()}, {$student_id});");
     }
-
+    // NOTE UNTESTED
     function addLesson($lesson_id)
     {
         $GLOBALS['DB']->exec("INSERT INTO lessons_accounts (account_id, lesson_id) VALUES ({$this->getId()}, {$lesson_id});");
     }
-
+    // NOTE UNTESTED
     function getTeachers()
     {
         $query = $GLOBALS['DB']->query("SELECT teachers.* FROM accounts JOIN accounts_teachers ON (accounts.id = accounts_teachers.account_id) JOIN teachers ON (accounts_teachers.teacher_id = teachers.id) WHERE accounts.id = {$this->getId()};");
@@ -284,7 +285,7 @@ class Account
         }
         return $teachers;
     }
-
+    // NOTE UNTESTED
     function getCourses()
     {
         $query = $GLOBALS['DB']->query("SELECT courses.* FROM accounts JOIN accounts_courses ON (accounts.id = accounts_courses.account_id) JOIN courses ON (accounts_courses.course_id = courses.id) WHERE accounts.id = {$this->getId()};");
@@ -298,7 +299,7 @@ class Account
         }
         return $courses;
     }
-
+    // NOTE UNTESTED
     function getStudents()
     {
         $query = $GLOBALS['DB']->query("SELECT students.* FROM accounts JOIN accounts_students ON (accounts.id = accounts_students.account_id) JOIN students ON (accounts_students.student_id = students.id) WHERE accounts.id = {$this->getId()};");
@@ -312,7 +313,7 @@ class Account
         }
         return $students;
     }
-
+    // NOTE UNTESTED
     function getLessons()
     {
         $query = $GLOBALS['DB']->query("SELECT lessons.* FROM accounts JOIN accounts_lessons ON (accounts.id = accounts_lessons.account_id) JOIN lessons ON (accounts_lessons.lesson_id = lessons.id) WHERE accounts.id = {$this->getId()};");
@@ -330,13 +331,5 @@ class Account
     }
 
 
-
-    static function csvToArray()
-    {
-
-        $array = array_map('str_getcsv', file('jimi_attendance_march.csv'));
-
-        return $array;
-    }
 }
 ?>

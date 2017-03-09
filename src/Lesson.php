@@ -119,27 +119,29 @@
         }
 
         // Join methods INSERTS
+        // NOTE UNTESTED
         function addTeacher($teacher_id)
         {
             $GLOBALS['DB']->exec("INSERT INTO lessons_teachers (lesson_id, teacher_id) VALUES ({$this->getId()}, {$teacher_id});");
         }
-
+        // NOTE UNTESTED
         function addCourse($course_id)
         {
             $GLOBALS['DB']->exec("INSERT INTO courses_lessons (lesson_id, course_id) VALUES ({$this->getId()}, {$course_id});");
         }
-
+        // NOTE UNTESTED
         function addStudent($student_id)
         {
             $GLOBALS['DB']->exec("INSERT INTO lessons_students (lesson_id, student_id) VALUES ({$this->getId()}, {$student_id});");
         }
-
+        // NOTE UNTESTED
         function addAccount($account_id)
         {
             $GLOBALS['DB']->exec("INSERT INTO accounts_lessons (lesson_id, account_id) VALUES ({$this->getId()}, {$account_id});");
         }
 
         // Join statements QUERY
+        // NOTE UNTESTED
         function getTeachers()
         {
             $query = $GLOBALS['DB']->query("SELECT teachers.* FROM lessons JOIN lessons_teachers ON (lessons.id = lessons_teachers.lesson_id) JOIN teachers ON (lessons_teachers.teacher_id = teachers.id) WHERE lessons.id = {$this->getId()};");
@@ -155,7 +157,7 @@
             }
             return $teachers;
         }
-
+        // NOTE UNTESTED
         function getCourses()
         {
             $query = $GLOBALS['DB']->query("SELECT courses.* FROM lessons JOIN courses_lessons ON (lessons.id = courses_lessons.lesson_id) JOIN courses ON (courses_lessons.course_id = courses.id) WHERE lessons.id = {$this->getId()};");
@@ -169,7 +171,7 @@
             }
             return $courses;
         }
-
+        // NOTE UNTESTED
         function getStudents()
         {
             $query = $GLOBALS['DB']->query("SELECT students.* FROM lessons JOIN lessons_students ON (lessons.id = lessons_students.lesson_id) JOIN students ON (lessons_students.student_id = students.id) WHERE lessons.id = {$this->getId()};");
@@ -185,7 +187,7 @@
             }
             return $students;
         }
-
+        // NOTE UNTESTED
         function getAccounts()
         {
             $query = $GLOBALS['DB']->query("SELECT accounts.* FROM lessons JOIN accounts_lessons ON (lessons.id = accounts_lessons.lesson_id) JOIN accounts ON (accounts_lessons.account_id = accounts.id) WHERE lessons.id = {$this->getId()};");

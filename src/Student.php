@@ -180,24 +180,23 @@
         }
 
         //Join Statements NOTE UNTESTED
-
+        // NOTE UNTESTED
         function addAccount($account_id)
         {
             $GLOBALS['DB']->exec("INSERT INTO accounts_students (student_id, account_id) VALUES ({$this->getId()}, {$account_id});");
         }
-
+        // NOTE UNTESTED
         function addLesson($lesson_id)
         {
             $GLOBALS['DB']->exec("INSERT INTO lessons_students (student_id, lesson_id) VALUES ({$this->getId()}, {$lesson_id});");
         }
-
+        // NOTE UNTESTED
         function addService($service_id)
         {
             $GLOBALS['DB']->exec("INSERT INTO service_students (service_id, student_id) VALUES ({$service_id},{$this->getId()})");
         }
 
-        // NOTE TAKING LESSONS REQUIRES A TRIPPLE JOIN TABLE
-
+        // NOTE UNTESTED
         function getAccounts()
         {
             $query = $GLOBALS['DB']->query("SELECT accounts.* FROM students JOIN accounts_students ON (students.id = accounts_students.student_id) JOIN accounts ON (accounts_students.account_id = accounts.id) WHERE students.id = {$this->getId()};");
@@ -223,7 +222,7 @@
             }
             return $accounts;
         }
-
+        // NOTE UNTESTED
         function getLessons()
         {
             $query = $GLOBALS['DB']->query("SELECT lessons.* FROM students JOIN lessons_students ON (students.id = lessons_students.student_id) JOIN lessons ON (lessons_students.lesson_id = lessons.id) WHERE students.id = {$this->getId()};");

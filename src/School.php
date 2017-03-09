@@ -321,7 +321,6 @@
         }
 
         // NOTE UNTESTED
-
         function getServices()
         {
             $query = $GLOBALS['DB']->query("SELECT services.* FROM schools JOIN schools_services ON (schools.id = schools_services.school_id) JOIN services ON (schools_services.service_id = services.id) WHERE schools.id = {$this->getId()};");
@@ -343,7 +342,17 @@
             return $services;
         }
 
+        // NOTE UNTESTED
+        function removeTeacher($teacher_id)
+        {
+            $GLOBALS['DB']->exec("DELETE FROM schools_teachers WHERE teacher_id = {$teacher_id};");
+        }
 
+        // NOTE UNTESTED
+        function removeStudent($student_id)
+        {
+            $GLOBALS['DB']->exec("DELETE FROM schools_students WHERE student_id = {$student_id};");
+        }
 
         static function csvToArray()
         {

@@ -227,50 +227,6 @@
             $this->setAttendance($update);
         }
 
-        // Multi update ... NOTE could not get to work.
-        // function update($field, $value)
-        // {
-        //     if ($field == 'description'){
-        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
-        //         $this->setDescription($value);
-        //     }
-        //     elseif ($field == 'duration'){
-        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
-        //         $this->setDuration($value);
-        //     }
-        //     elseif ($field == 'price'){
-        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
-        //         $this->setPrice($value);
-        //     }
-        //     elseif ($field == 'discount'){
-        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
-        //         $this->setDiscount($value);
-        //     }
-        //     elseif ($field == 'paid_for'){
-        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = {$value} WHERE id = {$this->getId()};");
-        //         $this->setPaidFor($value);
-        //     }
-        //     elseif ($field == 'notes'){
-        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
-        //         $this->setNotes($value);
-        //     }
-        //     elseif ($field == 'date_of_service'){
-        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
-        //         $this->setDateOfService($value);
-        //     }
-        //     elseif ($field == 'recurrence')
-        //     {
-        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
-        //         $this->setRecurrence($value);
-        //     }
-        //     elseif ($field == 'attendance')
-        //     {
-        //         $GLOBALS['DB']->exec("UPDATE service SET '{$field}' = '{$value}' WHERE id = {$this->getId()};");
-        //     }
-        //     else {
-        //         echo "key not found";
-        //     }
-        // }
         // Delete
         static function deleteAll()
         {
@@ -287,27 +243,27 @@
         {
             $GLOBALS['DB']->exec("INSERT INTO services_teachers (service_id, teacher_id) VALUES ({$this->getId()}, {$teacher_id});");
         }
-
+        // NOTE UNTESTED
         function addCourse($course_id)
         {
             $GLOBALS['DB']->exec("INSERT INTO courses_services (service_id, course_id) VALUES ({$this->getId()}, {$course_id});");
         }
-
+        // NOTE UNTESTED
         function addStudent($student_id)
         {
             $GLOBALS['DB']->exec("INSERT INTO services_students (service_id, student_id) VALUES ({$this->getId()}, {$student_id});");
         }
-
+        // NOTE UNTESTED
         function addAccount($account_id)
         {
             $GLOBALS['DB']->exec("INSERT INTO accounts_services (service_id, account_id) VALUES ({$this->getId()}, {$account_id});");
         }
-
+        // NOTE UNTESTED
         function addLesson($lesson_id)
         {
             $GLOBALS['DB']->exec("INSERT INTO lessons_services (service_id, lesson_id) VALUES ({$this->getId()}, {$lesson_id});");
         }
-
+        // NOTE UNTESTED
         function getTeachers()
         {
             $query = $GLOBALS['DB']->query("SELECT teachers.* FROM services JOIN services_teachers ON (services.id = services_teachers.service_id) JOIN teachers ON (services_teachers.teacher_id = teachers.id) WHERE services.id = {$this->getId()};");
@@ -323,7 +279,7 @@
             }
             return $teachers;
         }
-
+        // NOTE UNTESTED
         function getCourses()
         {
             $query = $GLOBALS['DB']->query("SELECT courses.* FROM services JOIN courses_services ON (services.id = courses_services.service_id) JOIN courses ON (courses_services.course_id = courses.id) WHERE services.id = {$this->getId()};");
@@ -337,7 +293,7 @@
             }
             return $courses;
         }
-
+        // NOTE UNTESTED
         function getStudents()
         {
             $query = $GLOBALS['DB']->query("SELECT students.* FROM services JOIN services_students ON (services.id = services_students.service_id) JOIN students ON (services_students.student_id = students.id) WHERE services.id = {$this->getId()};");
@@ -353,7 +309,7 @@
             }
             return $students;
         }
-
+        // NOTE UNTESTED
         function getAccounts()
         {
             $query = $GLOBALS['DB']->query("SELECT accounts.* FROM services JOIN accounts_services ON (services.id = accounts_services.service_id) JOIN accounts ON (accounts_services.account_id = accounts.id) WHERE services.id = {$this->getId()};");
@@ -379,7 +335,7 @@
             }
             return $accounts;
         }
-
+        // NOTE UNTESTED
         function getLessons()
         {
             $query = $GLOBALS['DB']->query("SELECT lessons.* FROM services JOIN lessons_services ON (services.id = lessons_services.service_id) JOIN lessons ON (lessons_services.lesson_id = lessons.id) WHERE services.id = {$this->getId()};");
