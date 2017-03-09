@@ -23,7 +23,7 @@
                 <li>Email Address: {{account.getEmailAddress}}</li>
                 {% if account.getStudents is not empty %}
                 {% for student in account.getStudents %}
-                <li>Student Name: {{student.getName}}</li>
+                <li>Student Name:<a href="/owner_students/{{student.getId}}"></a> {{student.getName}}</li>
                 {% endfor %}
                 {% endif %}
             </ul>
@@ -50,15 +50,15 @@
         {% if selected_students is not empty %}
             {% for student in selected_students %}
                 <div class="panel panel-info">
-                    <h4 class="panel-heading">{{student.getName}}</h4>
+                    <h4 class="panel-heading"><a href="/owner_students/{{student.getId}}">{{student.getName}}</a></h4>
                     <ul>
                         {% if student.getCourses is not empty %}
                             {% for course in student.getCourses %}
-                                <li><strong>{{course.getTitle}}</strong></li>
+                                <li><strong><a href="/owner_courses/{{course.getId}}">{{course.getTitle}}</a></strong></li>
                                 {% if course.getLessons is not empty %}
                                     <ul>
                                         {% for lesson in course.getLessons %}
-                                            <li>{{lesson.getTitle}}</li>
+                                            <li><a href="/owner_lessons/{{lesson.getId}}">{{lesson.getTitle}}</a></li>
                                         {% endfor %}
                                     </ul>
                                 {% endif %}
