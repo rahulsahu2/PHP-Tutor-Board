@@ -8,20 +8,22 @@
     <h1>{{account.getFamilyName}}</h1>
     <hr>
 </div>
-<!-- jumbotron -->
+
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-md-4">
+        <h3>Account Info</h3>
+        <hr>
         <div class="panel panel-info">
-            <h4 class="panel-heading">{{account.getFamilyName}}</h4>
+            <h3 class="panel-heading">{{account.getFamilyName}}</h3>
             <ul>
-                <li>Parent Name: {{account.getParentOneName}}</li>
-                <li>Other Parent Name:{{account.getParentTwoName}}</li>
-                <li>Street Address:{{account.getStreetAddress}}</li>
-                <li>Phone Number:{{account.getPhoneNumber}}</li>
-                <li>Email Address:{{account.getEmailAddress}}</li>
+                <li>Parent Name:  {{account.getParentOneName}}</li>
+                <li>Other Parent Name:  {{account.getParentTwoName}}</li>
+                <li>Street Address: {{account.getStreetAddress}}</li>
+                <li>Phone Number:  {{account.getPhoneNumber}}</li>
+                <li>Email Address: {{account.getEmailAddress}}</li>
                 {% if account.getStudents is not empty %}
                 {% for student in account.getStudents %}
-                <li>Student Name:{{student.getName}}</li>
+                <li>Student Name: {{student.getName}}</li>
                 {% endfor %}
                 {% endif %}
             </ul>
@@ -29,7 +31,7 @@
 
         <form action="/owner_add_student_to_account" method="post">
             <div class="panel panel-info">
-                <h3 class="panel-heading">Add New Student</h3>
+                <h3 class="panel-heading">Add New Student to Account</h3>
                 <div class="panel-body">
                     <div class="form-group">
                         <label for="student_name">Name</label><br>
@@ -42,8 +44,9 @@
         </form>
     </div>
     <!-- row in column -->
-    <div class="col-sm-4">
-        <h3></h3>
+    <div class="col-md-4">
+        <h3>Students in this Account</h3>
+        <hr>
         {% if selected_students is not empty %}
             {% for student in selected_students %}
                 <div class="panel panel-info">
@@ -67,26 +70,16 @@
         {% endif %}
     </div>
     <!-- row -->
-    <div class="col-sm-2">
+    <div class="col-md-4">
+        <h3>Navigation</h3>
+        <hr>
         <form action="/search_input" method="post">
             <div class="form-group">
-                <label for="search_input">Search for Client</label>
-                <input class="form-control" type="text" name="search_input" placeholder=" search something...">
+                <label for="search_input"></label>
+                <input class="form-control" type="text" name="search_input" placeholder="Search for Client">
             </div>
         </form>
-        <br>
 
-        <div id="outer">
-            <!-- <div class="inner"><form class="" action="index.html" method="post">
-                <button  type="submit" name="view_accounts" class="btn btn-info btn-sm" value="view">search accounts</button>
-            </form></div>
-            <div class="inner"><form action="/owner_clients" method="post">
-                <button type="submit" name="view_accounts" class="btn btn-warning btn-sm" value="view">view accounts</button>
-            </form></div>
-            <div class="inner"><form action="/owner_delete-clients" method="post">
-                <button type="submit" class="btn btn-danger btn-sm" name="delete_accounts">delete accounts</button>
-            </form></div> -->
-        </div>
         <div class="col-md-12">
             {% if accounts is not empty %}
                 <table class="table table-hover">
