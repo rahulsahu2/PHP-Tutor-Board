@@ -279,20 +279,13 @@
         $parent_two_name = $_POST['parent_two_name'];
         $notes = $_POST['notes'];
         $billing_history = $_POST['billing_history'];
-        $outstanding_balance = $_POST['outstanding_balance'];
-        if ($parent_two_name) {
-            $new_account->setParentTwoName($parent_two_name);
-        }
-        if ($notes) {
-            $new_account->setNotes($notes);
-        }
-        if ($billing_history){
-            $new_account->setBillingHistory($billing_history);
-        }
-        if ($outstanding_balance){
-            $new_account->setOutstandingBalance($outstanding_balance);
-        }
+        $outstanding_balance = intval($_POST['outstanding_balance']);
+        $new_account->setParentTwoName($parent_two_name);
+        $new_account->setNotes($notes);
+        $new_account->setBillingHistory($billing_history);
+        $new_account->setOutstandingBalance($outstanding_balance);
         $new_account->save();
+        var_dump($new_account);
         $school->addAccount($new_account->getId());
 
         return $app['twig']->render('owner_clients.html.twig', array('school' => $school, 'accounts' => $school->getAccounts()));
@@ -306,12 +299,38 @@
         $selected_students = $selected_account->getStudents();
         $selected_teachers = $selected_account->getTeachers();
         $selected_courses = $selected_account->getCourses();
-        $selected_services = $selected_account->getServices();
         $selected_lessons = $selected_account->getLessons();
 
-        return $app['twig']->render('owner_client.html.twig', array('school'=>$school, 'selected_students'=>$selected_students, 'selected_teachers'=>$selected_teachers,
+        return $app['twig']->render('owner_client.html.twig', array('school'=>$school,
+        'account'=>$selected_account,
+        'accounts'=>$school->getAccounts(),
+        'selected_students'=>$selected_students, 'selected_teachers'=>$selected_teachers,
         'selected_courses'=>$selected_courses,
-        'selected_services'=>$selected_services, 'selected_lessons'=>$selected_lessons));
+        'selected_lessons'=>$selected_lessons));
+
+    });
+
+    // JOIN add student to account
+    $app->post('/owner_add_student_to_account', function() use($app) {
+        $school=School::find($_SESSION['school_id']);
+        $selected_account = Account::find($_POST['account_id']);
+        $student=new Student($_POST['student_name']);
+        $student->save();
+        $student_id = $student->getId();
+        $school->addStudent($student_id);
+        $selected_account->addStudent($student_id);
+        $selected_students = $selected_account->getStudents();
+        $selected_teachers = $selected_account->getTeachers();
+        $selected_courses = $selected_account->getCourses();
+        $selected_lessons = $selected_account->getLessons();
+
+        return $app['twig']->render('owner_client.html.twig', array('school'=>$school,
+        'account'=>$selected_account,
+        'accounts'=>$school->getAccounts(),
+        'selected_students'=>$selected_students, 'selected_teachers'=>$selected_teachers,
+        'selected_courses'=>$selected_courses,
+        'selected_lessons'=>$selected_lessons));
+
 
     });
 
@@ -344,10 +363,47 @@
         return $app['twig']->render('owner_course.html.twig', array(
             'school'=>$school,
             'course' => $course,
+            'courses' => $school->getCourses(),
             'enrolled_students'=>$course->getStudents(), 'students'=>$school->getStudents(),
             'lessons' => $school->getLessons() ));
     });
 
+    //REDIRECT post to course
+    $app->post("/owner_courses/redirect", function() use ($app) {
+        $school=School::find($_SESSION['school_id']);
+        $course = Course::find($_POST['course_select']);
+        $id = $course->getId();
+
+        return $app['twig']->render('owner_course.html.twig', array(
+            'school'=>$school,
+            'course' => $course,
+            'courses' => $school->getCourses(),
+            'enrolled_students'=>$course->getStudents(), 'students'=>$school->getStudents(),
+            'lessons' => $school->getLessons() ));
+    });
+
+    //JOIN add a lesson to a course
+    $app->post("/add_lesson_to_course", function() use($app) {
+        $school=School::find($_SESSION['school_id']);
+        $course = Course::find($_POST['course_id']);
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        $content = $_POST['content'];
+        $lesson = new Lesson($title, $description, $content);
+        $lesson->save();
+        $lesson_id = $lesson->getId();
+        $school->addLesson($lesson_id);
+        $course->addLesson($lesson_id);
+
+        return $app['twig']->render('owner_course.html.twig', array(
+            'school'=>$school,
+            'course' => $course,
+            'courses' => $school->getCourses(),
+            'enrolled_students'=>$course->getStudents(),
+            'students'=>$school->getStudents(),
+            'lessons' => $school->getLessons() ));
+
+    });
     //JOIN students to course
     $app->post("/owner_courses/{id}", function($id) use ($app){
 
@@ -360,6 +416,7 @@
         return $app['twig']->render('owner_course.html.twig', array(
             'school'=>$school,
             'course' => $course,
+            'courses' => $school->getCourses(),
             'enrolled_students'=>$course->getStudents(), 'students'=>$school->getStudents(),
             'lessons' => $school->getLessons() ));
     });
@@ -386,15 +443,13 @@
     });
 
     //READ lesson
-    $app->get("/owner_lessons/{id}/{lessons_id}", function($id, $lesson_id) use ($app){
+    $app->get("/owner_lessons/{lesson_id}", function($lesson_id) use ($app){
 
         $school = School::find($_SESSION['school_id']);
-        $course = Course::find($id);
         $lesson = Lesson::find($lesson_id);
 
         return $app['twig']->render('owner_lesson.html.twig', array(
             'school'=>$school,
-            'course'=>$course,
             'lesson'=>$lesson));
     });
 
