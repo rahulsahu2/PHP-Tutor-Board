@@ -468,10 +468,10 @@
     });
 
     //READ lesson
-    $app->get("/owner_lessons/{lesson_id}", function($lesson_id) use ($app){
-
+    $app->get("/owner_lessons/{id}", function($id) use ($app){
         $school = School::find($_SESSION['school_id']);
-        $lesson = Lesson::find($lesson_id);
+
+        $lesson = Lesson::find($id);
 
         return $app['twig']->render('owner_lesson.html.twig', array(
             'school'=>$school,

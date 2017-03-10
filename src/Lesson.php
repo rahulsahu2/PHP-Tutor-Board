@@ -80,9 +80,9 @@
         }
 
         // NOTE add find and delete
-        static function find()
+        static function find($lesson_id)
         {
-            $retrieved_lessons = $GLOBALS['DB']->query("SELECT * FROM lessons;");
+            $retrieved_lessons = $GLOBALS['DB']->query("SELECT * FROM lessons WHERE id = {$lesson_id};");
             $re_lesson = null;
             foreach( $retrieved_lessons as $lesson )
             {
