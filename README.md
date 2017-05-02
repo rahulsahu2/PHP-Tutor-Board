@@ -23,7 +23,8 @@ David Quisenberry, Carlos Munoz Kampff, Jennifer Beem, and Jay Freeman
 1. CD into cloned directory
 2. `composer install`
 3. Initiate mamp, wamp, or lamp server from /web directory in project root.
-4. Open web browser to your server port on localhost.
+4. Import crm_music sql database from project directory into mySql.
+5. Open web browser to your server port on localhost.
 
 ## Goals
 
